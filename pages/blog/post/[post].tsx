@@ -30,7 +30,13 @@ interface Props {
       slug: string,
       title: string,
     },
+    comments: {
+      name: string,
+      text: string,
+      _createdAt: string,
+    }[],
     description: string,
+    _id: string,
     mainImageUrl: string,
     publishedAt: string,
     readingTime: string,
@@ -47,18 +53,10 @@ interface Props {
       slug: string,
       title: string,
     }[],
-  },
-  recentPosts: {
-    slug: string,
-    title: string,
-  }[],
-  categoriesNav: {
-    slug: string,
-    title: string,
-  }[],
+  }
 }
 
-const Post: NextPage<Props> = ({ post, categoriesNav, recentPosts, }) => {
+const Post: NextPage<Props> = ({ post, }) => {
   if (!post) return <LoadingPage />
   const postUrl = useGetUrl()
 
@@ -66,35 +64,40 @@ const Post: NextPage<Props> = ({ post, categoriesNav, recentPosts, }) => {
     <div className="font-open ">
       <MyTopNav />
       <div className="mt-4 sm:mt-10 max-w-screen-xl mx-auto">
-        <TagBar tags={post.tags} className="px-4 sm:px-0" />
-        <Title title={post.title} className="mt-6 sm:mt-12 px-4 sm:px-0" />
+        <TagBar tags={post.tags} className="px-4 " />
+        <Title title={post.title} className="mt-6 sm:mt-12 px-4 " />
         <div className="grid grid-cols-1 lg:grid-cols-3 mt-6 ">
-          <main className="lg:col-span-2 border-r lg:pr-8 pb-32">
-            <Description description={post.description} className="px-4 sm:px-0" />
-            <div className="px-4 sm:px-0 flex flex-col sm:flex-row sm:items-center text-gray-500 mt-4 text-sm sm:text-base">
-              <p>
+          <main className="lg:col-span-2 lg:border-r lg:pr-8 pb-32">
+            <Description description={post.description} className="px-4 " />
+            <div className="px-4  flex flex-col sm:flex-row sm:items-center text-gray-500 mt-4 text-sm sm:text-base">
+              <div>
                 <span className="text-gray-700 font-semibold">By</span>
                 <AuthorLink className="ml-2 sm:mr-2 text-gray-700" author={post.author} />
                 <span className="hidden sm:inline-block">|</span>
-              </p>
-              <p className="flex items-center mt-1 sm:mt-0">
+              </div>
+              <div className="flex items-center mt-1 sm:mt-0">
                 <PublishedDate className="sm:ml-2 mr-2" publishedAt={post.publishedAt} />
                 <span>|</span>
                 <ReadingTime className="ml-2" readingTime={post.readingTime} />
-              </p>
+              </div>
             </div>
-            <Cover className="mt-2" mainImageUrl={post.mainImageUrl} title={post.title} />
+            <div className="md:hidden mx-4 flex space-x-3 items-center border-t mt-2 py-1">
+              <PostLeftAside url={postUrl} title={post.title} />
+            </div>
+            <Cover className="mt-2 lg:ml-4" mainImageUrl={post.mainImageUrl} title={post.title} />
             <div className="relative pl-4 md:pl-24 lg:pl-24 pr-4 md:pr-24 lg:pr-8">
               <div className="absolute top-2 left-8 hidden md:block">
-                <PostLeftAside url={postUrl} title={post.title} />
+                <div className="grid grid-cols-1 gap-y-4 ">
+                  <PostLeftAside url={postUrl} title={post.title} />
+                </div>
               </div>
               <div className="">
                 <BlockContent blocks={post.body} />
-                <Comments className="mt-28" comments={[]} />
+                <Comments className="mt-28" _id={post._id} comments={post.comments} />
               </div>
             </div>
           </main>
-          <aside className="lg:pl-8 px-4 lg:px-0">
+          <aside className="lg:pl-8 pl-4 pr-4">
             <div className="flex items-center">
               <h2 className="pr-2 font-semibold text-xl">Related Posts</h2>
               <div className="flex-1 border-b"></div>
@@ -106,7 +109,7 @@ const Post: NextPage<Props> = ({ post, categoriesNav, recentPosts, }) => {
             </div>
           </aside>
         </div>
-        <div className="border-t w-full px-4 sm:px-0">
+        <div className="border-t w-full px-4 ">
           <Newsletter />
         </div>
       </div>
@@ -125,13 +128,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (!res || !res.post) return {
     notFound: true
   }
-  console.log("res", res);
+  // console.log("res", res);
 
   return {
     props: {
       post: res.post,
-      recentPosts: res.recentPosts,
-      categoriesNav: res.categoriesNav,
     }
   }
 }
@@ -147,7 +148,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       post: slugObj.slug,
     }
   }))
-  console.log("paths", paths);
+  // console.log("paths", paths);
   return {
     paths,
     fallback: true,

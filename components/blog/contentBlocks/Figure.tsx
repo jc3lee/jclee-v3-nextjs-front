@@ -8,7 +8,7 @@ interface Props {
 
 const Figure = ({ alt, imageUrl, size, }: Props) => {
   let sizeClass = ""
-  console.log("size", size);
+  // console.log("size", size);
 
   switch (size) {
     case "M":

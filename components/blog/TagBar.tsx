@@ -11,8 +11,8 @@ const TagBar = ({ tags, className, }: TagBarProps) => {
       <div className="hidden sm:block flex-1 border-b-2 border-blue-700"></div>
       {
         tags.map((t, index) => (
-          <div className="flex items-center flex-wrap">
-            <TagBtn className="text-xs sm:text-base mr-4 sm:mr-2 sm:ml-2" key={t} tag={t} />
+          <div key={t} className="flex items-center flex-wrap">
+            <TagBtn className="text-xs sm:text-base mr-4 sm:mr-2 sm:ml-2" tag={t} />
             {index + 1 < tags.length && <span className="hidden sm:inline-block w-4 border-b-2 border-blue-700"></span>}
           </div>
         ))

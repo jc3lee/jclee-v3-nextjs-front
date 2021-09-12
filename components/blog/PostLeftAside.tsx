@@ -31,21 +31,21 @@ const PostLeftAside = ({ url, title, }: Props) => {
   const copyText = useGetUrl()
 
   return (
-    <div className="grid grid-cols-1 gap-y-4 ">
+    <>
       <Link href={getFacebookShareLink(url, title)}><a>
-        <Facebook className="h-5 w-5 hover:text-blue-700" /></a>
+        <Facebook className="h-4 w-4 md:h-5 md:w-5 hover:text-blue-700" /></a>
       </Link>
       <Link href={getLinkedinShareLink(url, title)}><a>
-        <Linkedin className="h-5 w-5 hover:text-blue-600" /></a>
+        <Linkedin className="h-4 w-4 md:h-5 md:w-5 hover:text-blue-600" /></a>
       </Link>
-      <Link href={getTwitterShareLink(url, title)}><a><Twitter className="h-5 w-5 hover:text-blue-500" /></a></Link>
+      <Link href={getTwitterShareLink(url, title)}><a><Twitter className="h-4 w-4 md:h-5 md:w-5 hover:text-blue-500" /></a></Link>
       <div className="relative">
         <CopyToClipboard text={copyText} onCopy={handleCopy}>
-          <button className=""><LinkTo className="h-5 w-5 hover:text-green-600" /></button>
+          <button className=""><LinkTo className="h-4 w-4 md:h-5 md:w-5 hover:text-green-600" /></button>
         </CopyToClipboard>
       </div>
-      <Link href={getMailShareLink(url, title)}><a><Mail className="h-5 w-5 hover:text-red-600 -mt-1" /></a></Link>
-    </div>
+      <Link href={getMailShareLink(url, title)}><a><Mail className="h-4 w-4 md:h-5 md:w-5 hover:text-red-600 -mt-1" /></a></Link>
+    </>
   )
 }
 

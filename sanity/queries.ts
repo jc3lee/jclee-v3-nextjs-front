@@ -167,7 +167,13 @@ const queryPostFromSlug = `
   	"slug":slug.current,
   	title,		
 	},
+  "comments": *[_type == "comment" && post._ref == ^._id] | order(_createdAt asc) {
+    name,
+    text,
+    _createdAt,
+  },
   description,
+  _id,
 	"mainImageUrl": mainImage.asset->url,
 	publishedAt,
 	readingTime,
@@ -176,8 +182,6 @@ const queryPostFromSlug = `
   title,
   "relatedPosts": ${subQueryRelatedPosts},
 },
-"recentPosts": ${queryRecentPosts},
-"categoriesNav": ${queryCategoriesNav},
 }
 `
 

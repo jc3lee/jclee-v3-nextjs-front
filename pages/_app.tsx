@@ -1,8 +1,9 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import { useEffect } from 'react'
-import { ToastContainer, } from 'react-toastify';
+import type { AppProps } from 'next/app';
+import { useEffect } from 'react';
+// import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -16,8 +17,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [])
 
   return (<>
+    {/* <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY}> */}
     <Component {...pageProps} />
     <ToastContainer />
+    {/* </GoogleReCaptchaProvider > */}
   </>)
 }
 export default MyApp

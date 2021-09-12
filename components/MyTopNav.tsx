@@ -27,7 +27,7 @@ const MyTopNav = () => {
 
   return (
     <div className="border-b">
-      <nav className="relative z-10 bg-white px-4 max-w-screen-xl mx-auto py-6">
+      <nav className="relative z-10 bg-white px-4 max-w-screen-xl mx-auto py-2 lg:py-6">
         <div className="w-full flex items-center relative z-50">
           <Link href="/"><a className="focus:outline-none leading-none text-2xl lg:text-3xl mr-4">JC LEE</a></Link>
           <DividerV className="h-6 mt-0.5 border-gray-400 hidden md:inline-block" />
@@ -45,8 +45,8 @@ const MyTopNav = () => {
             <Link href="/"><a className="pl-4">Insights</a></Link>
           </div>
         </div>
-        <div className="mt-4 text-sm uppercase flex items-center overflow-hidden font-semibold space-x-6 tracking-wide">
-          <Link href="/"><a className="">Home</a></Link>
+        <div className="mt-2 lg:mt-4 text-sm uppercase flex items-center overflow-hidden font-semibold space-x-6 tracking-wide">
+          <Link href="/blog"><a className="">Home</a></Link>
           <Link href="/"><a className="">Latest</a></Link>
           <Link href="/"><a className="">Webdev</a></Link>
           <Link href="/"><a className="">Design</a></Link>
