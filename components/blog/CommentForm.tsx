@@ -1,6 +1,17 @@
 import { useCallback, useEffect } from 'react';
 // import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+const commentSubmittedToastId = "comment-submitted-toast-id";
+
+const handleCommentSubmitted = () => {
+  toast.success("Comment Submitted!", {
+    autoClose: 1500,
+    hideProgressBar: true,
+    position: toast.POSITION.BOTTOM_RIGHT,
+    toastId: commentSubmittedToastId,
+  });
+}
 
 interface Props {
   className?: string,
@@ -9,6 +20,7 @@ interface Props {
 
 type Inputs = {
   name: string,
+  email: string,
   text: string,
 }
 
@@ -17,7 +29,7 @@ const CommentForm = ({ className, _id, }: Props) => {
   // const { executeRecaptcha } = useGoogleReCaptcha()
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    reset({ name: "", text: "", })
+    reset({ name: "", email: "", text: "", })
     console.log(data)
     // if (!executeRecaptcha) {
     //   console.log("recaptcha sucks!");
@@ -30,14 +42,18 @@ const CommentForm = ({ className, _id, }: Props) => {
       body: JSON.stringify({ ...data, _id, }),
     })
     console.log("createCommentRes", createCommentRes);
+    //toast saying comment submitted even if it failed
+    handleCommentSubmitted()
   }
 
   return (
     <form className={`${className} flex flex-col items-start`} onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="nameId" className="text-sm">Name *</label>
+      <label htmlFor="nameId" className="text-sm">Name</label>
       <input id="nameId" className="rounded-sm py-1 px-2 border border-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-700" {...register('name', { required: true })} />
+      <label htmlFor="emailId" className="mt-4 text-sm">Email</label>
+      <input id="emailId" className="rounded-sm py-1 px-2 border border-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-700" {...register('email', { required: true })} />
       <label htmlFor="commentId" className="mt-4 text-sm">Comment</label>
-      <textarea id="commentId" className="w-full min-h-[10rem] rounded-sm py-1 px-2 border border-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-700" {...register('text', {})} />
+      <textarea id="commentId" className="w-full min-h-[10rem] rounded-sm py-1 px-2 border border-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-700" {...register('text', { required: true })} />
       <p className="text-xs text-gray-500 tracking-tight">
         This site is protected by reCAPTCHA and the Google
         <a rel="noopener noreferrer" className="underline ml-1" target="_blank" href="https://policies.google.com/privacy">Privacy Policy</a> and

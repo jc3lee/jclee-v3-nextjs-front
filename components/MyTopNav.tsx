@@ -11,7 +11,6 @@ const MyTopNav = () => {
   // console.log("router", router.pathname);
   const currentPath = router.pathname
 
-
   const handleHamToggle = (toggled: boolean) => {
     if (!document || !mobileMenuRef.current) return
     if (toggled) {
@@ -43,11 +42,11 @@ const MyTopNav = () => {
         </div>
         <div ref={mobileMenuRef} className="hidden inset-0 bg-white">
           <div className="border mt-24 py-4 text-sm uppercase grid grid-cols-2 gap-y-4  overflow-hidden font-semibold tracking-wide">
-            <Link href="/"><a className="pl-4">Home</a></Link>
-            <Link href="/"><a className="pl-4">Latest</a></Link>
-            <Link href="/"><a className="pl-4">Webdev</a></Link>
-            <Link href="/"><a className="pl-4">Design</a></Link>
-            <Link href="/"><a className="pl-4">Insights</a></Link>
+            <Link href="/blog"><a className="pl-4">Home</a></Link>
+            <Link href="/blog/latest"><a className="pl-4">Latest</a></Link>
+            <Link href="/blog/category/webdev"><a className="pl-4">Webdev</a></Link>
+            <Link href="/blog/category/design"><a className="pl-4">Design</a></Link>
+            <Link href="/blog/category/insights"><a className="pl-4">Insights</a></Link>
           </div>
         </div>
         <div className="mt-2 lg:mt-4 text-sm uppercase flex items-center overflow-hidden font-semibold space-x-2 tracking-wide">

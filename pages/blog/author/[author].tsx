@@ -11,6 +11,7 @@ import MainRect from '../../../components/blog/MainRect'
 import Newsletter from '../../../components/blog/Newsletter'
 import LoadingPage from '../../../components/LoadingPage'
 import MyFooter from '../../../components/MyFooter'
+import MyLayout from '../../../components/MyLayout'
 import MyTopNav from '../../../components/MyTopNav'
 import { getNextPathsSlug } from '../../../nextjs/tools'
 import { handlePageBtnClick, NUM_POSTS_PER_AUTHOR_PAGE, NUM_POSTS_PER_LATEST_PAGE } from '../../../sanity/pagination'
@@ -41,8 +42,7 @@ const Author: NextPage<Props> = ({ author, bio, email, totalItems, imageUrl, nam
   }
 
   return (
-    <div className="font-open">
-      <MyTopNav />
+    <MyLayout>
       <div className="py-8 md:py-12 lg:py-16 border-b">
         <h1 className="text-2xl md:text-3xl lg:text-4xl text-center ">Posts by {name}</h1>
       </div>
@@ -78,8 +78,7 @@ const Author: NextPage<Props> = ({ author, bio, email, totalItems, imageUrl, nam
       <div className="border-t w-full px-4 ">
         <Newsletter />
       </div>
-      <MyFooter />
-    </div>
+    </MyLayout>
   )
 }
 

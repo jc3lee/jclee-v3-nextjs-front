@@ -6,6 +6,7 @@ import MainRect from '../../../components/blog/MainRect'
 import Newsletter from '../../../components/blog/Newsletter'
 import LoadingPage from '../../../components/LoadingPage'
 import MyFooter from '../../../components/MyFooter'
+import MyLayout from '../../../components/MyLayout'
 import MyTopNav from '../../../components/MyTopNav'
 import { handlePageBtnClick, NUM_POSTS_PER_TAG_PAGE } from '../../../sanity/pagination'
 import { PostProps, QueryType, sanityFetch } from '../../../sanity/queries'
@@ -29,8 +30,7 @@ const Tag: NextPage<Props> = ({ posts, mustReadPosts, totalItems, searchIndexNum
   }
 
   return (
-    <div className="font-open">
-      <MyTopNav />
+    <MyLayout>
       <div className="py-8 md:py-12 lg:py-16 border-b">
         <h1 className="text-xl md:text-2xl lg:text-3xl text-center uppercase ">#{tag}</h1>
       </div>
@@ -69,8 +69,7 @@ const Tag: NextPage<Props> = ({ posts, mustReadPosts, totalItems, searchIndexNum
       <div className="border-t w-full px-4 ">
         <Newsletter />
       </div>
-      <MyFooter />
-    </div>
+    </MyLayout>
   )
 }
 

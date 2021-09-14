@@ -150,12 +150,11 @@ const queryHome = `
 }
 `
 
-//intentionally using feature coz no must read set yet
 const getQueryAllPosts = (start: number, end: number) => `
   {
     "posts": *[_type == "post"] | order(publishedAt desc) [${start}...${end}] ${queryPostObj},
     "totalItems": count(*[_type == "post"]),
-    "mustRead": ${queryFeaturedPosts},
+    "mustRead": ${queryMustReadPosts},
   }
 `
 
@@ -173,7 +172,6 @@ const getAuthorFromSlugQuery = (start: number, end: number) => `
 }
 `
 
-//intentionally using feature coz no must read set yet
 const getQueryCategoryFromSlug = (start: number, end: number) => `
   {
     "category": *[_type == "category" && slug.current == $category][0] {
@@ -182,16 +180,15 @@ const getQueryCategoryFromSlug = (start: number, end: number) => `
     },
     "posts": *[_type == "post" && category->slug.current == $category] | order(publishedAt desc) [${start}...${end}] ${queryPostObj},
     "totalItems": count(*[_type == "post" && category->slug.current == $category]),
-    "mustRead": ${queryFeaturedPosts},
+    "mustRead": ${queryMustReadPosts},
   }
 `
 
-//intentionally using feature coz no must read set yet
 const getQueryPostsByTag = (start: number, end: number) => `
   {
     "posts": *[_type == "post" && tags[] match $tag] | order(publishedAt desc) [${start}...${end}] ${queryPostObj},
     "totalItems": count(*[_type == "post" && tags[] match $tag]),
-    "mustRead": ${queryFeaturedPosts},
+    "mustRead": ${queryMustReadPosts},
   }
 `
 

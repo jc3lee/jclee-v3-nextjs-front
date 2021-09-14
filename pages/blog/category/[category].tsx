@@ -6,6 +6,7 @@ import MainRect from '../../../components/blog/MainRect'
 import Newsletter from '../../../components/blog/Newsletter'
 import LoadingPage from '../../../components/LoadingPage'
 import MyFooter from '../../../components/MyFooter'
+import MyLayout from '../../../components/MyLayout'
 import MyTopNav from '../../../components/MyTopNav'
 import { getNextPathsSlug } from '../../../nextjs/tools'
 import { handlePageBtnClick, NUM_POSTS_PER_CAT_PAGE, } from '../../../sanity/pagination'
@@ -33,8 +34,7 @@ const Category: NextPage<Props> = ({ category, categoryNextSlug, posts, mustRead
   }
 
   return (
-    <div className="font-open">
-      <MyTopNav />
+    <MyLayout>
       <div className="py-8 md:py-12 lg:py-16 border-b">
         <h1 className="text-2xl md:text-3xl lg:text-4xl text-center capitalize ">{category.title}</h1>
       </div>
@@ -73,8 +73,7 @@ const Category: NextPage<Props> = ({ category, categoryNextSlug, posts, mustRead
       <div className="border-t w-full px-4 ">
         <Newsletter />
       </div>
-      <MyFooter />
-    </div>
+    </MyLayout>
   )
 }
 

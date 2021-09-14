@@ -14,6 +14,7 @@ import TagBar from '../../../components/blog/TagBar'
 import Title from '../../../components/blog/Title'
 import LoadingPage from '../../../components/LoadingPage'
 import MyFooter from '../../../components/MyFooter'
+import MyLayout from '../../../components/MyLayout'
 import MyTopNav from '../../../components/MyTopNav'
 import { useGetUrl } from '../../../hooks/urlHooks'
 import { getNextPathsSlug } from '../../../nextjs/tools'
@@ -52,8 +53,7 @@ const Post: NextPage<Props> = ({ post, }) => {
   const postUrl = useGetUrl()
 
   return (
-    <div className="font-open ">
-      <MyTopNav />
+    <MyLayout >
       <div className="mt-4 sm:mt-10 max-w-screen-xl mx-auto">
         <TagBar tags={post.tags} className="px-4 " />
         <Title title={post.title} className="mt-6 sm:mt-12 px-4 text-3xl sm:text-4xl lg:text-5xl" />
@@ -104,8 +104,7 @@ const Post: NextPage<Props> = ({ post, }) => {
           <Newsletter />
         </div>
       </div>
-      <MyFooter />
-    </div>
+    </MyLayout>
   )
 }
 

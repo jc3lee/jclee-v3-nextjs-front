@@ -13,6 +13,7 @@ import SectionCube from '../../components/blog/SectionCube'
 import SectionSnake from '../../components/blog/SectionSnake'
 import LoadingPage from '../../components/LoadingPage'
 import MyFooter from '../../components/MyFooter'
+import MyLayout from '../../components/MyLayout'
 import MyTopNav from '../../components/MyTopNav'
 import { categoriesSlugType, PostProps, QueryType, sanityFetch } from '../../sanity/queries'
 import { getPathFromSlugAndType } from '../../sanity/tools'
@@ -51,8 +52,7 @@ const Posts: NextPage<Props> = ({ cats, featured, recentPosts, }) => {
   const webdevPosts = webdevCatProps.posts
 
   return (
-    <div className="font-open ">
-      <MyTopNav />
+    <MyLayout >
       <div className="max-w-screen-xl mx-auto">
         <div className="grid md:grid-cols-3 lg:grid-cols-4">
           <div className="md:col-span-2 border-r">
@@ -153,8 +153,7 @@ const Posts: NextPage<Props> = ({ cats, featured, recentPosts, }) => {
       <div className="border-t w-full px-4 ">
         <Newsletter />
       </div>
-      <MyFooter />
-    </div>
+    </MyLayout>
   )
 }
 
@@ -164,7 +163,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     notFound: true
   }
   // console.log("res", res);
-
   return {
     props: {
       featured: res.featured,
