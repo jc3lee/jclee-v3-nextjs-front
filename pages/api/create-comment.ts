@@ -49,14 +49,14 @@ export default async function handler(
       const commentDocPromise = saveCommentToSanity(name, text, _id)
       res.status(200).json({ success: true })
       commentDocPromise.then((commentDoc) => {
-        console.log("new comment doc", commentDoc);
+        // console.log("new comment doc", commentDoc);
       })
     } catch (err: any) {
-      console.log("failed to add comment", err.message);
+      // console.log("failed to add comment", err.message);
       res.status(500).json({ success: false })
     }
-  }
-  else {
-    res.status(400).json({ success: false })
+  } else {
+    res.setHeader('Allow', 'POST')
+    res.status(405).end('Method Not Allowed')
   }
 }

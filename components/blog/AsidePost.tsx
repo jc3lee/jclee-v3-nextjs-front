@@ -1,35 +1,32 @@
 import Link from "next/link"
+import { PostProps } from "../../sanity/queries"
 import { getImageUrlWithTransformation, getPathFromSlugAndType } from "../../sanity/tools"
 import CatBtn from "./CatBtn"
 import PublishedDate from "./PublishedDate"
 
 interface Props {
-  publishedAt: string,
-  title: string,
-  slug: string,
-  imageUrl: string,
-  category: {
-    slug: string,
-    title: string,
-  },
+  post: PostProps,
+  className?: string,
 }
 
-const AsidePost = ({ imageUrl, slug, title, category, publishedAt, }: Props) => {
+const AsidePost = ({ post, className, }: Props) => {
+  const { mainImageUrl, slug, title, category, publishedAt, } = post
+  const postHref = getPathFromSlugAndType(slug, "post")
   return (
-    <div className="py-6">
+    <div className={`${className} py-6`}>
       <div className="w-full">
-        <Link href={getPathFromSlugAndType(slug, "post")}>
+        <Link href={postHref}>
           <a className="block aspect-w-5 aspect-h-3">
-            <img className="object-cover" src={getImageUrlWithTransformation(imageUrl, { width: 400 })} alt={title} />
+            <img className="object-cover" src={getImageUrlWithTransformation(mainImageUrl, { width: 400 })} alt={title} />
           </a>
         </Link>
       </div>
-      <div className="flex flex-col mt-2">
-        <CatBtn className="self-start" category={category} />
-        <Link href={getPathFromSlugAndType(slug, "post")}>
+      <div className="flex flex-col sm:mt-2 col-span-2">
+        <CatBtn className="self-start text-sm" category={category} />
+        <Link href={postHref}>
           <a className="text-base font-semibold mt-1">{title}</a>
         </Link>
-        <PublishedDate publishedAt={publishedAt} className="mt-1 text-gray-500" />
+        <PublishedDate publishedAt={publishedAt} className=" py-1 text-xs mt-1 text-gray-500" />
       </div>
     </div>
   )

@@ -8,12 +8,52 @@ Once might not be my desired result: if a new post is published I'll need to upd
 Since every blog page needs a fetch already, I decided to add those two parameters to every fetch query that goes to getstaticprops
 
 I'll see if that impacts performance
+
+12/09
+"categoriesNav": ${queryCategoriesNav},
+got rid of categories fetching => not practical/useful
 */
 
 import { client } from "./client"
 import { NUM_RECENT_POSTS, NUM_RELATED_POSTS } from "./pagination"
 
 const NUM_POSTS_PATHS = 10
+
+/* 
+Pre-defined categories because not practical to fetch them every time 
+& no easy solution to fetch once
+*/
+
+export type categoriesSlugType = "webdev" | "design" | "insights"
+
+export interface PostProps {
+  category: {
+    slug: string,
+    title: string,
+  },
+  description: string,
+  mainImageUrl: string,
+  publishedAt: string,
+  readingTime: string,
+  slug: string,
+  tags: string[],
+  title: string,
+}
+
+const queryPostObj = `{
+  category->{
+    "slug":slug.current,
+    title,		
+  },
+  description,
+  "mainImageUrl": mainImage.asset->url,
+  publishedAt,
+  readingTime,
+  "slug":slug.current,
+  tags,
+  title,
+}
+`
 
 const queryAllAuthorsSlug = `
 *[_type == "author"] {
@@ -36,112 +76,24 @@ const queryAllPostsSlug = `
 // only works with post as direct parent
 const subQueryRelatedPosts = `
 *[_type == "post" && 
-_id != ^._id && count((tags[])[@ in ^.^.tags]) > 0][0...${NUM_RELATED_POSTS}]{
-  category->{
-  	"slug":slug.current,
-  	title,		
-	},
-  "mainImageUrl": mainImage.asset->url,
-	publishedAt,
-  "slug":slug.current,
-  title,
- }
-`
-
-const queryCategoriesNav = `
-  *[_type == "category"] | order(publishedAt desc) {
-    "slug":slug.current,
-    title,
-  }
+_id != ^._id && count((tags[])[@ in ^.^.tags]) > 0][0...${NUM_RELATED_POSTS}] ${queryPostObj}
 `
 
 const queryRecentPosts = `
-  *[_type == "post"] | order(publishedAt desc) [0...${NUM_RECENT_POSTS}]{
-    "slug":slug.current,
-    title,
-  }
+  *[_type == "post"] | order(publishedAt desc) [0...${NUM_RECENT_POSTS}] ${queryPostObj}
 `
 
-const getQueryAllPosts = (start: number, end: number) => {
-  return `
-  {
-    "posts": *[_type == "post"] | order(publishedAt desc) [${start}...${end}]{
-      category->{
-        "slug":slug.current,
-        title,		
-      },
-      description,
-      "mainImageUrl": mainImage.asset->url,
-      publishedAt,
-      readingTime,
-      "slug":slug.current,
-      tags,
-      title,
-    },
-    "totalItems": count(*[_type == "post"]),
-    "recentPosts": ${queryRecentPosts},
-    "categoriesNav": ${queryCategoriesNav},
-  }
+const queryFeaturedPosts = `
+*[_type == "blogSettings"][0]{
+  "posts":featuredPosts[]-> ${queryPostObj}
+}
 `
-}
 
-const getAuthorFromSlugQuery = (start: number, end: number) => {
-  return `
-  {
-    "author": *[_type == "author" && slug.current == $author][0] {
-    bio,
-    email,
-    "imageUrl": image.asset->url,
-    name,
-    "slug":slug.current,
-    socialAccounts,
-    websiteLink,
-    "posts": *[_type == "post" && author->slug.current == $author] | order(publishedAt desc) [${start}...${end}] {
-      category->{
-        "slug":slug.current,
-        title,		
-      },
-      description,
-      "mainImageUrl": mainImage.asset->url,
-      publishedAt,
-      readingTime,
-      "slug":slug.current,
-      tags,
-      title,
-    },
-    "totalItems": count(*[_type == "post" && author->slug.current == $author]),
-  },
-  "recentPosts": ${queryRecentPosts},
-  "categoriesNav": ${queryCategoriesNav},
+const queryMustReadPosts = `
+*[_type == "blogSettings"][0]{
+  "posts":mustReadPosts[]-> ${queryPostObj}
 }
-  `
-}
-
-const getQueryCategoryFromSlug = (start: number, end: number) => {
-  return `
-  {
-    "posts": *[_type == "post" && category->slug.current == $category] | order(publishedAt desc) [${start}...${end}]{
-      category->{
-        "slug":slug.current,
-        title,		
-      },
-      description,
-      "mainImageUrl": mainImage.asset->url,
-      publishedAt,
-      readingTime,
-      "slug":slug.current,
-      tags,
-      title,
-    },
-    "totalItems": 
-    count(*[_type == "post" && 
-    category->slug.current == $category
-  ]),
-    "recentPosts": ${queryRecentPosts},
-    "categoriesNav": ${queryCategoriesNav},
-  }
 `
-}
 
 const queryPostFromSlug = `
 {
@@ -185,8 +137,67 @@ const queryPostFromSlug = `
 }
 `
 
+const queryHome = `
+{  
+  "featured": ${queryFeaturedPosts},
+	"cats": *[_type == "category"] {
+    "slug": slug.current,
+    title,
+    "posts": *[_type == "post" && category._ref == ^._id] 
+    | order(publishedAt asc) [0...4] ${queryPostObj},
+  },
+  "recentPosts": ${queryRecentPosts},
+}
+`
+
+//intentionally using feature coz no must read set yet
+const getQueryAllPosts = (start: number, end: number) => `
+  {
+    "posts": *[_type == "post"] | order(publishedAt desc) [${start}...${end}] ${queryPostObj},
+    "totalItems": count(*[_type == "post"]),
+    "mustRead": ${queryFeaturedPosts},
+  }
+`
+
+const getAuthorFromSlugQuery = (start: number, end: number) => `
+*[_type == "author" && slug.current == $author][0] {
+  bio,
+  email,
+  "imageUrl": image.asset->url,
+  name,
+  "slug":slug.current,
+  socialAccounts,
+  websiteLink,
+  "posts": *[_type == "post" && author->slug.current == $author] | order(publishedAt desc) [${start}...${end}] ${queryPostObj},
+  "totalItems": count(*[_type == "post" && author->slug.current == $author]),
+}
+`
+
+//intentionally using feature coz no must read set yet
+const getQueryCategoryFromSlug = (start: number, end: number) => `
+  {
+    "category": *[_type == "category" && slug.current == $category][0] {
+      "slug": slug.current,
+      title,
+    },
+    "posts": *[_type == "post" && category->slug.current == $category] | order(publishedAt desc) [${start}...${end}] ${queryPostObj},
+    "totalItems": count(*[_type == "post" && category->slug.current == $category]),
+    "mustRead": ${queryFeaturedPosts},
+  }
+`
+
+//intentionally using feature coz no must read set yet
+const getQueryPostsByTag = (start: number, end: number) => `
+  {
+    "posts": *[_type == "post" && tags[] match $tag] | order(publishedAt desc) [${start}...${end}] ${queryPostObj},
+    "totalItems": count(*[_type == "post" && tags[] match $tag]),
+    "mustRead": ${queryFeaturedPosts},
+  }
+`
+
 const getSearchPostsQuery = ({ end, start, authors, categories, order, search, tags, }: SearchPostsType) => {
-  let query = `{ "search": *[_type == "post" `
+  let query = `{`
+  query += ` "search": *[_type == "post" `
   query += authors ? ` && author->slug.current in $authors` : ""
   query += categories ? ` && category->slug.current in $categories` : ""
   query += search ? ` && (title match $search || body[].children[].text match $search)` : ""
@@ -195,26 +206,8 @@ const getSearchPostsQuery = ({ end, start, authors, categories, order, search, t
   query += `| order(${order || "publishedAt desc"})`
   const limits = `[${start}...${end}]`
   query += limits
-  query += `
-  {
-    category->{
-      "slug":slug.current,
-      title,		
-    },
-    description,
-    "mainImageUrl": mainImage.asset->url,
-    publishedAt,
-    readingTime,
-    "slug":slug.current,
-    tags,
-    title,
-  },
-  `
-  query += `
-  "recentPosts": ${queryRecentPosts},
-  "categoriesNav": ${queryCategoriesNav},
-}
-  `
+  query += `${queryPostObj},`
+  query += `}`
   return query
 }
 
@@ -233,10 +226,11 @@ export enum QueryType {
   AllCategoriesSlug,
   AllPosts,
   AllPostsSlug,
+  PostsByTag,
   AuthorFromSlug,
   CategoryFromSlug,
+  HomePosts,
   PostFromSlug,
-  RecentPosts,
   SearchPosts,
 }
 
@@ -265,15 +259,22 @@ type SanityQuery = {
     order?: string,
     start: number,
     end: number,
-  }
+  },
+  tagParams?: {
+    tag: string,
+    start: number,
+    end: number,
+  },
 }
 
-export const sanityFetch = async ({ allPostsParams, authorParams, categoryParams, post, queryType, searchParams, }: SanityQuery) => {
+export const sanityFetch = async ({ allPostsParams, authorParams, categoryParams, post, queryType, searchParams, tagParams, }: SanityQuery) => {
   switch (queryType) {
     case QueryType.AllAuthorsSlug:
       return await client.fetch(queryAllAuthorsSlug)
     case QueryType.AllCategoriesSlug:
       return await client.fetch(queryAllCategoriesSlug)
+    case QueryType.HomePosts:
+      return await client.fetch(queryHome)
     case QueryType.AllPostsSlug:
       return await client.fetch(queryAllPostsSlug)
     case QueryType.AllPosts: {
@@ -294,12 +295,15 @@ export const sanityFetch = async ({ allPostsParams, authorParams, categoryParams
       const queryCategoryFromSlug = getQueryCategoryFromSlug(start, end,)
       return await client.fetch(queryCategoryFromSlug, { category })
     }
+    case QueryType.PostsByTag: {
+      if (!tagParams) return null
+      const { end, start, tag, } = tagParams
+      const queryPostsByTag = getQueryPostsByTag(start, end,)
+      return await client.fetch(queryPostsByTag, { tag })
+    }
     case QueryType.PostFromSlug: {
       if (!post) return null
       return await client.fetch(queryPostFromSlug, { post })
-    }
-    case QueryType.RecentPosts: {
-      return await client.fetch(queryRecentPosts,)
     }
     case QueryType.SearchPosts: {
       if (!searchParams) return null

@@ -17,7 +17,7 @@ import MyFooter from '../../../components/MyFooter'
 import MyTopNav from '../../../components/MyTopNav'
 import { useGetUrl } from '../../../hooks/urlHooks'
 import { getNextPathsSlug } from '../../../nextjs/tools'
-import { QueryType, sanityFetch } from '../../../sanity/queries'
+import { PostProps, QueryType, sanityFetch } from '../../../sanity/queries'
 
 interface Props {
   post: {
@@ -43,16 +43,7 @@ interface Props {
     slug: string,
     tags: string[],
     title: string,
-    relatedPosts: {
-      category: {
-        slug: string,
-        title: string,
-      },
-      mainImageUrl: string,
-      publishedAt: string,
-      slug: string,
-      title: string,
-    }[],
+    relatedPosts: PostProps[],
   }
 }
 
@@ -65,12 +56,12 @@ const Post: NextPage<Props> = ({ post, }) => {
       <MyTopNav />
       <div className="mt-4 sm:mt-10 max-w-screen-xl mx-auto">
         <TagBar tags={post.tags} className="px-4 " />
-        <Title title={post.title} className="mt-6 sm:mt-12 px-4 " />
+        <Title title={post.title} className="mt-6 sm:mt-12 px-4 text-3xl sm:text-4xl lg:text-5xl" />
         <div className="grid grid-cols-1 lg:grid-cols-3 mt-6 ">
           <main className="lg:col-span-2 lg:border-r lg:pr-8 pb-32">
             <Description description={post.description} className="px-4 " />
             <div className="px-4  flex flex-col sm:flex-row sm:items-center text-gray-500 mt-4 text-sm sm:text-base">
-              <div>
+              <div className="flex">
                 <span className="text-gray-700 font-semibold">By</span>
                 <AuthorLink className="ml-2 sm:mr-2 text-gray-700" author={post.author} />
                 <span className="hidden sm:inline-block">|</span>
@@ -104,7 +95,7 @@ const Post: NextPage<Props> = ({ post, }) => {
             </div>
             <div className="divide-y sm:divide-y-0 lg:divide-y grid grid-cols-1 sm:grid-cols-2 sm:gap-x-8 lg:block">
               {
-                post.relatedPosts.map(rp => <AsidePost key={rp.slug} category={rp.category} imageUrl={rp.mainImageUrl} publishedAt={rp.publishedAt} slug={rp.slug} title={rp.title} />)
+                post.relatedPosts.map(rp => <AsidePost key={rp.slug} post={rp} />)
               }
             </div>
           </aside>

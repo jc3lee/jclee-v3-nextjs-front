@@ -24,7 +24,7 @@ export const getPathFromSlugAndType = (slug: string, type: SanityTypes) => {
     case "post":
       return `/blog/post/${slug}`
     case "tags":
-      return `/blog/tag/${slug}`
+      return `/blog/tag?t=${slug}`
     default:
       throw new Error(`No such slug type ${type}`);
   }

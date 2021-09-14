@@ -4,7 +4,7 @@ import MySocials from './blog/MySocials'
 
 const MyFooter = () => {
   return (
-    <div className="py-12 w-full flex flex-col bg-blue-900 items-center">
+    <footer className="py-12 w-full flex flex-col bg-blue-900 items-center">
       <p className=" uppercase text-2xl text-gray-100">JC Lee</p>
       <p className="flex flex-wrap justify-center mt-4 uppercase space-x-4  text-gray-300 text-sm max-w-sm px-4">
         <Link href="/"><a className="mt-4">Home</a></Link>
@@ -23,7 +23,7 @@ const MyFooter = () => {
         <Link href="/"><a className="mr-2">privacy</a></Link>|
         <Link href="/"><a className="ml-2">terms of use</a></Link>
       </p>
-    </div>
+    </footer>
   )
 }
 

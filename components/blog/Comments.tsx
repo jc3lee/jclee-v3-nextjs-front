@@ -25,7 +25,7 @@ const Comments = ({ className, comments, _id }: Props) => {
         })
       }
       {
-        comments.length === 0 && <p className="mt-8 text-gray-500 text-sm">Be the first one to share your view on this post.</p>
+        comments.length === 0 && <p className="mt-8 text-gray-500 text-sm">Be the first one to comment.</p>
       }
       <div className="flex items-center mt-12">
         <h2 className="pr-2 font-semibold text-xl">Leave a comment</h2>

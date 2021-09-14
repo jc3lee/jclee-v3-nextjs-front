@@ -12,7 +12,7 @@ interface Props {
 const CatBtn = ({ category, className, }: Props) => {
   return (
     <Link key={category.slug} href={getPathFromSlugAndType(category.slug, "category")}>
-      <a className={`${className} tracking-normal py-1 font-semibold text-blue-700 uppercase text-xs`}>{category.title}</a>
+      <a className={`${className} tracking-normal font-semibold text-blue-700 uppercase`}>{category.title}</a>
     </Link>
   )
 }

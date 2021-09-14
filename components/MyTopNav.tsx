@@ -3,9 +3,14 @@ import Search from '../components/icons/Search'
 import { Turn as Ham } from 'hamburger-react'
 import DividerV from '../components/blog/DividerV'
 import { useEffect, useRef } from 'react'
+import { useRouter } from 'next/dist/client/router'
 
 const MyTopNav = () => {
   const mobileMenuRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
+  // console.log("router", router.pathname);
+  const currentPath = router.pathname
+
 
   const handleHamToggle = (toggled: boolean) => {
     if (!document || !mobileMenuRef.current) return
@@ -45,12 +50,12 @@ const MyTopNav = () => {
             <Link href="/"><a className="pl-4">Insights</a></Link>
           </div>
         </div>
-        <div className="mt-2 lg:mt-4 text-sm uppercase flex items-center overflow-hidden font-semibold space-x-6 tracking-wide">
-          <Link href="/blog"><a className="">Home</a></Link>
-          <Link href="/"><a className="">Latest</a></Link>
-          <Link href="/"><a className="">Webdev</a></Link>
-          <Link href="/"><a className="">Design</a></Link>
-          <Link href="/"><a className="">Insights</a></Link>
+        <div className="mt-2 lg:mt-4 text-sm uppercase flex items-center overflow-hidden font-semibold space-x-2 tracking-wide">
+          <Link href="/blog"><a className={`${currentPath === "/blog" ? "bg-blue-700 text-white" : ""} px-2 py-0.5`}>Home</a></Link>
+          <Link href="/blog/latest"><a className={`${currentPath === "/blog/latest" ? "bg-blue-700 text-white" : ""} px-2 py-0.5`}>Latest</a></Link>
+          <Link href="/blog/category/webdev"><a className=" px-2 py-0.5">Webdev</a></Link>
+          <Link href="/blog/category/design"><a className=" px-2 py-0.5">Design</a></Link>
+          <Link href="/blog/category/insights"><a className=" px-2 py-0.5">Insights</a></Link>
         </div>
       </nav>
     </div>

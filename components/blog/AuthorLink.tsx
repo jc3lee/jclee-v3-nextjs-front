@@ -11,9 +11,11 @@ interface Props {
 
 const AuthorLink = ({ author, className, }: Props) => {
   return (
-    <Link key={author.slug} href={getPathFromSlugAndType(author.slug, "author")}>
-      <a className={`${className} tracking-normal font-semibold `}>{author.name}</a>
-    </Link>
+    <p className={`${className} tracking-normal font-semibold `}>
+      <Link key={author.slug} href={getPathFromSlugAndType(author.slug, "author")}>
+        <a>{author.name}</a>
+      </Link>
+    </p>
   )
 }
 
