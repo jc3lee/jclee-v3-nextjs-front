@@ -20,7 +20,7 @@ export const getQueryConstraints = (numItemsPerPage: number, currentPageNum: num
 
 type SubPathType = "latest" | "tag" | "author" | "category"
 
-export const handlePageBtnClick = (isNext: boolean, searchIndexNum: number, totalItems: number, subPath: SubPathType, router: NextRouter) => {
+export const handlePageBtnClick = (isNext: boolean, searchIndexNum: number, totalItems: number, subPath: SubPathType, router: NextRouter, subPathSlug?: string,) => {
   let numPostPerPage: number
 
   switch (subPath) {
@@ -52,7 +52,7 @@ export const handlePageBtnClick = (isNext: boolean, searchIndexNum: number, tota
     } else return
   }
   router.push({
-    pathname: `/blog/${subPath}`,
+    pathname: `/blog/${subPath}${subPathSlug ? `/${subPathSlug}` : ""}`,
     query: {
       searchIndex: newSearchIndex,
     }

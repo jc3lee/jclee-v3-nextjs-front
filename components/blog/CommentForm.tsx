@@ -43,14 +43,15 @@ const CommentForm = ({ className, _id, }: Props) => {
     })
     console.log("createCommentRes", createCommentRes);
     //toast saying comment submitted even if it failed
+    //maybe could move it above fetch to get instantaneous 
     handleCommentSubmitted()
   }
 
   return (
     <form className={`${className} flex flex-col items-start`} onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="nameId" className="text-sm">Name</label>
+      <label htmlFor="nameId" className="text-sm">Name *</label>
       <input id="nameId" className="rounded-sm py-1 px-2 border border-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-700" {...register('name', { required: true })} />
-      <label htmlFor="emailId" className="mt-4 text-sm">Email</label>
+      <label htmlFor="emailId" className="mt-4 text-sm">Email *</label>
       <input id="emailId" className="rounded-sm py-1 px-2 border border-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-700" {...register('email', { required: true })} />
       <label htmlFor="commentId" className="mt-4 text-sm">Comment</label>
       <textarea id="commentId" className="w-full min-h-[10rem] rounded-sm py-1 px-2 border border-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-700" {...register('text', { required: true })} />

@@ -38,7 +38,7 @@ const Author: NextPage<Props> = ({ author, bio, email, totalItems, imageUrl, nam
   const showPrev = searchIndexNum > 0
   const showNext = searchIndexNum + NUM_POSTS_PER_AUTHOR_PAGE < totalItems
   const handlePrevNext = (isNext: boolean) => {
-    handlePageBtnClick(isNext, searchIndexNum, totalItems, "author", router)
+    handlePageBtnClick(isNext, searchIndexNum, totalItems, "author", router, author,)
   }
 
   return (

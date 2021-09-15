@@ -30,7 +30,7 @@ const Category: NextPage<Props> = ({ category, categoryNextSlug, posts, mustRead
   const showPrev = searchIndexNum > 0
   const showNext = searchIndexNum + NUM_POSTS_PER_CAT_PAGE < totalItems
   const handlePrevNext = (isNext: boolean) => {
-    handlePageBtnClick(isNext, searchIndexNum, totalItems, "category", router)
+    handlePageBtnClick(isNext, searchIndexNum, totalItems, "category", router, categoryNextSlug)
   }
 
   return (
