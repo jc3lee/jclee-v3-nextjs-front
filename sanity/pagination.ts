@@ -4,10 +4,10 @@ export const NUM_POSTS_PER_POST_PAGE = 4
 export const NUM_POSTS_PER_LATEST_PAGE = 4
 export const NUM_POSTS_PER_CAT_PAGE = 4
 export const NUM_POSTS_PER_TAG_PAGE = 4
+export const NUM_POSTS_PER_SEARCH_PAGE = 4
 export const NUM_POSTS_PER_AUTHOR_PAGE = 4
 export const NUM_RECENT_POSTS = 10
 export const NUM_RELATED_POSTS = 6
-export const NUM_POSTS_PER_CATEGORY_PAGE = 3
 
 export const getQueryConstraints = (numItemsPerPage: number, currentPageNum: number) => {
   const start = (currentPageNum > 0 ? currentPageNum - 1 : currentPageNum) * numItemsPerPage
@@ -18,9 +18,9 @@ export const getQueryConstraints = (numItemsPerPage: number, currentPageNum: num
   }
 }
 
-type SubPathType = "latest" | "tag" | "author" | "category"
+type SubPathType = "latest" | "tag" | "author" | "category" | "search"
 
-export const handlePageBtnClick = (isNext: boolean, searchIndexNum: number, totalItems: number, subPath: SubPathType, router: NextRouter, subPathSlug?: string,) => {
+export const handlePageBtnClick = (isNext: boolean, searchIndexNum: number, totalItems: number, subPath: SubPathType, router: NextRouter, subPathSlug?: string, additionalQueries?: any) => {
   let numPostPerPage: number
 
   switch (subPath) {
@@ -28,10 +28,13 @@ export const handlePageBtnClick = (isNext: boolean, searchIndexNum: number, tota
       numPostPerPage = NUM_POSTS_PER_AUTHOR_PAGE
       break;
     case "category":
-      numPostPerPage = NUM_POSTS_PER_CATEGORY_PAGE
+      numPostPerPage = NUM_POSTS_PER_CAT_PAGE
       break;
     case "latest":
       numPostPerPage = NUM_POSTS_PER_LATEST_PAGE
+      break;
+    case "search":
+      numPostPerPage = NUM_POSTS_PER_SEARCH_PAGE
       break;
     case "tag":
       numPostPerPage = NUM_POSTS_PER_TAG_PAGE
@@ -51,10 +54,19 @@ export const handlePageBtnClick = (isNext: boolean, searchIndexNum: number, tota
       newSearchIndex = searchIndexNum > numPostPerPage ? searchIndexNum - numPostPerPage : 0
     } else return
   }
-  router.push({
-    pathname: `/blog/${subPath}${subPathSlug ? `/${subPathSlug}` : ""}`,
-    query: {
+  let routerQuery
+  if (additionalQueries && typeof additionalQueries === "object") {
+    routerQuery = {
+      ...additionalQueries,
       searchIndex: newSearchIndex,
     }
+  } else {
+    routerQuery = {
+      searchIndex: newSearchIndex,
+    }
+  }
+  router.push({
+    pathname: `/blog/${subPath}${subPathSlug ? `/${subPathSlug}` : ""}`,
+    query: routerQuery,
   })
 }

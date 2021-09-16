@@ -1,45 +1,50 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/dist/client/router'
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai"
-import AsidePost from '../../../components/blog/AsidePost'
 import MainRect from '../../../components/blog/MainRect'
 import Newsletter from '../../../components/blog/Newsletter'
+import SearchForm from '../../../components/blog/SearchForm'
 import LoadingPage from '../../../components/LoadingPage'
-import MyFooter from '../../../components/MyFooter'
 import MyLayout from '../../../components/MyLayout'
-import MyTopNav from '../../../components/MyTopNav'
-import { handlePageBtnClick, NUM_POSTS_PER_TAG_PAGE } from '../../../sanity/pagination'
+import { handlePageBtnClick, NUM_POSTS_PER_SEARCH_PAGE, NUM_POSTS_PER_TAG_PAGE } from '../../../sanity/pagination'
 import { PostProps, QueryType, sanityFetch } from '../../../sanity/queries'
 
 interface Props {
   posts: PostProps[],
-  mustReadPosts: PostProps[],
+  recentPosts: PostProps[],
   searchIndexNum: number,
-  t: string,
+  s: string,
   totalItems: number,
 }
 
-
-const Tag: NextPage<Props> = ({ posts, mustReadPosts, totalItems, searchIndexNum, t, }) => {
-  if (!posts) return <LoadingPage />
+const Search: NextPage<Props> = ({ posts, totalItems, recentPosts, searchIndexNum, s, }) => {
+  if (!posts && !recentPosts) return <LoadingPage />
   const router = useRouter()
   const showPrev = searchIndexNum > 0
-  const showNext = searchIndexNum + NUM_POSTS_PER_TAG_PAGE < totalItems
+  const showNext = searchIndexNum + NUM_POSTS_PER_SEARCH_PAGE < totalItems
   const handlePrevNext = (isNext: boolean) => {
-    handlePageBtnClick(isNext, searchIndexNum, totalItems, "tag", router, undefined, { t })
+    handlePageBtnClick(isNext, searchIndexNum, totalItems, "search", router, undefined, { s })
+  }
+  const handleSearch = (s: string) => {
+    router.push({
+      pathname: "/blog/search",
+      query: { s }
+    })
   }
 
   return (
     <MyLayout>
-      <div className="py-8 md:py-12 lg:py-16 border-b">
-        <h1 className="text-xl md:text-2xl lg:text-3xl text-center uppercase ">#{t}</h1>
-      </div>
-      <div className="max-w-screen-xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3">
-          <main className="md:col-span-2 md:border-r pl-4 pr-4 xl:pr-8 mt-10 md:mt-0">
+      <div className="max-w-screen-md mx-auto">
+        <SearchForm className="px-4 mt-8" handleSearch={handleSearch} />
+        <div className="mt-8 grid grid-cols-1">
+          <main className="px-4">
+            {!s ? <p className="text-lg">Latest posts</p> : <p>{totalItems} result{totalItems !== 1 && "s"}</p>}
             <div className="flex flex-col divide-y">
               {
-                posts.map(p => <MainRect showTagsInsteadOfCat={true} showDescription={true} showReadingTime={true} className="py-8" key={p.slug} post={p} />)
+                !s && recentPosts.map(p => <MainRect showTagsInsteadOfCat={true} showDescription={true} showReadingTime={true} className="py-8" key={p.slug} post={p} />)
+              }
+              {
+                s && posts.map(p => <MainRect showTagsInsteadOfCat={true} showDescription={true} showReadingTime={true} className="py-8" key={p.slug} post={p} />)
               }
             </div>
             <div className="py-20 flex justify-center space-x-6">
@@ -53,17 +58,6 @@ const Tag: NextPage<Props> = ({ posts, mustReadPosts, totalItems, searchIndexNum
               </button>}
             </div>
           </main>
-          <aside className="xl:pl-8 pl-4 pr-4">
-            <div className="mt-8 flex items-center">
-              <h2 className="pr-2 font-semibold text-xl">Must Reads</h2>
-              <div className="flex-1 border-b"></div>
-            </div>
-            <div className="divide-y grid grid-cols-1 lg:grid-cols-2 lg:gap-x-8 lg:block">
-              {
-                mustReadPosts.map(p => <AsidePost className="md:block grid grid-cols-3 gap-x-4" key={p.slug} post={p} />)
-              }
-            </div>
-          </aside>
         </div>
       </div>
       <div className="border-t w-full px-4 ">
@@ -75,12 +69,18 @@ const Tag: NextPage<Props> = ({ posts, mustReadPosts, totalItems, searchIndexNum
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const myQuery = context.query
-  // query tag t and searchIndex s
-  const { t, searchIndex, } = myQuery
-  let searchIndexNum: number
-  if (!t || Array.isArray(t) || Array.isArray(searchIndex)) return {
+  // query search s and searchIndex 
+  const { s, searchIndex, } = myQuery
+  if (Array.isArray(s)) return {
     notFound: true,
   }
+  if (Array.isArray(searchIndex)) {
+    return {
+      notFound: true,
+    }
+  }
+
+  let searchIndexNum: number
   if (!searchIndex) {
     searchIndexNum = 0
   } else {
@@ -91,27 +91,35 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     searchIndexNum = parsedIndex
   }
 
-  const res: { posts: any, recentPosts: any, mustRead: any, totalItems: number } = await sanityFetch({
-    queryType: QueryType.PostsByTag, tagParams: {
-      tag: t,
+  // let categories: string[] = []
+  // if (!categoryArrayIsh) {
+  //   // no cat
+  // } else if (typeof categoryArrayIsh === "string") {
+  //   categories.push(categoryArrayIsh)
+  // } else {
+  //   categories = categoryArrayIsh
+  // }
+
+  const res: { posts: PostProps[], recentPosts: PostProps[], totalItems: number } = await sanityFetch({
+    queryType: QueryType.SearchPosts, searchParams: {
+      search: s || "",
       start: searchIndexNum,
-      end: searchIndexNum + NUM_POSTS_PER_TAG_PAGE,
+      end: searchIndexNum + NUM_POSTS_PER_SEARCH_PAGE,
     }
   })
-  if (!res || !res.posts || res.posts.length === 0) return {
+  console.log("res", res);
+  if (!res) return {
     notFound: true
   }
-  // console.log("res", res);
-
   return {
     props: {
       posts: res.posts,
-      mustReadPosts: res.mustRead.posts,
+      recentPosts: res.recentPosts,
       totalItems: res.totalItems,
       searchIndexNum,
-      t,
+      s: s || "",
     }
   }
 }
 
-export default Tag
+export default Search

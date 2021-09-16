@@ -37,7 +37,10 @@ const MyTopNav = () => {
           <DividerV className="h-6 mt-0.5 border-gray-400 hidden md:inline-block" />
           <span className="ml-4 text-gray-500 text-sm hidden md:inline-block">Something about me</span>
           <div className="flex-1"></div>
-          <button className="lg:block hidden mr-4 mt-1"><Search className="w-7 h-7" /></button>
+          <Link href="/blog/search"><a className="focus:outline-none lg:block hidden mr-4 mt-1">
+            <span className="sr-only">search</span>
+            <Search className="w-7 h-7" />
+          </a></Link>
           <Ham direction="left" onToggle={handleHamToggle} />
         </div>
         <div ref={mobileMenuRef} className="hidden inset-0 bg-white">
@@ -49,12 +52,12 @@ const MyTopNav = () => {
             <Link href="/blog/category/insights"><a className="pl-4">Insights</a></Link>
           </div>
         </div>
-        <div className="mt-2 lg:mt-4 text-sm uppercase flex items-center overflow-hidden font-semibold space-x-2 tracking-wide">
-          <Link href="/blog"><a className={`${currentPath === "/blog" ? "bg-blue-700 text-white" : ""} px-2 py-0.5`}>Home</a></Link>
-          <Link href="/blog/latest"><a className={`${currentPath === "/blog/latest" ? "bg-blue-700 text-white" : ""} px-2 py-0.5`}>Latest</a></Link>
-          <Link href="/blog/category/webdev"><a className=" px-2 py-0.5">Webdev</a></Link>
-          <Link href="/blog/category/design"><a className=" px-2 py-0.5">Design</a></Link>
-          <Link href="/blog/category/insights"><a className=" px-2 py-0.5">Insights</a></Link>
+        <div className="mt-2 lg:mt-4 text-sm uppercase flex items-center flex-wrap font-semibold tracking-wide">
+          <Link href="/blog"><a className={`${currentPath === "/blog" ? "bg-blue-700 text-white px-2" : ""} mr-2 md:mr-4 py-0.5`}>Home</a></Link>
+          <Link href="/blog/latest"><a className={`${currentPath === "/blog/latest" ? "bg-blue-700 text-white px-2" : ""} mr-2 md:mr-4 py-0.5`}>Latest</a></Link>
+          <Link href="/blog/category/webdev"><a className="mr-2 md:mr-4 py-0.5">Webdev</a></Link>
+          <Link href="/blog/category/design"><a className="mr-2 md:mr-4 py-0.5">Design</a></Link>
+          <Link href="/blog/category/insights"><a className="mr-2 md:mr-4 py-0.5">Insights</a></Link>
         </div>
       </nav>
     </div>

@@ -79,8 +79,8 @@ const subQueryRelatedPosts = `
 _id != ^._id && count((tags[])[@ in ^.^.tags]) > 0][0...${NUM_RELATED_POSTS}] ${queryPostObj}
 `
 
-const queryRecentPosts = `
-  *[_type == "post"] | order(publishedAt desc) [0...${NUM_RECENT_POSTS}] ${queryPostObj}
+const getQueryRecentPosts = (limits?: { start: number, end: number }) => `
+  *[_type == "post"] | order(publishedAt desc) [${limits?.start || 0}...${limits?.end || NUM_RECENT_POSTS}] ${queryPostObj}
 `
 
 const queryFeaturedPosts = `
@@ -146,7 +146,7 @@ const queryHome = `
     "posts": *[_type == "post" && category._ref == ^._id] 
     | order(publishedAt asc) [0...4] ${queryPostObj},
   },
-  "recentPosts": ${queryRecentPosts},
+  "recentPosts": ${getQueryRecentPosts()},
 }
 `
 
@@ -193,17 +193,20 @@ const getQueryPostsByTag = (start: number, end: number) => `
 `
 
 const getSearchPostsQuery = ({ end, start, authors, categories, order, search, tags, }: SearchPostsType) => {
+  console.log("authors", authors, "categories", categories, "tags", tags,);
+  let searchQuery = `*[_type == "post" `
+  searchQuery += authors ? ` && author->slug.current in $authors` : ""
+  searchQuery += categories ? ` && category->slug.current in $categories` : ""
+  searchQuery += search ? ` && (title match $search || tags[] match $search || body[].children[].text match $search)` : ""
+  searchQuery += tags ? ` && count((tags[])[@ in $tags]) > 0` : ""
+  searchQuery += `]`
+
   let query = `{`
-  query += ` "search": *[_type == "post" `
-  query += authors ? ` && author->slug.current in $authors` : ""
-  query += categories ? ` && category->slug.current in $categories` : ""
-  query += search ? ` && (title match $search || body[].children[].text match $search)` : ""
-  query += tags ? ` && count((tags[])[@ in $tags]) > 0` : ""
-  query += `]`
-  query += `| order(${order || "publishedAt desc"})`
-  const limits = `[${start}...${end}]`
-  query += limits
+  query += `"posts": ${searchQuery}`
+  query += `| order(${order || "publishedAt desc"}) [${start}...${end}]`
   query += `${queryPostObj},`
+  query += `"totalItems": count(${searchQuery}),`
+  query += `"recentPosts": ${getQueryRecentPosts({ start, end })},`
   query += `}`
   return query
 }
@@ -307,10 +310,10 @@ export const sanityFetch = async ({ allPostsParams, authorParams, categoryParams
       const { end, tags, search, order, categories, authors, start, } = searchParams
       const querySearchPosts = getSearchPostsQuery({ start, end, authors, categories, order, search, tags, })
       return await client.fetch(querySearchPosts, {
-        authors,
-        categories,
-        search,
-        tags,
+        authors: authors || [],
+        categories: categories || [],
+        tags: tags || [],
+        search: search || "",
       })
     }
     default:
