@@ -2,7 +2,6 @@ import Link from "next/link"
 
 const codepenRegex = /codepen[a-zA-Z./\-]+/
 
-
 function getCodepenUserAndHash(url: string) {
   const codepenSegment = url.match(codepenRegex)?.[0] || ""
   if (!codepenSegment) return {}

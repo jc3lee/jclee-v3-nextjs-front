@@ -6,7 +6,7 @@ const getInstaString = (id: string) => {
 `
 }
 
-const instaRegex = /instagram[a-zA-Z./0-9\-]+/
+const instaRegex = /instagram[a-zA-Z./0-9\-\_]+/
 
 function getInstaId(url = "") {
   const instaSegment = (url.match(instaRegex) || [""])[0]

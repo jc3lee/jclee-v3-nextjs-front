@@ -50,6 +50,10 @@ const Posts: NextPage<Props> = ({ cats, featured, recentPosts, }) => {
   const [featuredTop, featured4] = getFeatured5(featured.posts, recentPosts)
   const webdevCatProps = getCatProps(cats, "webdev")
   const webdevPosts = webdevCatProps.posts
+  const designCatProps = getCatProps(cats, "design")
+  const designPosts = designCatProps.posts
+  const insightsCatProps = getCatProps(cats, "insights")
+  const insightsPosts = insightsCatProps.posts
 
   return (
     <MyLayout >
@@ -118,39 +122,39 @@ const Posts: NextPage<Props> = ({ cats, featured, recentPosts, }) => {
         </div>
       </div>
       <div className="mt-4 max-w-screen-xl mx-auto border-t-2 border-blue-700 w-full px-4 ">
-        <Link href={getPathFromSlugAndType(webdevCatProps.slug, "category")}>
+        <Link href={getPathFromSlugAndType(designCatProps.slug, "category")}>
           <a className="focus:outline-none focus:opacity-80 hover:opacity-80 transition-opacity duration-150">
             <h2 className="font-semibold text-2xl md:text-3xl mt-4">Design</h2>
           </a>
         </Link>
         <div className="flex mt-5 pb-4 flex-col md:flex-row ">
-          <Section3 className="flex-1" post={webdevPosts[0]} />
+          <Section3 className="flex-1" post={designPosts.length > 0 ? designPosts[0] : webdevPosts[0]} />
           <div><DividerH className="w-full my-4 md:hidden" /></div>
           <div><DividerV className="h-full mx-4 hidden md:block" /></div>
-          <Section3 className="flex-1" post={webdevPosts[1]} />
+          <Section3 className="flex-1" post={designPosts.length > 0 ? designPosts[1] : webdevPosts[1]} />
           <div><DividerH className="w-full my-4 md:hidden" /></div>
           <div><DividerV className="h-full mx-4 hidden md:block" /></div>
-          <Section3 className="flex-1" post={webdevPosts[2]} />
+          <Section3 className="flex-1" post={designPosts.length > 1 ? designPosts[2] : webdevPosts[2]} />
         </div>
       </div>
       <div className="mt-4 max-w-screen-xl mx-auto border-t-2 border-blue-700 w-full px-4 ">
-        <Link href={getPathFromSlugAndType(webdevCatProps.slug, "category")}>
+        <Link href={getPathFromSlugAndType(insightsCatProps.slug, "category")}>
           <a className="focus:outline-none focus:opacity-80 hover:opacity-80 transition-opacity duration-150">
             <h2 className="font-semibold text-2xl md:text-3xl mt-4">Insights</h2>
           </a>
         </Link>
-        <SectionCube className="flex-1 mt-5 pb-4" post={webdevPosts[0]} />
+        <SectionCube className="flex-1 mt-5 pb-4" post={insightsPosts.length > 0 ? insightsPosts[0] : webdevPosts[0]} />
         <div className="flex flex-col md:flex-row py-4 border-t">
-          <SectionSnake className="flex-1" post={webdevPosts[1]} />
+          <SectionSnake className="flex-1" post={insightsPosts.length > 0 ? insightsPosts[1] : webdevPosts[1]} />
           <div><DividerV className="h-full mx-4 hidden md:block" /></div>
           <div><DividerH className="w-full my-4 md:hidden" /></div>
-          <SectionSnake className="flex-1" post={webdevPosts[2]} />
+          <SectionSnake className="flex-1" post={insightsPosts.length > 1 ? insightsPosts[2] : webdevPosts[2]} />
           <div><DividerV className="h-full mx-4 hidden md:block" /></div>
           <div><DividerH className="w-full my-4 md:hidden" /></div>
-          <SectionSnake className="flex-1" post={webdevPosts[3]} />
+          <SectionSnake className="flex-1" post={insightsPosts.length > 2 ? insightsPosts[3] : webdevPosts[3]} />
         </div>
       </div>
-      <div className="border-t w-full px-4 ">
+      <div className="border-t w-full px-4">
         <Newsletter />
       </div>
     </MyLayout>

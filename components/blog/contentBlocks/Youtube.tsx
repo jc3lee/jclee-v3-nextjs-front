@@ -10,7 +10,7 @@ const Youtube = ({ url }: Props) => {
   const src = `https://www.youtube.com/embed/${id}`
   return (
     <div className="aspect-w-16 aspect-h-9 mt-6">
-      <iframe className="w-full h-full" src={src} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen;"></iframe>
+      <iframe className="w-full h-full" src={src} title="YouTube video player" frameBorder={0} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen;"></iframe>
     </div>
   )
 }

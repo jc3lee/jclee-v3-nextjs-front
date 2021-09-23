@@ -17,6 +17,7 @@
     "date-fns": "^2.23.0",
     "formidable": "^1.2.2",
     "get-youtube-id": "^1.0.1",
+    "gsap": "^3.7.1",
     "hamburger-react": "^2.4.1",
     "next": "11.1.2",
     "prismjs": "^1.24.1",

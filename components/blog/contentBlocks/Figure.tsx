@@ -8,13 +8,13 @@ interface Props {
 
 const Figure = ({ alt, imageUrl, size, }: Props) => {
   let sizeClass = ""
-  // console.log("size", size);
+  console.log("size", size);
 
   switch (size) {
-    case "M":
+    case "Medium":
       sizeClass = "w-2/3"
       break;
-    case "S":
+    case "Small":
       sizeClass = "w-1/3"
       break;
     default:
@@ -23,8 +23,8 @@ const Figure = ({ alt, imageUrl, size, }: Props) => {
   }
 
   return (
-    <div className="mt-6">
-      <img className={`${sizeClass} object-cover rounded-sm mx-auto`} src={getImageUrlWithTransformation(imageUrl, { width: 800, })} alt={alt} />
+    <div className={`${sizeClass} mt-6 mx-auto`}>
+      <img className={`object-cover rounded-sm shadow`} src={getImageUrlWithTransformation(imageUrl, { width: 800, })} alt={alt} />
     </div>
   )
 }
