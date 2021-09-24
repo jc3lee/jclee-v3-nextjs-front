@@ -43,7 +43,8 @@ export default async function handler(
     // console.log("name", name, "email", email, "text", text, "_id", _id, "recaptchaToken", recaptchaToken);
     try {
       const reCaptchaData = await checkReCaptcha(recaptchaToken)
-      console.log("reCaptchaData", reCaptchaData);
+      // console.log("reCaptchaData", reCaptchaData);
+      // console.log("score", reCaptchaData.score);
       // prevent bots look-alike to post
       if (!reCaptchaData || reCaptchaData.score < 0.5) throw new Error("Internal Error")
       const commentDocPromise = saveCommentToSanity(email, name, text, _id)
