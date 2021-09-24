@@ -45,7 +45,7 @@ const TikTok = ({ url }: Props) => {
   useEffect(() => {
     if (!tiktokUser || !tiktokId) return
     getPostFromUserNameAndId(tiktokUser, tiktokId, setPostHtml)
-  }, [tiktokId])
+  }, [tiktokId, tiktokUser])
 
   if (!tiktokUser || !tiktokId) return null
   return (
