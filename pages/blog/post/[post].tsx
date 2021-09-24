@@ -124,7 +124,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       post: res.post,
-    }
+    },
+    revalidate: 1,
   }
 }
 
