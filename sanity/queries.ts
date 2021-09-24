@@ -177,6 +177,7 @@ const getQueryCategoryFromSlug = (start: number, end: number) => `
     "category": *[_type == "category" && slug.current == $category][0] {
       "slug": slug.current,
       title,
+      description,
     },
     "posts": *[_type == "post" && category->slug.current == $category] | order(publishedAt desc) [${start}...${end}] ${queryPostObj},
     "totalItems": count(*[_type == "post" && category->slug.current == $category]),

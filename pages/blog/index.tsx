@@ -195,7 +195,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
       featured: res.featured,
       cats: res.cats,
       recentPosts: res.recentPosts,
-    }
+    },
+    revalidate: 1,
   }
 }
 

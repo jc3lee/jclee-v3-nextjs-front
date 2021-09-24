@@ -33,7 +33,7 @@ const Tag: NextPage<Props> = ({ posts, mustReadPosts, totalItems, searchIndexNum
   return (
     <MyLayout title={blogTitlePrefix + t.toUpperCase()}>
       <div className="py-8 md:py-12 lg:py-16 border-b">
-        <h1 className="text-xl md:text-2xl lg:text-3xl text-center uppercase ">#{t}</h1>
+        <h1 className="text-blue-700 font-semibold text-xl md:text-2xl lg:text-3xl text-center uppercase ">#{t}</h1>
       </div>
       <div className="max-w-screen-xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3">

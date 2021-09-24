@@ -45,7 +45,7 @@ const Author: NextPage<Props> = ({ author, bio, email, totalItems, imageUrl, nam
   return (
     <MyLayout title={blogTitlePrefix + name}>
       <div className="py-8 md:py-12 lg:py-16 border-b">
-        <h1 className="text-2xl md:text-3xl lg:text-4xl text-center ">Posts by {name}</h1>
+        <h1 className="text-blue-700 font-semibold text-2xl md:text-3xl lg:text-4xl text-center ">Posts by {name}</h1>
       </div>
       <div className="max-w-screen-xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3">
