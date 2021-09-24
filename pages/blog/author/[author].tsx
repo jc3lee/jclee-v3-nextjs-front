@@ -61,7 +61,7 @@ const Author: NextPage<Props> = ({ author, bio, email, totalItems, imageUrl, nam
             </div>
           </main>
           <aside className="pt-8 xl:pl-8 pl-4 pr-4">
-            <div className="lg:sticky lg:top-8 lg:pb-8 flex flex-col items-center">
+            <div className="md:sticky md:top-8 md:pb-8 flex flex-col items-center">
               <img className="w-24 h-24 rounded-full object-cover" src={getImageUrlWithTransformation(imageUrl, { width: 400, })} alt={name} />
               <AuthorLink className="mt-2" author={{ slug, name }} />
               <div className="text-gray-500 text-center -mt-6">

@@ -53,7 +53,7 @@ const MyTopNav = () => {
             <Link href="/blog/category/insights"><a className="pl-4">Insights</a></Link>
           </div>
         </div>
-        <div className="mt-2 lg:mt-4 text-sm uppercase flex items-center flex-wrap font-semibold tracking-wide">
+        <div className="mt-2 lg:mt-4 text-sm uppercase flex items-center flex-wrap font-semibold tracking-tight">
           <Link href="/blog"><a className={`${currentPath === "/blog" ? "bg-blue-700 text-white px-2" : ""} mr-2 md:mr-4 py-0.5`}>Home</a></Link>
           <Link href="/blog/latest"><a className={`${currentPath === "/blog/latest" ? "bg-blue-700 text-white px-2" : ""} mr-2 md:mr-4 py-0.5`}>Latest</a></Link>
           <Link href="/blog/category/webdev"><a className="mr-2 md:mr-4 py-0.5">Webdev</a></Link>
