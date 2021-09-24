@@ -1,21 +1,15 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/dist/client/router'
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai"
-import AsidePost from '../../../components/blog/AsidePost'
 import AuthorLink from '../../../components/blog/AuthorLink'
 import AuthorSocials from '../../../components/blog/AuthorSocial'
 import BlockContent from '../../../components/blog/BlockContent'
-import FeaturedTop from '../../../components/blog/FeaturedTop'
-import FeaturedRect from '../../../components/blog/FeatureRect'
 import MainRect from '../../../components/blog/MainRect'
 import Newsletter from '../../../components/blog/Newsletter'
 import LoadingPage from '../../../components/LoadingPage'
-import MyFooter from '../../../components/MyFooter'
 import MyLayout from '../../../components/MyLayout'
-import MyTopNav from '../../../components/MyTopNav'
-import { blogTitlePrefix } from '../../../myData/myHeadConfig'
 import { getNextPathsSlug } from '../../../nextjs/tools'
-import { handlePageBtnClick, NUM_POSTS_PER_AUTHOR_PAGE, NUM_POSTS_PER_LATEST_PAGE } from '../../../sanity/pagination'
+import { handlePageBtnClick, NUM_POSTS_PER_AUTHOR_PAGE } from '../../../sanity/pagination'
 import { PostProps, QueryType, sanityFetch } from '../../../sanity/queries'
 import { getImageUrlWithTransformation } from '../../../sanity/tools'
 
@@ -43,7 +37,7 @@ const Author: NextPage<Props> = ({ author, bio, email, totalItems, imageUrl, nam
   }
 
   return (
-    <MyLayout title={blogTitlePrefix + name}>
+    <MyLayout title={"Author: " + name}>
       <div className="py-8 md:py-12 lg:py-16 border-b">
         <h1 className="text-blue-700 font-semibold text-2xl md:text-3xl lg:text-4xl text-center ">Posts by {name}</h1>
       </div>
@@ -66,13 +60,15 @@ const Author: NextPage<Props> = ({ author, bio, email, totalItems, imageUrl, nam
               </button>}
             </div>
           </main>
-          <aside className="pt-8 xl:pl-8 pl-4 pr-4 flex flex-col items-center">
-            <img className="w-24 h-24 rounded-full object-cover" src={getImageUrlWithTransformation(imageUrl, { width: 400, })} alt={name} />
-            <AuthorLink className="mt-2" author={{ slug, name }} />
-            <div className="text-gray-500 text-center -mt-6">
-              <BlockContent blocks={bio} />
+          <aside className="pt-8 xl:pl-8 pl-4 pr-4">
+            <div className="lg:sticky lg:top-8 lg:pb-8 flex flex-col items-center">
+              <img className="w-24 h-24 rounded-full object-cover" src={getImageUrlWithTransformation(imageUrl, { width: 400, })} alt={name} />
+              <AuthorLink className="mt-2" author={{ slug, name }} />
+              <div className="text-gray-500 text-center -mt-6">
+                <BlockContent blocks={bio} />
+              </div>
+              <AuthorSocials email={email} socialAccounts={socialAccounts} />
             </div>
-            <AuthorSocials email={email} socialAccounts={socialAccounts} />
           </aside>
         </div>
       </div>

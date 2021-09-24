@@ -38,7 +38,7 @@ const MyTopNav = () => {
           <DividerV className="h-6 mt-0.5 border-gray-400 hidden md:inline-block" />
           <span className="ml-4 text-gray-500 text-sm hidden md:inline-block">{slogan}</span>
           <div className="flex-1"></div>
-          <Link href="/blog/search"><a className="focus:outline-none lg:block hidden mr-4 mt-1">
+          <Link href="/blog/search"><a className="focus:outline-none mr-4 mt-1">
             <span className="sr-only">search</span>
             <Search className="w-7 h-7" />
           </a></Link>

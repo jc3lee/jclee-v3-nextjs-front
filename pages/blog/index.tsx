@@ -13,7 +13,7 @@ import SectionCube from '../../components/blog/SectionCube'
 import SectionSnake from '../../components/blog/SectionSnake'
 import LoadingPage from '../../components/LoadingPage'
 import MyLayout from '../../components/MyLayout'
-import { blogHomeDescription, blogTitlePrefix } from '../../myData/myHeadConfig'
+import { blogHomeDescription, } from '../../myData/myHeadConfig'
 import { categoriesSlugType, PostProps, QueryType, sanityFetch } from '../../sanity/queries'
 import { getPathFromSlugAndType } from '../../sanity/tools'
 
@@ -58,7 +58,7 @@ const Posts: NextPage<Props> = ({ cats, featured, recentPosts, }) => {
   const insightsHref = getPathFromSlugAndType(insightsCatProps.slug, "category")
 
   return (
-    <MyLayout title={blogTitlePrefix + "Home"} description={blogHomeDescription}>
+    <MyLayout title={"Blog Home"} description={blogHomeDescription}>
       <div className="max-w-screen-xl mx-auto">
         <div className="grid md:grid-cols-3 lg:grid-cols-4">
           <div className="md:col-span-2 border-r">

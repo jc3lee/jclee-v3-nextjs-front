@@ -5,10 +5,7 @@ import AsidePost from '../../../components/blog/AsidePost'
 import FeaturedTop from '../../../components/blog/FeaturedTop'
 import Newsletter from '../../../components/blog/Newsletter'
 import LoadingPage from '../../../components/LoadingPage'
-import MyFooter from '../../../components/MyFooter'
 import MyLayout from '../../../components/MyLayout'
-import MyTopNav from '../../../components/MyTopNav'
-import { blogTitlePrefix } from '../../../myData/myHeadConfig'
 import { handlePageBtnClick, NUM_POSTS_PER_LATEST_PAGE } from '../../../sanity/pagination'
 import { PostProps, QueryType, sanityFetch } from '../../../sanity/queries'
 
@@ -29,7 +26,7 @@ const Latest: NextPage<Props> = ({ posts, mustReadPosts, totalItems, searchIndex
   }
 
   return (
-    <MyLayout title={blogTitlePrefix + "Latest"}>
+    <MyLayout title={"Latest Blog Posts"}>
       <div className="mt-4 sm:mt-10 max-w-screen-xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3">
           <div className="col-span-2 md:border-r pl-4 pr-4 xl:pr-8">
