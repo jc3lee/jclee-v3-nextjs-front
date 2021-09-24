@@ -28,8 +28,8 @@ interface Props {
 }
 
 const Author: NextPage<Props> = ({ author, bio, email, totalItems, imageUrl, name, posts, searchIndexNum, slug, socialAccounts, websiteLink, }) => {
-  if (!posts) return <LoadingPage />
   const router = useRouter()
+  if (!posts) return <LoadingPage />
   const showPrev = searchIndexNum > 0
   const showNext = searchIndexNum + NUM_POSTS_PER_AUTHOR_PAGE < totalItems
   const handlePrevNext = (isNext: boolean) => {

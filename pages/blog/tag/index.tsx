@@ -19,8 +19,8 @@ interface Props {
 
 
 const Tag: NextPage<Props> = ({ posts, mustReadPosts, totalItems, searchIndexNum, t, }) => {
-  if (!posts) return <LoadingPage />
   const router = useRouter()
+  if (!posts) return <LoadingPage />
   const showPrev = searchIndexNum > 0
   const showNext = searchIndexNum + NUM_POSTS_PER_TAG_PAGE < totalItems
   const handlePrevNext = (isNext: boolean) => {

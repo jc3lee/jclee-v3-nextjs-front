@@ -18,8 +18,8 @@ interface Props {
 }
 
 const Search: NextPage<Props> = ({ posts, totalItems, recentPosts, searchIndexNum, s, }) => {
-  if (!posts && !recentPosts) return <LoadingPage />
   const router = useRouter()
+  if (!posts && !recentPosts) return <LoadingPage />
   const showPrev = searchIndexNum > 0
   const showNext = searchIndexNum + NUM_POSTS_PER_SEARCH_PAGE < totalItems
   const handlePrevNext = (isNext: boolean) => {

@@ -24,8 +24,8 @@ interface Props {
 }
 
 const Category: NextPage<Props> = ({ category, categoryNextSlug, posts, mustReadPosts, totalItems, searchIndexNum, }) => {
-  if (!posts) return <LoadingPage />
   const router = useRouter()
+  if (!posts) return <LoadingPage />
   const showPrev = searchIndexNum > 0
   const showNext = searchIndexNum + NUM_POSTS_PER_CAT_PAGE < totalItems
   const handlePrevNext = (isNext: boolean) => {

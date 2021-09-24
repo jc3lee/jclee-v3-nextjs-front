@@ -7,8 +7,8 @@ import { useRouter } from 'next/router'
 import { slogan } from '../myData/myBrandConfig'
 
 const MyTopNav = () => {
-  const mobileMenuRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
+  const mobileMenuRef = useRef<HTMLDivElement>(null)
   // console.log("router", router.pathname);
   const currentPath = router.pathname
 
