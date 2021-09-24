@@ -80,66 +80,7 @@ const serializers = {
 const BlockContent = ({ blocks, className }: Props) => {
   return (
     <div className={className}>
-      <BlockContentToReact blocks={blocks} serializers={
-        {
-          list: List,
-          marks: {
-            bold: ({ children, }: any) => {
-              return <Bold text={children[0]} />
-            },
-            code: ({ children, }: any) => {
-              return <InlineCode code={children[0]} />
-            },
-            internalLink: ({ children, mark }: any) => {
-              if (!mark || !mark.slugAndType) return null
-              const { slug, type } = mark.slugAndType
-              return <InternalLink slug={slug} text={children[0]} type={type} />
-            },
-            link: ({ children, mark }: any) => {
-              if (!mark || !mark.href) return null
-              return <ExternalLink text={children[0]} href={mark.href} />
-            },
-          },
-          types: {
-            block: Block,
-            code: (props: any) => {
-              const { language, code } = props.node
-              return <Code language={language} code={code} />
-            },
-            codepen: (props: any) => {
-              const { url } = props.node
-              return <Codepen url={url} />
-            },
-            figure: (props: any) => {
-              const { alt, imageUrl, size, } = props.node
-              return <Figure imageUrl={imageUrl} alt={alt} size={size} />
-            },
-            instagram: (props: any) => {
-              const { url } = props.node
-              return <Instagram url={url} />
-            },
-            tiktok: (props: any) => {
-              const { url } = props.node
-              return (
-                <TikTok url={url} />
-              )
-            },
-            twitter: (props: any) => {
-              const { url } = props.node
-              return (
-                <Twitter url={url} />
-              )
-            },
-            youtube: (props: any) => {
-              const { url } = props.node
-              return (
-                <Youtube url={url} />
-              )
-            },
-
-          },
-        }
-      } />
+      <BlockContentToReact blocks={blocks} serializers={serializers} />
     </div>
   )
 }
