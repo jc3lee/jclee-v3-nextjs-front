@@ -11,6 +11,6 @@ export const config = {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const form = new formidable.IncomingForm({ uploadDir: path.join(process.cwd(), "uploads"), keepExtensions: true, multiples: true, })
   form.parse(req, (err, fields, files) => {
-    console.log("err", err, "fields", fields, "files", files);
+    // console.log("err", err, "fields", fields, "files", files);
   })
 }

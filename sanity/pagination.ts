@@ -45,7 +45,7 @@ export const handlePageBtnClick = (isNext: boolean, searchIndexNum: number, tota
 
   let newSearchIndex: number
   if (isNext) {
-    console.log("search index totalItems", searchIndexNum, totalItems);
+    // console.log("search index totalItems", searchIndexNum, totalItems);
     if (searchIndexNum + numPostPerPage < totalItems) {
       newSearchIndex = searchIndexNum + numPostPerPage
     } else return

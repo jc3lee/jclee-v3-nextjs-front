@@ -1,9 +1,8 @@
 import React, { ReactNode } from 'react'
-import Head from 'next/head'
-import Link from 'next/link'
+import { defaultCardSrc, defaultDescription, defaultTitle } from '../myData/myHeadConfig'
+import MyFooter from './MyFooter'
 import MyHead from './MyHead'
 import MyTopNav from './MyTopNav'
-import MyFooter from './MyFooter'
 
 type Props = {
   children: ReactNode
@@ -14,9 +13,9 @@ type Props = {
 
 const MyLayout = ({
   children,
-  title = 'Hey u',
-  imgSrc = "",
-  description = 'Description',
+  title = defaultTitle,
+  imgSrc = defaultCardSrc,
+  description = defaultDescription,
 }: Props) => (
   <>
     <MyHead description={description} imgSrc={imgSrc} title={title} />

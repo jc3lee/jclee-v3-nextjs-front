@@ -144,7 +144,7 @@ const queryHome = `
     "slug": slug.current,
     title,
     "posts": *[_type == "post" && category._ref == ^._id] 
-    | order(publishedAt asc) [0...4] ${queryPostObj},
+    | order(publishedAt desc) [0...4] ${queryPostObj},
   },
   "recentPosts": ${getQueryRecentPosts()},
 }
@@ -193,7 +193,7 @@ const getQueryPostsByTag = (start: number, end: number) => `
 `
 
 const getSearchPostsQuery = ({ end, start, authors, categories, order, search, tags, }: SearchPostsType) => {
-  console.log("authors", authors, "categories", categories, "tags", tags,);
+  // console.log("authors", authors, "categories", categories, "tags", tags,);
   let searchQuery = `*[_type == "post" `
   searchQuery += authors ? ` && author->slug.current in $authors` : ""
   searchQuery += categories ? ` && category->slug.current in $categories` : ""

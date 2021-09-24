@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-// import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 const commentSubmittedToastId = "comment-submitted-toast-id";
@@ -26,25 +26,24 @@ type Inputs = {
 
 const CommentForm = ({ className, _id, }: Props) => {
   const { register, handleSubmit, formState: { errors }, reset, } = useForm<Inputs>();
-  // const { executeRecaptcha } = useGoogleReCaptcha()
+  const { executeRecaptcha } = useGoogleReCaptcha()
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     reset({ name: "", email: "", text: "", })
-    console.log(data)
-    // if (!executeRecaptcha) {
-    //   console.log("recaptcha sucks!");
-    //   return
-    // }
-    // const recaptchaToken = await executeRecaptcha('ADD_COMMENT_TO_POST')
+    // console.log(data)
+    //toast saying comment submitted even if it failed
+    handleCommentSubmitted()
+    if (!executeRecaptcha) {
+      console.log("recaptcha sucks!");
+      return
+    }
+    const recaptchaToken = await executeRecaptcha('ADD_COMMENT_TO_POST')
     const createCommentRes = await fetch("/api/create-comment", {
       method: "POST",
-      // body: JSON.stringify({ ...data, _id, recaptchaToken, }),
-      body: JSON.stringify({ ...data, _id, }),
+      body: JSON.stringify({ ...data, _id, recaptchaToken, }),
+      // body: JSON.stringify({ ...data, _id, }),
     })
-    console.log("createCommentRes", createCommentRes);
-    //toast saying comment submitted even if it failed
-    //maybe could move it above fetch to get instantaneous 
-    handleCommentSubmitted()
+    // console.log("createCommentRes", createCommentRes);
   }
 
   return (

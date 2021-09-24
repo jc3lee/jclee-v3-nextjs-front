@@ -4,7 +4,7 @@ import MyLayout from '../components/MyLayout'
 const Home: NextPage = () => {
   return (
     <MyLayout>
-      <div className="">Home</div>
+      <div className="">Home page coming soon !!!</div>
     </MyLayout>
   )
 }

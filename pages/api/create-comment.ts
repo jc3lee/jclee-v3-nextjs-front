@@ -39,13 +39,13 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   if (req.method === "POST") {
-    // const { name, text, _id, recaptchaToken } = JSON.parse(req.body)
-    // console.log("name", name, "text", text, "_id", _id, "recaptchaToken", recaptchaToken);
-    const { name, email, text, _id, } = JSON.parse(req.body)
-    console.log("name", name, "email", email, "text", text, "_id", _id,);
+    const { name, email, text, _id, recaptchaToken } = JSON.parse(req.body)
+    // console.log("name", name, "email", email, "text", text, "_id", _id, "recaptchaToken", recaptchaToken);
     try {
-      // const reCaptchaData = await checkReCaptcha(recaptchaToken)
-      // console.log("reCaptchaData", reCaptchaData);
+      const reCaptchaData = await checkReCaptcha(recaptchaToken)
+      console.log("reCaptchaData", reCaptchaData);
+      // prevent bots look-alike to post
+      if (!reCaptchaData || reCaptchaData.score < 0.5) throw new Error("Internal Error")
       const commentDocPromise = saveCommentToSanity(email, name, text, _id)
       res.status(200).json({ success: true })
       commentDocPromise.then((commentDoc) => {

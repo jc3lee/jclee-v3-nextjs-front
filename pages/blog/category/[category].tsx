@@ -8,6 +8,7 @@ import LoadingPage from '../../../components/LoadingPage'
 import MyFooter from '../../../components/MyFooter'
 import MyLayout from '../../../components/MyLayout'
 import MyTopNav from '../../../components/MyTopNav'
+import { blogTitlePrefix } from '../../../myData/myHeadConfig'
 import { getNextPathsSlug } from '../../../nextjs/tools'
 import { handlePageBtnClick, NUM_POSTS_PER_CAT_PAGE, } from '../../../sanity/pagination'
 import { PostProps, QueryType, sanityFetch } from '../../../sanity/queries'
@@ -34,7 +35,7 @@ const Category: NextPage<Props> = ({ category, categoryNextSlug, posts, mustRead
   }
 
   return (
-    <MyLayout>
+    <MyLayout title={blogTitlePrefix + category.title}>
       <div className="py-8 md:py-12 lg:py-16 border-b">
         <h1 className="text-2xl md:text-3xl lg:text-4xl text-center capitalize ">{category.title}</h1>
       </div>

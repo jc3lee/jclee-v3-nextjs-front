@@ -13,6 +13,7 @@ import LoadingPage from '../../../components/LoadingPage'
 import MyFooter from '../../../components/MyFooter'
 import MyLayout from '../../../components/MyLayout'
 import MyTopNav from '../../../components/MyTopNav'
+import { blogTitlePrefix } from '../../../myData/myHeadConfig'
 import { getNextPathsSlug } from '../../../nextjs/tools'
 import { handlePageBtnClick, NUM_POSTS_PER_AUTHOR_PAGE, NUM_POSTS_PER_LATEST_PAGE } from '../../../sanity/pagination'
 import { PostProps, QueryType, sanityFetch } from '../../../sanity/queries'
@@ -42,7 +43,7 @@ const Author: NextPage<Props> = ({ author, bio, email, totalItems, imageUrl, nam
   }
 
   return (
-    <MyLayout>
+    <MyLayout title={blogTitlePrefix + name}>
       <div className="py-8 md:py-12 lg:py-16 border-b">
         <h1 className="text-2xl md:text-3xl lg:text-4xl text-center ">Posts by {name}</h1>
       </div>

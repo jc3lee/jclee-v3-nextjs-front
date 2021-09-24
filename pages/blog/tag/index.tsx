@@ -8,6 +8,7 @@ import LoadingPage from '../../../components/LoadingPage'
 import MyFooter from '../../../components/MyFooter'
 import MyLayout from '../../../components/MyLayout'
 import MyTopNav from '../../../components/MyTopNav'
+import { blogTitlePrefix } from '../../../myData/myHeadConfig'
 import { handlePageBtnClick, NUM_POSTS_PER_TAG_PAGE } from '../../../sanity/pagination'
 import { PostProps, QueryType, sanityFetch } from '../../../sanity/queries'
 
@@ -30,7 +31,7 @@ const Tag: NextPage<Props> = ({ posts, mustReadPosts, totalItems, searchIndexNum
   }
 
   return (
-    <MyLayout>
+    <MyLayout title={blogTitlePrefix + t.toUpperCase()}>
       <div className="py-8 md:py-12 lg:py-16 border-b">
         <h1 className="text-xl md:text-2xl lg:text-3xl text-center uppercase ">#{t}</h1>
       </div>

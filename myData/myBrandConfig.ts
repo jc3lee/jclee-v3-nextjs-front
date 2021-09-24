@@ -1,0 +1,1 @@
+export const slogan = "Space dust."

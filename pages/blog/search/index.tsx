@@ -6,6 +6,7 @@ import Newsletter from '../../../components/blog/Newsletter'
 import SearchForm from '../../../components/blog/SearchForm'
 import LoadingPage from '../../../components/LoadingPage'
 import MyLayout from '../../../components/MyLayout'
+import { blogTitlePrefix } from '../../../myData/myHeadConfig'
 import { handlePageBtnClick, NUM_POSTS_PER_SEARCH_PAGE, NUM_POSTS_PER_TAG_PAGE } from '../../../sanity/pagination'
 import { PostProps, QueryType, sanityFetch } from '../../../sanity/queries'
 
@@ -33,7 +34,7 @@ const Search: NextPage<Props> = ({ posts, totalItems, recentPosts, searchIndexNu
   }
 
   return (
-    <MyLayout>
+    <MyLayout title={blogTitlePrefix + "Search"}>
       <div className="max-w-screen-md mx-auto">
         <SearchForm className="px-4 mt-8" handleSearch={handleSearch} />
         <div className="mt-8 grid grid-cols-1">
@@ -107,7 +108,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       end: searchIndexNum + NUM_POSTS_PER_SEARCH_PAGE,
     }
   })
-  console.log("res", res);
+  // console.log("res", res);
   if (!res) return {
     notFound: true
   }

@@ -30,7 +30,7 @@ const Instagram = ({ url }: Props) => {
   // const { loaded, error } = useScript("/instaScript.js", ref)
   const [loaded, error] = useScript("/instaScript.js")
 
-  console.log(loaded, error);
+  // console.log(loaded, error);
 
   return (
     <div className="flex justify-center" dangerouslySetInnerHTML={{ __html: getInstaString(instaId) }}></div>

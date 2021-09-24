@@ -1,4 +1,3 @@
-// import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { AiOutlineSearch } from 'react-icons/ai';
 
@@ -15,7 +14,7 @@ const SearchForm = ({ className, handleSearch, }: Props) => {
   const { register, handleSubmit, formState: { errors }, reset, } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     // reset({ search: "", })
-    console.log(data)
+    // console.log(data)
     handleSearch(data.search)
   }
 

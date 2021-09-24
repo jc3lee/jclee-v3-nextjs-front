@@ -12,9 +12,8 @@ import Section4 from '../../components/blog/Section4'
 import SectionCube from '../../components/blog/SectionCube'
 import SectionSnake from '../../components/blog/SectionSnake'
 import LoadingPage from '../../components/LoadingPage'
-import MyFooter from '../../components/MyFooter'
 import MyLayout from '../../components/MyLayout'
-import MyTopNav from '../../components/MyTopNav'
+import { blogHomeDescription, blogTitlePrefix } from '../../myData/myHeadConfig'
 import { categoriesSlugType, PostProps, QueryType, sanityFetch } from '../../sanity/queries'
 import { getPathFromSlugAndType } from '../../sanity/tools'
 
@@ -54,9 +53,12 @@ const Posts: NextPage<Props> = ({ cats, featured, recentPosts, }) => {
   const designPosts = designCatProps.posts
   const insightsCatProps = getCatProps(cats, "insights")
   const insightsPosts = insightsCatProps.posts
+  const webdevHref = getPathFromSlugAndType(webdevCatProps.slug, "category")
+  const designHref = getPathFromSlugAndType(designCatProps.slug, "category")
+  const insightsHref = getPathFromSlugAndType(insightsCatProps.slug, "category")
 
   return (
-    <MyLayout >
+    <MyLayout title={blogTitlePrefix + "Home"} description={blogHomeDescription}>
       <div className="max-w-screen-xl mx-auto">
         <div className="grid md:grid-cols-3 lg:grid-cols-4">
           <div className="md:col-span-2 border-r">
@@ -93,11 +95,18 @@ const Posts: NextPage<Props> = ({ cats, featured, recentPosts, }) => {
         </div>
       </div>
       <div className="mt-4 max-w-screen-xl mx-auto border-t-2 border-blue-700 w-full px-4 ">
-        <Link href={getPathFromSlugAndType(webdevCatProps.slug, "category")}>
-          <a className="focus:outline-none focus:opacity-80 hover:opacity-80 transition-opacity duration-150">
-            <h2 className="font-semibold text-2xl md:text-3xl mt-4">Web Development</h2>
-          </a>
-        </Link>
+        <div className="flex justify-between items-center">
+          <Link href={webdevHref}>
+            <a className="focus:outline-none focus:opacity-70 hover:opacity-70 transition-opacity duration-150">
+              <h2 className="font-semibold text-2xl md:text-3xl mt-4">Web Development</h2>
+            </a>
+          </Link>
+          <Link href={webdevHref}>
+            <a className="focus:outline-none focus:opacity-70 hover:opacity-70 transition-opacity duration-150">
+              <p className="font-semibold uppercase text-sm tracking-tighter mt-4">Show all</p>
+            </a>
+          </Link>
+        </div>
         <div className="flex mt-5 pb-4 flex-col lg:flex-row ">
           <div className="flex flex-1 flex-col md:flex-row">
             <div className="flex-1 flex flex-col">
@@ -122,11 +131,18 @@ const Posts: NextPage<Props> = ({ cats, featured, recentPosts, }) => {
         </div>
       </div>
       <div className="mt-4 max-w-screen-xl mx-auto border-t-2 border-blue-700 w-full px-4 ">
-        <Link href={getPathFromSlugAndType(designCatProps.slug, "category")}>
-          <a className="focus:outline-none focus:opacity-80 hover:opacity-80 transition-opacity duration-150">
-            <h2 className="font-semibold text-2xl md:text-3xl mt-4">Design</h2>
-          </a>
-        </Link>
+        <div className="flex justify-between items-center">
+          <Link href={designHref}>
+            <a className="focus:outline-none focus:opacity-70 hover:opacity-70 transition-opacity duration-150">
+              <h2 className="font-semibold text-2xl md:text-3xl mt-4">Design</h2>
+            </a>
+          </Link>
+          <Link href={designHref}>
+            <a className="focus:outline-none focus:opacity-70 hover:opacity-70 transition-opacity duration-150">
+              <p className="font-semibold uppercase text-sm tracking-tighter mt-4">Show all</p>
+            </a>
+          </Link>
+        </div>
         <div className="flex mt-5 pb-4 flex-col md:flex-row ">
           <Section3 className="flex-1" post={designPosts.length > 0 ? designPosts[0] : webdevPosts[0]} />
           <div><DividerH className="w-full my-4 md:hidden" /></div>
@@ -138,11 +154,18 @@ const Posts: NextPage<Props> = ({ cats, featured, recentPosts, }) => {
         </div>
       </div>
       <div className="mt-4 max-w-screen-xl mx-auto border-t-2 border-blue-700 w-full px-4 ">
-        <Link href={getPathFromSlugAndType(insightsCatProps.slug, "category")}>
-          <a className="focus:outline-none focus:opacity-80 hover:opacity-80 transition-opacity duration-150">
-            <h2 className="font-semibold text-2xl md:text-3xl mt-4">Insights</h2>
-          </a>
-        </Link>
+        <div className="flex justify-between items-center">
+          <Link href={insightsHref}>
+            <a className="focus:outline-none focus:opacity-70 hover:opacity-70 transition-opacity duration-150">
+              <h2 className="font-semibold text-2xl md:text-3xl mt-4">Insights</h2>
+            </a>
+          </Link>
+          <Link href={insightsHref}>
+            <a className="focus:outline-none focus:opacity-70 hover:opacity-70 transition-opacity duration-150">
+              <p className="font-semibold uppercase text-sm tracking-tighter mt-4">Show all</p>
+            </a>
+          </Link>
+        </div>
         <SectionCube className="flex-1 mt-5 pb-4" post={insightsPosts.length > 0 ? insightsPosts[0] : webdevPosts[0]} />
         <div className="flex flex-col md:flex-row py-4 border-t">
           <SectionSnake className="flex-1" post={insightsPosts.length > 0 ? insightsPosts[1] : webdevPosts[1]} />
