@@ -93,7 +93,7 @@ declare module "@sanity/block-content-to-react"
        */
       marks?: Record<string, (props: any) => JSX.Element | null>
       /** React component to use when rendering a list node */
-      list?: React.Component
+      list?: any
       /** React component to use when rendering a list item node */
       listItem?: React.Component
       /**
