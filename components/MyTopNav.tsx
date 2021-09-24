@@ -3,7 +3,7 @@ import Search from '../components/icons/Search'
 import { Turn as Ham } from 'hamburger-react'
 import DividerV from '../components/blog/DividerV'
 import { useEffect, useRef } from 'react'
-import { useRouter } from 'next/dist/client/router'
+import { useRouter } from 'next/router'
 import { slogan } from '../myData/myBrandConfig'
 
 const MyTopNav = () => {

@@ -1,5 +1,5 @@
 import type { GetServerSideProps, NextPage } from 'next'
-import { useRouter } from 'next/dist/client/router'
+import { useRouter } from 'next/router'
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai"
 import MainRect from '../../../components/blog/MainRect'
 import Newsletter from '../../../components/blog/Newsletter'
