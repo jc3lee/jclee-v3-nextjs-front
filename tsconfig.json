@@ -14,6 +14,9 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
+  "files": [
+    "@types/block-content-to-react.d.ts"
+  ],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/blog/author", "components/MailchimpSubscribe.tsx"],
   "exclude": ["node_modules"]
 }
