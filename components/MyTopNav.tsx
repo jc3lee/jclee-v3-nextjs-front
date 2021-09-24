@@ -54,11 +54,11 @@ const MyTopNav = () => {
           </div>
         </div>
         <div className="mt-2 lg:mt-4 text-sm uppercase flex items-center flex-wrap font-semibold tracking-tight">
-          <Link href="/blog"><a className={`${currentPath === "/blog" ? "bg-blue-700 text-white px-2" : ""} mr-2 md:mr-4 py-0.5`}>Home</a></Link>
-          <Link href="/blog/latest"><a className={`${currentPath === "/blog/latest" ? "bg-blue-700 text-white px-2" : ""} mr-2 md:mr-4 py-0.5`}>Latest</a></Link>
-          <Link href="/blog/category/webdev"><a className="mr-2 md:mr-4 py-0.5">Webdev</a></Link>
-          <Link href="/blog/category/design"><a className="mr-2 md:mr-4 py-0.5">Design</a></Link>
-          <Link href="/blog/category/insights"><a className="mr-2 md:mr-4 py-0.5">Insights</a></Link>
+          <Link href="/blog"><a className={`${currentPath === "/blog" ? "bg-blue-700 text-white px-2" : ""} mr-3 md:mr-4 py-0.5`}>Home</a></Link>
+          <Link href="/blog/latest"><a className={`${currentPath === "/blog/latest" ? "bg-blue-700 text-white px-2" : ""} mr-3 md:mr-4 py-0.5`}>Latest</a></Link>
+          <Link href="/blog/category/webdev"><a className="mr-3 md:mr-4 py-0.5">Webdev</a></Link>
+          <Link href="/blog/category/design"><a className="mr-3 md:mr-4 py-0.5">Design</a></Link>
+          <Link href="/blog/category/insights"><a className="mr-3 md:mr-4 py-0.5">Insights</a></Link>
         </div>
       </nav>
     </div>
