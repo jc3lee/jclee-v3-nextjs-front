@@ -28,7 +28,7 @@ const Tag: NextPage<Props> = ({ posts, mustReadPosts, totalItems, searchIndexNum
   }
 
   return (
-    <MyLayout title={"Search by Tag:" + t.toUpperCase()}>
+    <MyLayout title={"Search by Tag: " + t.toUpperCase()}>
       <div className="py-8 md:py-12 lg:py-16 border-b">
         <h1 className="text-blue-700 font-semibold text-xl md:text-2xl lg:text-3xl text-center uppercase ">#{t}</h1>
       </div>
