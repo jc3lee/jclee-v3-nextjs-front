@@ -103,7 +103,7 @@ const Posts: NextPage<Props> = ({ cats, featured, recentPosts, }) => {
           </Link>
           <Link href={webdevHref}>
             <a className="focus:outline-none focus:opacity-70 hover:opacity-70 transition-opacity duration-150">
-              <p className="font-semibold uppercase text-sm tracking-tighter mt-4">Show all</p>
+              <p className="font-semibold uppercase text-xs md:text-sm tracking-tighter mt-4">Show all</p>
             </a>
           </Link>
         </div>
@@ -139,7 +139,7 @@ const Posts: NextPage<Props> = ({ cats, featured, recentPosts, }) => {
           </Link>
           <Link href={designHref}>
             <a className="focus:outline-none focus:opacity-70 hover:opacity-70 transition-opacity duration-150">
-              <p className="font-semibold uppercase text-sm tracking-tighter mt-4">Show all</p>
+              <p className="font-semibold uppercase text-xs md:text-sm tracking-tighter mt-4">Show all</p>
             </a>
           </Link>
         </div>
@@ -162,7 +162,7 @@ const Posts: NextPage<Props> = ({ cats, featured, recentPosts, }) => {
           </Link>
           <Link href={insightsHref}>
             <a className="focus:outline-none focus:opacity-70 hover:opacity-70 transition-opacity duration-150">
-              <p className="font-semibold uppercase text-sm tracking-tighter mt-4">Show all</p>
+              <p className="font-semibold uppercase text-xs md:text-sm tracking-tighter mt-4">Show all</p>
             </a>
           </Link>
         </div>
