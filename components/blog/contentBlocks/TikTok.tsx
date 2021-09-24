@@ -39,16 +39,15 @@ interface Props {
 }
 
 const TikTok = ({ url }: Props) => {
-  if (!url) return null
   const [postHtml, setPostHtml] = useState("")
-  const { tiktokUser, tiktokId, } = getTikTokUserAndId(url)
-  if (!tiktokUser || !tiktokId) return null
   const [loaded, error] = useScript("/tiktokScript.js", [postHtml])
-
+  const { tiktokUser, tiktokId, } = getTikTokUserAndId(url)
   useEffect(() => {
+    if (!tiktokUser || !tiktokId) return
     getPostFromUserNameAndId(tiktokUser, tiktokId, setPostHtml)
   }, [tiktokId])
 
+  if (!tiktokUser || !tiktokId) return null
   return (
     <div dangerouslySetInnerHTML={{ __html: postHtml }}></div>
   )

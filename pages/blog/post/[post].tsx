@@ -47,8 +47,8 @@ interface Props {
 }
 
 const Post: NextPage<Props> = ({ post, }) => {
-  if (!post) return <LoadingPage />
   const postUrl = useGetUrl()
+  if (!post) return <LoadingPage />
 
   return (
     <MyLayout title={post.title} imgSrc={post.mainImageUrl} description={post.description}>

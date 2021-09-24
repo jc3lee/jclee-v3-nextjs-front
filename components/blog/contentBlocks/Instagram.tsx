@@ -24,14 +24,11 @@ interface Props {
 }
 
 const Instagram = ({ url }: Props) => {
+  // const { loaded, error } = useScript("/instaScript.js", ref)
+  const [loaded, error] = useScript("/instaScript.js")
   if (!url) return null
   const { instaId, } = getInstaId(url)
   if (!instaId) return null
-  // const { loaded, error } = useScript("/instaScript.js", ref)
-  const [loaded, error] = useScript("/instaScript.js")
-
-  // console.log(loaded, error);
-
   return (
     <div className="flex justify-center" dangerouslySetInnerHTML={{ __html: getInstaString(instaId) }}></div>
   )
