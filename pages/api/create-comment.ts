@@ -48,16 +48,16 @@ export default async function handler(
       // prevent bots look-alike to post
       if (!reCaptchaData || reCaptchaData.score < 0.5) throw new Error("Internal Error")
       const commentDocPromise = saveCommentToSanity(email, name, text, _id)
-      res.status(200).json({ success: true })
       commentDocPromise.then((commentDoc) => {
-        // console.log("new comment doc", commentDoc);
+        console.log("new comment doc", commentDoc);
       })
+      return res.status(200).json({ success: true })
     } catch (err: any) {
       // console.log("failed to add comment", err.message);
-      res.status(500).json({ success: false })
+      return res.status(500).json({ success: false })
     }
   } else {
     res.setHeader('Allow', 'POST')
-    res.status(405).end('Method Not Allowed')
+    return res.status(405).end('Method Not Allowed')
   }
 }
