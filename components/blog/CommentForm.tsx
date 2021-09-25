@@ -43,7 +43,8 @@ const CommentForm = ({ className, _id, }: Props) => {
       body: JSON.stringify({ ...data, _id, recaptchaToken, }),
       // body: JSON.stringify({ ...data, _id, }),
     })
-    // console.log("createCommentRes", createCommentRes);
+    const resData = await createCommentRes.json()
+    console.log("comment details", resData);
   }
 
   return (

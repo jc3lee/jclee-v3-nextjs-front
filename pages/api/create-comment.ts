@@ -1,8 +1,10 @@
+import { SanityDocument } from '@sanity/client';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { client } from '../../sanity/client';
 
 type Data = {
-  success: boolean
+  success: boolean,
+  commentDoc?: SanityDocument
 }
 
 const saveCommentToSanity = (email: string, name: string, text: string, _id: string) => {
@@ -47,11 +49,8 @@ export default async function handler(
       // console.log("score", reCaptchaData.score);
       // prevent bots look-alike to post
       if (!reCaptchaData || reCaptchaData.score < 0.5) throw new Error("Internal Error")
-      const commentDocPromise = saveCommentToSanity(email, name, text, _id)
-      commentDocPromise.then((commentDoc) => {
-        console.log("new comment doc", commentDoc);
-      })
-      return res.status(200).json({ success: true })
+      const commentDoc = await saveCommentToSanity(email, name, text, _id)
+      return res.status(200).json({ success: true, commentDoc })
     } catch (err: any) {
       // console.log("failed to add comment", err.message);
       return res.status(500).json({ success: false })
