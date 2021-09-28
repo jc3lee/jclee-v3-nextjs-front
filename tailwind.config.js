@@ -13,6 +13,7 @@ module.exports = {
       },
       fontFamily: {
         "open": ["'Open Sans'", ...defaultTheme.fontFamily.serif],
+        "rale": ["Raleway", ...defaultTheme.fontFamily.serif],
       },
       lineClamp: {
         7: '7',

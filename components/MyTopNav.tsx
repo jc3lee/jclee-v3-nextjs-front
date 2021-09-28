@@ -34,7 +34,7 @@ const MyTopNav = () => {
     <div className="border-b">
       <nav className="relative z-10 bg-white px-4 max-w-screen-xl mx-auto py-2 lg:py-6">
         <div className="w-full flex items-center relative z-50">
-          <Link href="/blog"><a className="focus:outline-none leading-none text-2xl lg:text-3xl mr-4">JC LEE</a></Link>
+          <Link href="/#"><a className="focus:outline-none leading-none text-2xl lg:text-3xl mr-4">JC LEE</a></Link>
           <DividerV className="h-6 mt-0.5 border-gray-400 hidden md:inline-block" />
           <span className="ml-4 text-gray-500 text-sm hidden md:inline-block">{slogan}</span>
           <div className="flex-1"></div>

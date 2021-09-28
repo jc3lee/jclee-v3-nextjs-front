@@ -6,7 +6,7 @@ const MailChimpSubscribe = () => {
       <label className="absolute bg-white -top-3 left-3 px-1 font-semibold" htmlFor="emailId">JC Lee’s Newsletter</label>
       <label htmlFor="emailId" className="text-xl font-semibold">Get my best posts in your inbox</label>
       <div className="flex flex-col sm:flex-row justify-center mt-4">
-        <input required={true} type="email" name="EMAIL" className="focus:outline-none focus:ring-1 focus:ring-blue-700 border-gray-700 border py-1 px-2 mr-0" id="emailId" placeholder="Email Address" />
+        <input required={true} type="email" name="EMAIL" className="focus:outline-none focus:ring-1 focus:ring-blue-700 border-gray-700 border py-1 px-2 mr-0 text-center sm:text-left" id="emailId" placeholder="Email Address" />
         <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className="mt-2 sm:mt-0 bg-blue-700 text-white py-1 px-4 ml-0 focus:outline-none hover:bg-opacity-80 focus:bg-opacity-80 transition duration-100" />
       </div>
       <div id="mce-responses" className="clear">
