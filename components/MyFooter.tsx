@@ -22,7 +22,7 @@ const MyFooter = () => {
       <p className="mt-6 text-gray-300 text-sm">© JC Lee, Auto-entrepreneur {getCurrentYear()}</p>
       <p className="mt-2 flex justify-center uppercase text-gray-300 text-sm">
         <Link href="/privacy"><a className="mr-2">privacy</a></Link>|
-        <Link href="/tos"><a className="ml-2">terms of use</a></Link>
+        <Link href="/terms-of-use"><a className="ml-2">terms of use</a></Link>
       </p>
     </footer>
   )

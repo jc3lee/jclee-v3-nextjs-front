@@ -1,5 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai"
 import AsidePost from '../../../components/blog/AsidePost'
 import FeaturedTop from '../../../components/blog/FeaturedTop'
@@ -17,6 +18,10 @@ interface Props {
 }
 
 const Latest: NextPage<Props> = ({ posts, mustReadPosts, totalItems, searchIndexNum }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   const router = useRouter()
   if (!posts) return <LoadingPage />
   const showPrev = searchIndexNum > 0

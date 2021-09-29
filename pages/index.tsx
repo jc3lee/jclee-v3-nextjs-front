@@ -10,8 +10,10 @@ import Newsletter from '../components/blog/Newsletter'
 import { INSTAGRAM_ID, LINKEDIN_ID, MAIL, TWITTER_ID, } from "../myData/mySocials"
 import { useEffect } from 'react'
 
-
 const Home: NextPage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   useEffect(() => {
     document.documentElement.classList.add("smooth")

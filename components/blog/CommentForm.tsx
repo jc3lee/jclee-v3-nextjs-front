@@ -49,12 +49,12 @@ const CommentForm = ({ className, _id, }: Props) => {
 
   return (
     <form className={`${className} flex flex-col items-start`} onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="nameId" className="text-sm">Name *</label>
-      <input id="nameId" className="rounded-sm py-1 px-2 border border-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-700" {...register('name', { required: true })} />
-      <label htmlFor="emailId" className="mt-4 text-sm">Email *</label>
-      <input type="email" id="emailId" className="rounded-sm py-1 px-2 border border-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-700" {...register('email', { required: true })} />
-      <label htmlFor="commentId" className="mt-4 text-sm">Comment</label>
-      <textarea id="commentId" className="w-full min-h-[10rem] rounded-sm py-1 px-2 border border-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-700" {...register('text', { required: true })} />
+      <label htmlFor="commentNameId" className="text-sm">Name *</label>
+      <input id="commentNameId" className="rounded-sm py-1 px-2 border border-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-700" {...register('name', { required: true })} />
+      <label htmlFor="commentEmailId" className="mt-4 text-sm">Email *</label>
+      <input type="email" id="commentEmailId" className="rounded-sm py-1 px-2 border border-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-700" {...register('email', { required: true })} />
+      <label htmlFor="commentTextId" className="mt-4 text-sm">Comment</label>
+      <textarea id="commentTextId" className="w-full min-h-[10rem] rounded-sm py-1 px-2 border border-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-700" {...register('text', { required: true })} />
       <p className="text-xs text-gray-500 tracking-tight">
         This site is protected by reCAPTCHA and the Google
         <a rel="noopener noreferrer" className="underline ml-1" target="_blank" href="https://policies.google.com/privacy">Privacy Policy</a> and

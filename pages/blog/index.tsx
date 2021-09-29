@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
 import Link from 'next/link'
+import { useEffect } from 'react'
 import DividerH from '../../components/blog/DividerH'
 import DividerV from '../../components/blog/DividerV'
 import Featured4 from '../../components/blog/Featured4'
@@ -45,6 +46,9 @@ const getFeatured5 = (posts: PostProps[], fbPosts: PostProps[])
 }
 
 const Posts: NextPage<Props> = ({ cats, featured, recentPosts, }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   if (!featured || !recentPosts || !cats) return <LoadingPage />
   const [featuredTop, featured4] = getFeatured5(featured.posts, recentPosts)
   const webdevCatProps = getCatProps(cats, "webdev")

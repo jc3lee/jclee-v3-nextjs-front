@@ -54,10 +54,10 @@ const ContactForm = ({ className, }: Props) => {
 
   return (
     <form className={`${className} flex flex-col items-start`} onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="nameId" className="text-sm">Name *</label>
-      <input id="nameId" className="rounded-sm py-1 px-2 border border-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-700" {...register('name', { required: true })} />
-      <label htmlFor="emailId" className="mt-4 text-sm">Email address *</label>
-      <input type="email" id="emailId" className="rounded-sm py-1 px-2 border border-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-700" {...register('email', { required: true, })} />
+      <label htmlFor="contactNameId" className="text-sm">Name *</label>
+      <input id="contactNameId" className="rounded-sm py-1 px-2 border border-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-700" {...register('name', { required: true })} />
+      <label htmlFor="contactEmailId" className="mt-4 text-sm">Email address *</label>
+      <input type="email" id="contactEmailId" className="rounded-sm py-1 px-2 border border-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-700" {...register('email', { required: true, })} />
       <label htmlFor="requestId" className="mt-4 text-sm">Your request or inquiry</label>
       <textarea id="requestId" className="w-full min-h-[10rem] rounded-sm py-1 px-2 border border-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-700" {...register('text', { required: true })} />
       <p className="text-xs text-gray-500 tracking-tight">
