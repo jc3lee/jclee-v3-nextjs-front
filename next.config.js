@@ -9,4 +9,9 @@ module.exports = {
     // because @sanity/block-content-to-react doesn't have types file
     ignoreBuildErrors: true,
   },
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  },
 }
