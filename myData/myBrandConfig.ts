@@ -1,1 +1,1 @@
-export const slogan = "Space dust."
+export const slogan = "Build the change you seek."
