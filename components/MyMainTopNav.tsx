@@ -18,7 +18,7 @@ const MyMainTopNav = () => {
   const closeMenuIfOpened = () => {
     if (!isMenuActive) return
     handleHamToggle()
-    console.log("called close");
+    // console.log("called close");
   }
 
   const closeMenuAndScrollToTop = () => {
