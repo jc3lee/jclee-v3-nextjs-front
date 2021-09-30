@@ -37,7 +37,7 @@ const Home: NextPage = () => {
         <Contact {...contactData} />
       </div>
       <div className="w-full px-4 mt-28 sm:mt-48 border-t sm:border-t-0">
-        {/* <Newsletter /> */}
+        <Newsletter />
       </div>
     </MyMainLayout>
   )
