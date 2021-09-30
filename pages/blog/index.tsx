@@ -47,7 +47,8 @@ const getFeatured5 = (posts: PostProps[], fbPosts: PostProps[])
 
 const Posts: NextPage<Props> = ({ cats, featured, recentPosts, }) => {
   useEffect(() => {
-    window.scrollTo(0, 0)
+    if (window)
+      window.scrollTo(0, 0)
   }, [])
   if (!featured || !recentPosts || !cats) return <LoadingPage />
   const [featuredTop, featured4] = getFeatured5(featured.posts, recentPosts)

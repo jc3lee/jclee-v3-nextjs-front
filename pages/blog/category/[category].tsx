@@ -26,7 +26,8 @@ interface Props {
 
 const Category: NextPage<Props> = ({ category, categoryNextSlug, posts, mustReadPosts, totalItems, searchIndexNum, }) => {
   useEffect(() => {
-    window.scrollTo(0, 0)
+    if (window)
+      window.scrollTo(0, 0)
   }, [])
   const router = useRouter()
   if (!posts) return <LoadingPage />

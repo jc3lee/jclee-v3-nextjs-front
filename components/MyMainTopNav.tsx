@@ -27,12 +27,7 @@ const MyMainTopNav = () => {
   }
 
   const scrollToTopOfPage = () => {
-    if (window) {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
+    if (window) window.scrollTo(0, 0)
   }
 
   const handleHamToggle = () => {
@@ -80,11 +75,23 @@ const MyMainTopNav = () => {
           </div>
           <div ref={mobileMenuRef} onClick={closeMenuIfOpened} className="hidden inset-0 ">
             <div className="absolute inset-0 mt-14 bg-black bg-opacity-30"></div>
-            <div className="relative mt-14 z-[999] bg-white border pt-4 pb-8 px-4 text-sm uppercase grid grid-cols-2 gap-y-4 overflow-hidden font-semibold tracking-wide">
-              <Link href="/blog"><a className="pl-4">Blog</a></Link>
-              <Link href="#services"><a className="pl-4">Services</a></Link>
-              <Link href="#about"><a className="pl-4">About Me</a></Link>
-              <Link href="#contact"><a className="pl-4">Contact</a></Link>
+            <div className="relative mt-14 z-[999] bg-white border pt-4 pb-8 px-4 text-sm uppercase overflow-hidden font-semibold tracking-wide">
+              <div className="flex pl-4">
+                <div className="flex-1">
+                  <Link href="/blog"><a className="p-1">Blog</a></Link>
+                </div>
+                <div className="flex-1">
+                  <Link href="#about"><a className="p-1">About Me</a></Link>
+                </div>
+              </div>
+              <div className="flex mt-4 pl-4">
+                <div className="flex-1">
+                  <Link href="#services"><a className="p-1">Services</a></Link>
+                </div>
+                <div className="flex-1">
+                  <Link href="#contact"><a className="p-1">Contact</a></Link>
+                </div>
+              </div>
             </div>
           </div>
         </nav>
