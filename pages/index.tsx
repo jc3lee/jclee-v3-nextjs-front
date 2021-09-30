@@ -9,13 +9,13 @@ import { FiInstagram } from "react-icons/fi"
 import Newsletter from '../components/blog/Newsletter'
 import { INSTAGRAM_ID, LINKEDIN_ID, MAIL, TWITTER_ID, } from "../myData/mySocials"
 import { useEffect } from 'react'
-import Hero from '../components/Hero'
+import Hero from '../components/landing/Hero'
 import { heroData } from '../myData/myHeroData'
-import Offer from '../components/Offer'
+import Offer from '../components/landing/Offer'
 import { offerData } from '../myData/myOfferData'
-import About from '../components/About'
+import About from '../components/landing/About'
 import { aboutData } from '../myData/myAboutData'
-import Contact from '../components/Contact'
+import Contact from '../components/landing/Contact'
 import { contactData } from '../myData/myContactData'
 
 const Home: NextPage = () => {

@@ -1,12 +1,12 @@
 import Link from 'next/link'
-import Search from '../components/icons/Search'
+import Search from './icons/Search'
 import { Turn as Ham } from 'hamburger-react'
-import DividerV from '../components/blog/DividerV'
+import DividerV from './blog/DividerV'
 import { useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { slogan } from '../myData/myBrandConfig'
 
-const MyTopNav = () => {
+const MyBlogTopNav = () => {
   const router = useRouter()
   const mobileMenuRef = useRef<HTMLDivElement>(null)
   // console.log("router", router.pathname);
@@ -65,4 +65,4 @@ const MyTopNav = () => {
   )
 }
 
-export default MyTopNav
+export default MyBlogTopNav

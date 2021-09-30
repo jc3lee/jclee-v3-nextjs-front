@@ -7,7 +7,7 @@ import BlockContent from '../../../components/blog/BlockContent'
 import MainRect from '../../../components/blog/MainRect'
 import Newsletter from '../../../components/blog/Newsletter'
 import LoadingPage from '../../../components/LoadingPage'
-import MyLayout from '../../../components/MyLayout'
+import MyBlogLayout from '../../../components/MyBlogLayout'
 import { getNextPathsSlug } from '../../../nextjs/tools'
 import { handlePageBtnClick, NUM_POSTS_PER_AUTHOR_PAGE } from '../../../sanity/pagination'
 import { PostProps, QueryType, sanityFetch } from '../../../sanity/queries'
@@ -37,7 +37,7 @@ const Author: NextPage<Props> = ({ author, bio, email, totalItems, imageUrl, nam
   }
 
   return (
-    <MyLayout title={"Author: " + name}>
+    <MyBlogLayout title={"Author: " + name}>
       <div className="py-8 md:py-12 lg:py-16 border-b">
         <h1 className="text-blue-700 font-semibold text-2xl md:text-3xl lg:text-4xl text-center ">Posts by {name}</h1>
       </div>
@@ -75,7 +75,7 @@ const Author: NextPage<Props> = ({ author, bio, email, totalItems, imageUrl, nam
       <div className="border-t w-full px-4 ">
         <Newsletter />
       </div>
-    </MyLayout>
+    </MyBlogLayout>
   )
 }
 

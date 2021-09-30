@@ -6,7 +6,7 @@ import AsidePost from '../../../components/blog/AsidePost'
 import MainRect from '../../../components/blog/MainRect'
 import Newsletter from '../../../components/blog/Newsletter'
 import LoadingPage from '../../../components/LoadingPage'
-import MyLayout from '../../../components/MyLayout'
+import MyBlogLayout from '../../../components/MyBlogLayout'
 import { getNextPathsSlug } from '../../../nextjs/tools'
 import { handlePageBtnClick, NUM_POSTS_PER_CAT_PAGE } from '../../../sanity/pagination'
 import { PostProps, QueryType, sanityFetch } from '../../../sanity/queries'
@@ -38,7 +38,7 @@ const Category: NextPage<Props> = ({ category, categoryNextSlug, posts, mustRead
   }
 
   return (
-    <MyLayout title={category.title}>
+    <MyBlogLayout title={category.title}>
       <div className="py-8 md:py-12 lg:py-16 border-b">
         <h1 className="text-blue-700 font-semibold text-2xl md:text-3xl lg:text-4xl text-center capitalize ">{category.title}</h1>
         <p className="mt-3 text-sm md:text-base lg:text-lg text-center">{category.description}</p>
@@ -78,7 +78,7 @@ const Category: NextPage<Props> = ({ category, categoryNextSlug, posts, mustRead
       <div className="border-t w-full px-4 ">
         <Newsletter />
       </div>
-    </MyLayout>
+    </MyBlogLayout>
   )
 }
 

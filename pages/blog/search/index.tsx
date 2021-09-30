@@ -5,7 +5,7 @@ import MainRect from '../../../components/blog/MainRect'
 import Newsletter from '../../../components/blog/Newsletter'
 import SearchForm from '../../../components/blog/SearchForm'
 import LoadingPage from '../../../components/LoadingPage'
-import MyLayout from '../../../components/MyLayout'
+import MyBlogLayout from '../../../components/MyBlogLayout'
 import { handlePageBtnClick, NUM_POSTS_PER_SEARCH_PAGE, NUM_POSTS_PER_TAG_PAGE } from '../../../sanity/pagination'
 import { PostProps, QueryType, sanityFetch } from '../../../sanity/queries'
 
@@ -33,7 +33,7 @@ const Search: NextPage<Props> = ({ posts, totalItems, recentPosts, searchIndexNu
   }
 
   return (
-    <MyLayout title={"Search Posts"}>
+    <MyBlogLayout title={"Search Posts"}>
       <div className="max-w-screen-md mx-auto">
         <SearchForm className="px-4 mt-8" handleSearch={handleSearch} />
         <div className="mt-8 grid grid-cols-1">
@@ -63,7 +63,7 @@ const Search: NextPage<Props> = ({ posts, totalItems, recentPosts, searchIndexNu
       <div className="border-t w-full px-4 ">
         <Newsletter />
       </div>
-    </MyLayout>
+    </MyBlogLayout>
   )
 }
 

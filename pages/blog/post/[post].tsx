@@ -13,7 +13,7 @@ import ReadingTime from '../../../components/blog/ReadingTIme'
 import TagBar from '../../../components/blog/TagBar'
 import Title from '../../../components/blog/Title'
 import LoadingPage from '../../../components/LoadingPage'
-import MyLayout from '../../../components/MyLayout'
+import MyBlogLayout from '../../../components/MyBlogLayout'
 import { useGetUrl } from '../../../hooks/urlHooks'
 import { getNextPathsSlug } from '../../../nextjs/tools'
 import { PostProps, QueryType, sanityFetch } from '../../../sanity/queries'
@@ -51,7 +51,7 @@ const Post: NextPage<Props> = ({ post, }) => {
   if (!post) return <LoadingPage />
 
   return (
-    <MyLayout title={post.title} imgSrc={post.mainImageUrl} description={post.description}>
+    <MyBlogLayout title={post.title} imgSrc={post.mainImageUrl} description={post.description}>
       <div className="mt-4 sm:mt-10 max-w-screen-xl mx-auto">
         <TagBar tags={post.tags} className="px-4 " />
         <Title title={post.title} className="mt-6 sm:mt-12 px-4 text-3xl sm:text-4xl lg:text-5xl" />
@@ -102,7 +102,7 @@ const Post: NextPage<Props> = ({ post, }) => {
           <Newsletter />
         </div>
       </div>
-    </MyLayout>
+    </MyBlogLayout>
   )
 }
 
