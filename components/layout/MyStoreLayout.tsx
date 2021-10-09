@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { defaultCardSrc, defaultDescription, defaultTitle } from '../myData/myHeadConfig'
+import { defaultCardSrc, defaultDescription, defaultTitle } from '../../myData/myHeadConfig'
 import MyFooter from './MyFooter'
 import MyHead from './MyHead'
 import MyStoreTopNav from './MyStoreTopNav'

@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { myWebsite } from '../myData/myHeadConfig'
+import { myWebsite } from '../../myData/myHeadConfig'
 
 type Props = {
   title: string

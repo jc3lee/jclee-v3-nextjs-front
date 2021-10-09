@@ -1,10 +1,10 @@
 import Link from 'next/link'
-import Search from '../components/icons/Search'
+import Search from '../icons/Search'
 import { Turn as Ham } from 'hamburger-react'
-import DividerV from '../components/blog/DividerV'
+import DividerV from '../blog/DividerV'
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
-import { slogan } from '../myData/myBrandConfig'
+import { slogan } from '../../myData/myBrandConfig'
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"
 
 

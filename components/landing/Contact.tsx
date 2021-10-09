@@ -2,7 +2,7 @@ import { FaLinkedinIn } from "react-icons/fa"
 import { FiInstagram } from "react-icons/fi"
 import { HiOutlineMail } from "react-icons/hi"
 import { ImTwitter } from "react-icons/im"
-import ContactForm from "../ContactForm"
+import ContactForm from "./ContactForm"
 
 interface Props {
   title: string,

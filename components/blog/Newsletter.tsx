@@ -1,4 +1,4 @@
-import MailChimpSubscribe from "../MailchimpSubscribe"
+import MailChimpSubscribe from "./MailchimpSubscribe"
 
 const Newsletter = () => {
   return (

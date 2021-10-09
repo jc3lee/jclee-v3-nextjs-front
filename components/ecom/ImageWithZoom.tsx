@@ -1,5 +1,5 @@
 import { MouseEvent, useRef } from "react"
-import { getCursorPosition } from "../utils/cursorFns"
+import { getCursorPosition } from "../../utils/cursorFns"
 
 const RATIO = 2
 

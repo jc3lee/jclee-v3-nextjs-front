@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { getCurrentYear } from '../utils/dateFns'
-import MySocials from './blog/MySocials'
+import { getCurrentYear } from '../../utils/dateFns'
+import MySocials from '../blog/MySocials'
 
 const MyFooter = () => {
   return (

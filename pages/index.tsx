@@ -1,22 +1,15 @@
 import type { NextPage } from 'next'
-import Link from 'next/link'
-import ContactForm from '../components/ContactForm'
-import MyMainLayout from '../components/MyMainLayout'
-import { ImTwitter } from "react-icons/im"
-import { FaLinkedinIn } from "react-icons/fa"
-import { HiOutlineMail } from "react-icons/hi"
-import { FiInstagram } from "react-icons/fi"
-import Newsletter from '../components/blog/Newsletter'
-import { INSTAGRAM_ID, LINKEDIN_ID, MAIL, TWITTER_ID, } from "../myData/mySocials"
 import { useEffect } from 'react'
-import Hero from '../components/landing/Hero'
-import { heroData } from '../myData/myHeroData'
-import Offer from '../components/landing/Offer'
-import { offerData } from '../myData/myOfferData'
+import Newsletter from '../components/blog/Newsletter'
 import About from '../components/landing/About'
-import { aboutData } from '../myData/myAboutData'
 import Contact from '../components/landing/Contact'
+import Hero from '../components/landing/Hero'
+import Offer from '../components/landing/Offer'
+import MyMainLayout from '../components/layout/MyMainLayout'
+import { aboutData } from '../myData/myAboutData'
 import { contactData } from '../myData/myContactData'
+import { heroData } from '../myData/myHeroData'
+import { offerData } from '../myData/myOfferData'
 
 const Home: NextPage = () => {
   useEffect(() => {

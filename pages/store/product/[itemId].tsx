@@ -3,7 +3,7 @@ import Link from "next/link"
 import { useContext } from 'react'
 import { BsArrowLeft } from "react-icons/bs"
 import ItemGallery from '../../../components/ecom/ItemGallery'
-import MyStoreLayout from '../../../components/MyStoreLayout'
+import MyStoreLayout from '../../../components/layout/MyStoreLayout'
 import { StoreContext } from '../../../hooks/StoreContext'
 import { getNextPathsSlug } from '../../../nextjs/tools'
 import { ItemProps, QueryType, sanityFetch } from '../../../sanity/queries'

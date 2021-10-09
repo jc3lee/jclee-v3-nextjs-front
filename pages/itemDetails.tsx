@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import { useState } from 'react';
-import ImageThumbGroup from '../components/ImageThumbGroup';
-import ImageWithZoom from '../components/ImageWithZoom';
-import MyMainLayout from '../components/MyMainLayout';
+import ImageThumbGroup from '../components/ecom/ImageThumbGroup';
+import ImageWithZoom from '../components/ecom/ImageWithZoom';
+import MyMainLayout from '../components/layout/MyMainLayout';
 
 const gallery = [
   { imageUrl: "https://avatarfiles.alphacoders.com/699/thumb-1920-69905.png", },

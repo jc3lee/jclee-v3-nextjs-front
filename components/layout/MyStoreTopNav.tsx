@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { useContext } from 'react'
 import { AiOutlineShoppingCart } from "react-icons/ai"
-import DividerV from '../components/blog/DividerV'
-import { StoreContext } from '../hooks/StoreContext'
+import DividerV from '../blog/DividerV'
+import { StoreContext } from '../../hooks/StoreContext'
 
 const getTotalItems = (cart?: { itemId: string, qty: number }[]) => {
   if (!cart) return 0

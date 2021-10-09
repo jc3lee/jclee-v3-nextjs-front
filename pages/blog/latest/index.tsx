@@ -5,8 +5,8 @@ import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai"
 import AsidePost from '../../../components/blog/AsidePost'
 import FeaturedTop from '../../../components/blog/FeaturedTop'
 import Newsletter from '../../../components/blog/Newsletter'
-import LoadingPage from '../../../components/LoadingPage'
-import MyBlogLayout from '../../../components/MyBlogLayout'
+import LoadingPage from '../../../components/layout/LoadingPage'
+import MyBlogLayout from '../../../components/layout/MyBlogLayout'
 import { handlePageBtnClick, NUM_POSTS_PER_LATEST_PAGE } from '../../../sanity/pagination'
 import { PostProps, QueryType, sanityFetch } from '../../../sanity/queries'
 

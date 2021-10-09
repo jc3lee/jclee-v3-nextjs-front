@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import ItemsPagination from '../../components/ecom/ItemsPagination'
 import ItemSquare from '../../components/ecom/ItemSquare'
-import MyStoreLayout from '../../components/MyStoreLayout'
+import MyStoreLayout from '../../components/layout/MyStoreLayout'
 import { getQueryConstraints, NUM_ITEMS_PER_STORE_PAGE } from '../../sanity/pagination'
 import { ItemProps, QueryType, sanityFetch } from '../../sanity/queries'
 

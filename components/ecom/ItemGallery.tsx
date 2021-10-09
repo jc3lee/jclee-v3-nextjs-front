@@ -1,6 +1,6 @@
 import { useState } from "react"
-import ImageThumbGroup from "../ImageThumbGroup"
-import ImageWithZoom from "../ImageWithZoom"
+import ImageThumbGroup from "./ImageThumbGroup"
+import ImageWithZoom from "./ImageWithZoom"
 
 interface Props {
   imgSrcArr: {

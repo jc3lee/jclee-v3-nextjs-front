@@ -1,4 +1,4 @@
-import Loading from "./icons/Loading"
+import Loading from "../icons/Loading"
 
 const LoadingPage = () => {
   return (

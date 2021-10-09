@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react'
-import { defaultCardSrc, defaultDescription, defaultTitle } from '../myData/myHeadConfig'
+import { defaultCardSrc, defaultDescription, defaultTitle } from '../../myData/myHeadConfig'
 import MyFooter from './MyFooter'
 import MyHead from './MyHead'
-import MyBlogTopNav from './MyBlogTopNav'
+import MyMainTopNav from './MyMainTopNav'
 
 type Props = {
   children: ReactNode
@@ -11,7 +11,7 @@ type Props = {
   imgSrc?: string
 }
 
-const MyBlogLayout = ({
+const MyMainLayout = ({
   children,
   title = defaultTitle,
   imgSrc = defaultCardSrc,
@@ -19,10 +19,10 @@ const MyBlogLayout = ({
 }: Props) => (
   <>
     <MyHead description={description} imgSrc={imgSrc} title={title} />
-    <MyBlogTopNav />
+    <MyMainTopNav />
     {children}
     <MyFooter />
   </>
 )
 
-export default MyBlogLayout
+export default MyMainLayout

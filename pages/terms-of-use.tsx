@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import { useEffect } from 'react'
 import MyLegalBlockContent from '../components/MyLegalBlockContent'
-import MyMainLayout from '../components/MyMainLayout'
+import MyMainLayout from '../components/layout/MyMainLayout'
 import { termsData } from '../myData/myTermsData'
 
 const TermsOfUse: NextPage = () => {

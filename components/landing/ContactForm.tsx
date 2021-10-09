@@ -3,8 +3,8 @@ import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { AiOutlineRight } from 'react-icons/ai';
-import { contactSubmittedToastId } from '../myConfig/toastConfig';
-import { ADD_CONTACT } from '../myConfig/recapConfig';
+import { contactSubmittedToastId } from '../../myConfig/toastConfig';
+import { ADD_CONTACT } from '../../myConfig/recapConfig';
 
 
 const handleContactSubmitted = () => {

@@ -6,6 +6,7 @@ interface Props {
   linkTo?: string,
 }
 
+// MISC - should replace with sanity later on
 //hack component - a better way would be to save to sanity and use react block content OR using markdown with react-markdown.
 //this method is faster and suits my current needs
 // actually not faster.
