@@ -1,12 +1,21 @@
 import type { AppProps } from 'next/app';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/globals.css';
+import { StoreContext } from "../hooks/StoreContext"
+import { ItemProps } from '../sanity/queries';
+import { getCartFromStorage } from '../stripe/items';
 // import smoothscroll from 'smoothscroll-polyfill';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    const initCart = getCartFromStorage()
+    if (initCart.length > 0) setCart(initCart)
+  }, [])
+
+  const [cart, setCart] = useState<{ itemId: string, qty: number }[]>([])
 
   useEffect(() => {
     // kick off the polyfill!
@@ -22,8 +31,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (<>
     <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY}>
-      <Component {...pageProps} />
-      <ToastContainer />
+      <StoreContext.Provider value={{ cart, setCart }} >
+        <Component {...pageProps} />
+        <ToastContainer />
+      </StoreContext.Provider>
     </GoogleReCaptchaProvider >
   </>)
 }

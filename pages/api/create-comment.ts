@@ -1,6 +1,7 @@
 import { SanityDocument } from '@sanity/client';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { client } from '../../sanity/client';
+import { checkReCaptcha } from '../../utils/recaptcha';
 
 type Data = {
   success: boolean,
@@ -21,19 +22,6 @@ const saveCommentToSanity = (email: string, name: string, text: string, _id: str
       _ref: _id,
     }
   })
-}
-
-const checkReCaptcha = async (recaptchaToken: string) => {
-  const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET}&response=${recaptchaToken}`
-
-  const result = await fetch(verifyUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-  })
-  const data = await result.json()
-  return data
 }
 
 export default async function handler(

@@ -9,13 +9,12 @@ import Mail from "../icons/Mail"
 import Twitter from "../icons/Twitter"
 import { toast } from 'react-toastify';
 import { useGetUrl } from "../../hooks/urlHooks"
+import { copiedUrlToastId } from "../../myConfig/toastConfig"
 
 interface Props {
   url: string,
   title: string,
 }
-
-const copiedUrlToastId = "copied-url-toast-id";
 
 const handleCopy = (text: string, result: boolean) => {
   if (result)

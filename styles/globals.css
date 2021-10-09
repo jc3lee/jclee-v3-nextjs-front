@@ -52,6 +52,11 @@
 		font-style: italic;
     src: url("../fonts/OpenSans-BoldItalic.ttf") format("truetype");
   }
+  @font-face {
+    font-family: "Work Sans";
+    font-weight: 700;
+    src: url("../fonts/WorkSans-Bold.ttf") format("truetype");
+  }
 }
 
 @layer components {

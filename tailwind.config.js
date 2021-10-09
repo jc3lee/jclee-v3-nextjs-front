@@ -12,8 +12,9 @@ module.exports = {
         sky: colors.sky
       },
       fontFamily: {
-        "open": ["'Open Sans'", ...defaultTheme.fontFamily.serif],
+        "open": ["'Open Sans'", ...defaultTheme.fontFamily.sans],
         "rale": ["Raleway", ...defaultTheme.fontFamily.serif],
+        "work": ["'Work Sans'", ...defaultTheme.fontFamily.sans],
       },
       lineClamp: {
         7: '7',

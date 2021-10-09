@@ -1,0 +1,3 @@
+export const ADD_CONTACT = "ADD_CONTACT"
+export const ADD_COMMENT_TO_POST = "ADD_COMMENT_TO_POST"
+export const BUY_NOW_ACTION = "BUY_NOW_ACTION"

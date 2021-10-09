@@ -2,7 +2,8 @@ import { useCallback, useEffect } from 'react';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-const commentSubmittedToastId = "comment-submitted-toast-id";
+import { ADD_COMMENT_TO_POST } from '../../myConfig/recapConfig';
+import { commentSubmittedToastId } from '../../myConfig/toastConfig';
 
 const handleCommentSubmitted = () => {
   toast.success("Comment Submitted!", {
@@ -37,7 +38,7 @@ const CommentForm = ({ className, _id, }: Props) => {
       console.log("recaptcha sucks!");
       return
     }
-    const recaptchaToken = await executeRecaptcha('ADD_COMMENT_TO_POST')
+    const recaptchaToken = await executeRecaptcha(ADD_COMMENT_TO_POST)
     const createCommentRes = await fetch("/api/create-comment", {
       method: "POST",
       body: JSON.stringify({ ...data, _id, recaptchaToken, }),

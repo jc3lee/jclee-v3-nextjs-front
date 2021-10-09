@@ -17,7 +17,9 @@ got rid of categories fetching => not practical/useful
 import { client } from "./client"
 import { NUM_RECENT_POSTS, NUM_RELATED_POSTS } from "./pagination"
 
+// num of posts and items pages pre-build
 const NUM_POSTS_PATHS = 10
+const NUM_ITEMS_PATHS = 8
 
 /* 
 Pre-defined categories because not practical to fetch them every time 
@@ -25,6 +27,20 @@ Pre-defined categories because not practical to fetch them every time
 */
 
 export type categoriesSlugType = "webdev" | "design" | "insights"
+
+export interface ItemProps {
+  description: string,
+  images: {
+    imageUrl: string,
+  }[],
+  itemId: string,
+  pricing: {
+    price: number,
+    priceId: string,
+    currency: string,
+  }[],
+  title: string,
+}
 
 export interface PostProps {
   category: {
@@ -55,6 +71,41 @@ const queryPostObj = `{
 }
 `
 
+const getQueryAllItems = (start: number, end: number) => `
+{
+  "items": *[_type == "item"] [${start}...${end}]{
+    description,
+    images[]{
+      "imageUrl": asset->url,
+    },
+    itemId,
+    pricing[]{
+      price,
+      priceId,
+      currency,
+    },
+    title,
+  },
+  "totalItems": count(*[_type == "item"])
+}
+`
+
+const queryItemFromItemId = `
+*[_type == "item" && itemId == $itemId][0]{
+  description,
+  images[]{
+    "imageUrl": asset->url,
+  },
+  itemId,
+  pricing[]{
+    price,
+    priceId,
+  	currency,
+  },
+  title,
+}
+`
+
 const queryAllAuthorsSlug = `
 *[_type == "author"] {
   "slug": slug.current,
@@ -64,6 +115,12 @@ const queryAllAuthorsSlug = `
 const queryAllCategoriesSlug = `
 *[_type == "category"] {
   "slug": slug.current,
+}
+`
+
+const queryAllItemsItemId = `
+*[_type == "item"] [0...${NUM_ITEMS_PATHS}] {
+  itemId,
 }
 `
 
@@ -225,18 +282,29 @@ type SearchPostsType = {
 export enum QueryType {
   AllAuthorsSlug,
   AllCategoriesSlug,
+  AllItems,
+  AllItemsItemId,
   AllPosts,
   AllPostsSlug,
   PostsByTag,
   AuthorFromSlug,
   CategoryFromSlug,
   HomePosts,
+  ItemFromItemId,
   PostFromSlug,
   SearchPosts,
 }
 
 type SanityQuery = {
   queryType: QueryType,
+  allPostsParams?: {
+    start: number,
+    end: number,
+  },
+  allItemsParams?: {
+    start: number,
+    end: number,
+  },
   authorParams?: {
     author: string,
     start: number,
@@ -247,10 +315,7 @@ type SanityQuery = {
     start: number,
     end: number,
   },
-  allPostsParams?: {
-    start: number,
-    end: number,
-  },
+  itemId?: string,
   post?: string,
   searchParams?: {
     authors?: string[],
@@ -268,12 +333,24 @@ type SanityQuery = {
   },
 }
 
-export const sanityFetch = async ({ allPostsParams, authorParams, categoryParams, post, queryType, searchParams, tagParams, }: SanityQuery) => {
+export const sanityFetch = async ({ allItemsParams, allPostsParams, authorParams, categoryParams, itemId, post, queryType, searchParams, tagParams, }: SanityQuery) => {
   switch (queryType) {
     case QueryType.AllAuthorsSlug:
       return await client.fetch(queryAllAuthorsSlug)
     case QueryType.AllCategoriesSlug:
       return await client.fetch(queryAllCategoriesSlug)
+    case QueryType.AllItems: {
+      if (!allItemsParams) return null
+      const { end, start, } = allItemsParams
+      const queryAllItems = getQueryAllItems(start, end)
+      return await client.fetch(queryAllItems,)
+    }
+    case QueryType.AllItemsItemId:
+      return await client.fetch(queryAllItemsItemId)
+    case QueryType.ItemFromItemId: {
+      if (!itemId) return null
+      return await client.fetch(queryItemFromItemId, { itemId })
+    }
     case QueryType.HomePosts:
       return await client.fetch(queryHome)
     case QueryType.AllPostsSlug:

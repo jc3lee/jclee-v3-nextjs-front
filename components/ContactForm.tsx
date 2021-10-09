@@ -3,9 +3,9 @@ import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { AiOutlineRight } from 'react-icons/ai';
+import { contactSubmittedToastId } from '../myConfig/toastConfig';
+import { ADD_CONTACT } from '../myConfig/recapConfig';
 
-
-const contactSubmittedToastId = "contact-submitted-toast-id";
 
 const handleContactSubmitted = () => {
   toast.success("Your request or inquiry has been submitted!", {
@@ -39,7 +39,7 @@ const ContactForm = ({ className, }: Props) => {
       console.log("recaptcha sucks!");
       return
     }
-    const recaptchaToken = await executeRecaptcha('ADD_CONTACT')
+    const recaptchaToken = await executeRecaptcha(ADD_CONTACT)
     const ctcRes = await fetch("/api/create-contact", {
       method: "POST",
       body: JSON.stringify({ ...data, recaptchaToken, }),
