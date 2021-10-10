@@ -47,5 +47,7 @@ export function useCheckoutConfirm() {
   return {
     showDialog,
     closeDialog,
+    //only for debug
+    setShowDialog,
   }
 }

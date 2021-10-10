@@ -22,7 +22,7 @@ interface Props {
 }
 
 const ItemId: NextPage<Props> = ({ item, }) => {
-  const { showDialog, closeDialog, } = useCheckoutConfirm()
+  const { showDialog, closeDialog, setShowDialog, } = useCheckoutConfirm()
   const { cart, setCart } = useContext(StoreContext) ?? {}
 
   return (
@@ -41,7 +41,14 @@ const ItemId: NextPage<Props> = ({ item, }) => {
             </a>
           </Link>
         </div>
-        <MyDialog showDialog={showDialog} closeDialog={closeDialog} />
+        <button onClick={() => setShowDialog(true)}>Show Dialog</button>
+        <MyDialog
+          subtitle="Successful order!"
+          title="Thanks for buying!"
+          desc="You'll receive a confirmation email"
+          showDialog={showDialog}
+          closeDialog={closeDialog}
+        />
       </div >
     </MyStoreLayout >
   )

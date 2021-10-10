@@ -18,8 +18,8 @@ const MyStoreTopNav = () => {
 
   return (
     <div className="mb-20 sm:mb-22 lg:mb-24">
-      <div className="fixed top-0 z-40 inset-x-0 border-b">
-        <nav className="relative bg-white px-4 max-w-screen-xl mx-auto py-3 lg:py-5">
+      <div className="fixed top-0 z-40 inset-x-0 border-b bg-white">
+        <nav className="relative px-4 max-w-screen-xl mx-auto py-3 lg:py-5">
           <div className="w-full flex items-center relative z-50">
             <div className="flex items-center">
               <Link href="/#"><a className="focus:outline-none leading-none text-2xl lg:text-3xl mr-4">JC LEE</a></Link>

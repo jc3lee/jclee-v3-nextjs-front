@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../styles/globals.css';
 import { StoreContext } from "../hooks/StoreContext"
 import { ItemProps } from '../sanity/queries';
-import { getCartFromStorage } from '../stripe/items';
+import { getCartFromStorage } from '../utils/storeFns';
 // import smoothscroll from 'smoothscroll-polyfill';
 
 function MyApp({ Component, pageProps }: AppProps) {
