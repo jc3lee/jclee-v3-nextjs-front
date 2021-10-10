@@ -1,4 +1,4 @@
-import CaretDbLeft from "../../icons/CaretDbLeft"
+import {HiOutlineChevronDoubleLeft} from "react-icons/hi"
 
 interface Props {
   updateCurrentPageNum: (pageNum: number) => void,
@@ -9,7 +9,7 @@ const PageDbPrevBtn = ({ updateCurrentPageNum }: Props) => {
     updateCurrentPageNum(1)
   }
   return (
-    <button onClick={handleClick} className={`flex justify-center items-center w-8 h-8 rounded-full border border-gray-300 bg-gray-100 transition duration-300 text-gray-500 hover:bg-gray-300 hover:text-white`} ><CaretDbLeft className="" /></button>
+    <button onClick={handleClick} className={`flex justify-center items-center w-8 h-8 rounded-full border border-gray-300 bg-gray-100 transition duration-300 text-gray-500 hover:bg-gray-300 hover:text-white`} ><HiOutlineChevronDoubleLeft className="" /></button>
   )
 }
 

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Search from '../icons/Search'
+import { BiSearch } from "react-icons/bi"
 import { Turn as Ham } from 'hamburger-react'
 import DividerV from '../blog/DividerV'
 import { useEffect, useRef } from 'react'
@@ -40,7 +40,7 @@ const MyBlogTopNav = () => {
           <div className="flex-1"></div>
           <Link href="/blog/search"><a className="focus:outline-none mr-4 mt-1">
             <span className="sr-only">search</span>
-            <Search className="w-7 h-7" />
+            <BiSearch className="w-7 h-7" />
           </a></Link>
           <div className="md:hidden"><Ham direction="left" onToggle={handleHamToggle} /></div>
         </div>

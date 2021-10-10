@@ -1,11 +1,9 @@
 import Link from 'next/link'
-import Search from '../icons/Search'
-import { Turn as Ham } from 'hamburger-react'
-import DividerV from '../blog/DividerV'
-import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useEffect, useRef, useState } from 'react'
+import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai"
 import { slogan } from '../../myData/myBrandConfig'
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"
+import DividerV from '../blog/DividerV'
 
 
 const MyMainTopNav = () => {

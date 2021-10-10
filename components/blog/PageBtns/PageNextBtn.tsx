@@ -1,4 +1,4 @@
-import CaretRight from "../../icons/CaretRight"
+import { HiOutlineChevronRight } from "react-icons/hi"
 
 interface Props {
   currentPageNum: number,
@@ -13,7 +13,7 @@ const PageNextBtn = ({ currentPageNum, totalPages, updateCurrentPageNum, }: Prop
     updateCurrentPageNum(currentPageNum + 1)
   }
   return (
-    <button onClick={handleClick} disabled={!canNext} className={`flex justify-center items-center w-8 h-8 rounded-full border border-gray-300 bg-gray-100 transition duration-300 ${!canNext ? "cursor-default text-gray-300" : "text-gray-500 hover:bg-gray-300 hover:text-white "} `} ><CaretRight className="" /></button>
+    <button onClick={handleClick} disabled={!canNext} className={`flex justify-center items-center w-8 h-8 rounded-full border border-gray-300 bg-gray-100 transition duration-300 ${!canNext ? "cursor-default text-gray-300" : "text-gray-500 hover:bg-gray-300 hover:text-white "} `} ><HiOutlineChevronRight className="" /></button>
   )
 
 }

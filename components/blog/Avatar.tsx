@@ -1,5 +1,5 @@
 import { getImageUrlWithTransformation } from "../../sanity/tools"
-import Person from "../icons/Person"
+import { IoPersonCircleSharp } from "react-icons/io5"
 
 interface Props {
   name: string,
@@ -14,7 +14,7 @@ const Avatar = ({ name, className, imageUrl }: Props) => {
     return (
       <img className={`${className} mx-auto object-cover rounded-full`} src={getImageUrlWithTransformation(imageUrl, { width: 400, height: 400 })} alt={alt} />
     )
-  return <Person className={`${className} mx-auto rounded-full`} alt={alt} />
+  return <IoPersonCircleSharp className={`${className} mx-auto rounded-full`} />
 }
 
 export default Avatar
