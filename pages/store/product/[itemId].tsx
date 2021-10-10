@@ -5,13 +5,16 @@ import { BsArrowLeft } from "react-icons/bs"
 import ItemDesc from '../../../components/ecom/ItemDesc'
 import ItemGallery from '../../../components/ecom/ItemGallery'
 import RelatedItems from '../../../components/ecom/RelatedItems'
-import MyDialog from '../../../components/headless/MyDialog'
+import CheckoutSuccessDialog from '../../../components/ecom/CSDialog'
 import MyStoreLayout from '../../../components/layout/MyStoreLayout'
 import { useCheckoutConfirm } from '../../../hooks/CheckoutConfirm'
 import { StoreContext } from '../../../hooks/StoreContext'
 import { getNextPathsSlug } from '../../../nextjs/tools'
 import { ItemProps, QueryType, sanityFetch } from '../../../sanity/queries'
 import getStripe from '../../../stripe/get-stripejs'
+import { getTotalItems } from '../../../utils/storeFns'
+import AddedToCartDialog from '../../../components/ecom/ATCDialog'
+import { useAddedToCart } from '../../../hooks/AddedToCart'
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -22,15 +25,20 @@ interface Props {
 }
 
 const ItemId: NextPage<Props> = ({ item, }) => {
-  const { showDialog, closeDialog, setShowDialog, } = useCheckoutConfirm()
+  const { closeConfirmDialog, showConfirmDialog, } = useCheckoutConfirm()
+  const { closeAddedToCartDialog, setShowAddedToCartDialog, showAddedToCartDialog, } = useAddedToCart()
+  const handleAddedToCart = () => {
+    setShowAddedToCartDialog(true)
+  }
   const { cart, setCart } = useContext(StoreContext) ?? {}
+  const numCartItems = getTotalItems(cart)
 
   return (
     <MyStoreLayout>
       <div className="px-4 max-w-screen-xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-6 lg:gap-x-12 max-w-screen-lg mx-auto">
           <ItemGallery imgSrcArr={item.images} className="max-w-md md:max-w-full w-full mx-auto" />
-          <ItemDesc className="mt-8 md:mt-0" item={item} cart={cart} setCart={setCart} />
+          <ItemDesc handleAddedToCart={handleAddedToCart} className="mt-8 md:mt-0" item={item} cart={cart} setCart={setCart} />
         </div>
         <RelatedItems className="mt-16" />
         <div className="mt-16 flex justify-center mb-40">
@@ -41,14 +49,12 @@ const ItemId: NextPage<Props> = ({ item, }) => {
             </a>
           </Link>
         </div>
-        <button onClick={() => setShowDialog(true)}>Show Dialog</button>
-        <MyDialog
-          subtitle="Successful order!"
-          title="Thanks for buying!"
-          desc="You'll receive a confirmation email"
-          showDialog={showDialog}
-          closeDialog={closeDialog}
+        <CheckoutSuccessDialog
+          showDialog={showConfirmDialog}
+          closeDialog={closeConfirmDialog}
         />
+        <AddedToCartDialog item={item} qty={1} numCartItems={numCartItems} showDialog={showAddedToCartDialog} closeDialog={closeAddedToCartDialog} />
+        <button onClick={() => setShowAddedToCartDialog(true)}>Show Added</button>
       </div >
     </MyStoreLayout >
   )

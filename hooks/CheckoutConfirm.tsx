@@ -20,15 +20,16 @@ const fetchSessionEmail = async (id: string) => {
   }
 }
 
-const checkoutConfirmation = async (id: string, setShowDialog: Dispatch<SetStateAction<boolean>>) => {
-  const customerEmail = await fetchSessionEmail(id)
-  if (customerEmail) setShowDialog(true)
+const checkoutConfirmation = async (id: string, setShowConfirmDialog: Dispatch<SetStateAction<boolean>>) => {
+  // const customerEmail = await fetchSessionEmail(id)
+  // if (customerEmail) setShowDialog(true)
+  setShowConfirmDialog(true)
 }
 
 export function useCheckoutConfirm() {
-  const [showDialog, setShowDialog] = useState(false)
-  const closeDialog = () => {
-    setShowDialog(false)
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false)
+  const closeConfirmDialog = () => {
+    setShowConfirmDialog(false)
   }
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
@@ -40,14 +41,14 @@ export function useCheckoutConfirm() {
     if (query.get('success') && session_id) {
       console.log('Order placed! You will receive an email confirmation.', session_id);
       // 
-      checkoutConfirmation(session_id, setShowDialog)
+      checkoutConfirmation(session_id, setShowConfirmDialog)
     }
   }, []);
 
   return {
-    showDialog,
-    closeDialog,
+    showConfirmDialog,
+    closeConfirmDialog,
     //only for debug
-    setShowDialog,
+    // setShowConfirmDialog,
   }
 }

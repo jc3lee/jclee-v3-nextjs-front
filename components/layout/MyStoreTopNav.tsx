@@ -3,18 +3,12 @@ import { useContext } from 'react'
 import { AiOutlineShoppingCart } from "react-icons/ai"
 import DividerV from '../blog/DividerV'
 import { StoreContext } from '../../hooks/StoreContext'
-
-const getTotalItems = (cart?: { itemId: string, qty: number }[]) => {
-  if (!cart) return 0
-  else return cart.reduce((tempTotalQty, b) => {
-    return tempTotalQty + b.qty
-  }, 0)
-}
+import { getTotalItems } from '../../utils/storeFns'
 
 const MyStoreTopNav = () => {
   const { cart, setCart } = useContext(StoreContext) ?? {}
-  const numItems = getTotalItems(cart)
-  console.log("numItems", numItems);
+  const numCartItems = getTotalItems(cart)
+  console.log("numCartItems", numCartItems);
 
   return (
     <div className="mb-20 sm:mb-22 lg:mb-24">
@@ -32,7 +26,7 @@ const MyStoreTopNav = () => {
                 <span className="hidden sm:inline tracking-wide">Shopping Cart</span>
                 <div className="relative">
                   <AiOutlineShoppingCart aria-hidden={true} className="ml-2 w-8 h-8" />
-                  <div className={`${numItems === 0 && "hidden"} absolute -top-1.5 -right-1.5 text-xs text-white bg-blue-800 rounded-full w-5 h-5 flex justify-center items-center`}>{numItems}</div>
+                  <div className={`${numCartItems === 0 && "hidden"} absolute -top-1.5 -right-1.5 text-xs text-white bg-blue-800 rounded-full w-5 h-5 flex justify-center items-center`}>{numCartItems}</div>
                 </div>
               </a></Link>
             </div>

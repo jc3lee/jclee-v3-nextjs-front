@@ -68,3 +68,10 @@ export const handleItemCheckout = async (itemId: string, priceId: string, quanti
     window.location.href = redirectUrl
   }
 }
+
+export const getTotalItems = (cart?: { itemId: string, qty: number }[]) => {
+  if (!cart) return 0
+  else return cart.reduce((tempTotalQty, b) => {
+    return tempTotalQty + b.qty
+  }, 0)
+}
