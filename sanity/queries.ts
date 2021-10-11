@@ -1,19 +1,4 @@
-/*
-27/08
-Goal: adding recent posts  & categories navbar on fetch 
-How to fetch once for all pages? 
-https://github.com/vercel/next.js/discussions/10949
-This link shows it's not really possible to fetch once in _app
-Once might not be my desired result: if a new post is published I'll need to update recent posts. It's less likely a new category would be created but anyway
-Since every blog page needs a fetch already, I decided to add those two parameters to every fetch query that goes to getstaticprops
-
-I'll see if that impacts performance
-
-12/09
-"categoriesNav": ${queryCategoriesNav},
-got rid of categories fetching => not practical/useful
-*/
-
+import { Dispatch, SetStateAction } from "react"
 import { client } from "./client"
 import { NUM_RECENT_POSTS, NUM_RELATED_POSTS } from "./pagination"
 
@@ -71,27 +56,7 @@ const queryPostObj = `{
 }
 `
 
-const getQueryAllItems = (start: number, end: number) => `
-{
-  "items": *[_type == "item"] [${start}...${end}]{
-    description,
-    images[]{
-      "imageUrl": asset->url,
-    },
-    itemId,
-    pricing[]{
-      price,
-      priceId,
-      currency,
-    },
-    title,
-  },
-  "totalItems": count(*[_type == "item"])
-}
-`
-
-const queryItemFromItemId = `
-*[_type == "item" && itemId == $itemId][0]{
+const queryItemObj = `{
   description,
   images[]{
     "imageUrl": asset->url,
@@ -100,10 +65,24 @@ const queryItemFromItemId = `
   pricing[]{
     price,
     priceId,
-  	currency,
+    currency,
   },
   title,
+}`
+
+const queryItemsFromItemIds = `
+*[_type == "item" && itemId in $itemIds] ${queryItemObj},
+`
+
+const getQueryAllItems = (start: number, end: number) => `
+{
+  "items": *[_type == "item"] [${start}...${end}]${queryItemObj},
+  "totalItems": count(*[_type == "item"])
 }
+`
+
+const queryItemFromItemId = `
+*[_type == "item" && itemId == $itemId][0]${queryItemObj}
 `
 
 const queryAllAuthorsSlug = `
@@ -291,11 +270,12 @@ export enum QueryType {
   CategoryFromSlug,
   HomePosts,
   ItemFromItemId,
+  ItemsFromItemIds,
   PostFromSlug,
   SearchPosts,
 }
 
-type SanityQuery = {
+export type SanityQuery = {
   queryType: QueryType,
   allPostsParams?: {
     start: number,
@@ -316,6 +296,7 @@ type SanityQuery = {
     end: number,
   },
   itemId?: string,
+  itemIds?: string[],
   post?: string,
   searchParams?: {
     authors?: string[],
@@ -333,7 +314,7 @@ type SanityQuery = {
   },
 }
 
-export const sanityFetch = async ({ allItemsParams, allPostsParams, authorParams, categoryParams, itemId, post, queryType, searchParams, tagParams, }: SanityQuery) => {
+export const sanityFetch = async ({ allItemsParams, allPostsParams, authorParams, categoryParams, itemId, itemIds, post, queryType, searchParams, tagParams, }: SanityQuery) => {
   switch (queryType) {
     case QueryType.AllAuthorsSlug:
       return await client.fetch(queryAllAuthorsSlug)
@@ -350,6 +331,10 @@ export const sanityFetch = async ({ allItemsParams, allPostsParams, authorParams
     case QueryType.ItemFromItemId: {
       if (!itemId) return null
       return await client.fetch(queryItemFromItemId, { itemId })
+    }
+    case QueryType.ItemsFromItemIds: {
+      if (!itemIds || itemIds.length === 0) return null
+      return await client.fetch(queryItemsFromItemIds, { itemIds })
     }
     case QueryType.HomePosts:
       return await client.fetch(queryHome)
@@ -396,5 +381,23 @@ export const sanityFetch = async ({ allItemsParams, allPostsParams, authorParams
     }
     default:
       throw new Error(`No such query type ${queryType}`);
+  }
+}
+
+export const fetchCartItems = async (cart: {
+  itemId: string;
+  qty: number;
+}[], setSanityItems: Dispatch<SetStateAction<ItemProps[] | undefined>>) => {
+  try {
+    const itemIds = cart.map(itemObj => itemObj.itemId)
+    const fetchData = await fetch("/api/sanity", {
+      method: "POST",
+      body: JSON.stringify({ itemIds }),
+    })
+    const res: { success: boolean, data: any } = await fetchData.json()
+    const { itemProps }: { itemProps: ItemProps[] } = JSON.parse(res.data || "")
+    setSanityItems(itemProps)
+  } catch (error: any) {
+    console.log(error.message);
   }
 }

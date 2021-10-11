@@ -8,7 +8,7 @@ import { getTotalItems } from '../../utils/storeFns'
 const MyStoreTopNav = () => {
   const { cart, setCart } = useContext(StoreContext) ?? {}
   const numCartItems = getTotalItems(cart)
-  console.log("numCartItems", numCartItems);
+  // console.log("numCartItems", numCartItems);
 
   return (
     <div className="mb-20 sm:mb-22 lg:mb-24">

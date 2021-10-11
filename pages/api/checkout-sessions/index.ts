@@ -41,7 +41,7 @@ export default async function handler(
   // return res.status(200).json({ name: "nothing" })
   if (req.method === 'POST') {
     try {
-      console.log("here2");
+      // console.log("here2");
       // const { items, pathname, recaptchaToken, } = wwwDecode(req.query.data)
       const { items, pathname, } = JSON.parse(req.body)
       // console.log("items", items, "pathname", pathname,);
@@ -74,7 +74,7 @@ export default async function handler(
         success_url: `${req.headers.origin}${pathname}/?success=true&session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}${pathname}/?canceled=true`,
       });
-      console.log("here3");
+      // console.log("here3");
       if (session.url) {
         res.status(200).json({ redirectUrl: session.url, error: false, errorMessage: "" })
       } else {
@@ -83,7 +83,7 @@ export default async function handler(
       //redirect works only from html forms
       // res.redirect(303, session.url ?? `${req.headers.origin}${pathname}/?canceled=true`);
     } catch (err: any) {
-      console.log("here4", err.message);
+      // console.log("here4", err.message);
       res.status(err.statusCode || 500).json({ redirectUrl: "", error: true, errorMessage: (err.message as string), });
     }
   } else {

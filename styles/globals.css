@@ -54,6 +54,11 @@
   }
   @font-face {
     font-family: "Work Sans";
+    font-weight: 400;
+    src: url("../fonts/WorkSans-Regular.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "Work Sans";
     font-weight: 700;
     src: url("../fonts/WorkSans-Bold.ttf") format("truetype");
   }

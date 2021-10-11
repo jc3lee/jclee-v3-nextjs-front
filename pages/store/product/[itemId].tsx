@@ -7,7 +7,7 @@ import ItemGallery from '../../../components/ecom/ItemGallery'
 import RelatedItems from '../../../components/ecom/RelatedItems'
 import CheckoutSuccessDialog from '../../../components/ecom/CSDialog'
 import MyStoreLayout from '../../../components/layout/MyStoreLayout'
-import { useCheckoutConfirm } from '../../../hooks/CheckoutConfirm'
+import { useItemCheckoutConfirm } from '../../../hooks/CheckoutConfirm'
 import { StoreContext } from '../../../hooks/StoreContext'
 import { getNextPathsSlug } from '../../../nextjs/tools'
 import { ItemProps, QueryType, sanityFetch } from '../../../sanity/queries'
@@ -25,13 +25,13 @@ interface Props {
 }
 
 const ItemId: NextPage<Props> = ({ item, }) => {
-  const { closeConfirmDialog, showConfirmDialog, } = useCheckoutConfirm()
+  const { cart, setCart } = useContext(StoreContext) ?? {}
+  const numCartItems = getTotalItems(cart)
+  const { showConfirmDialog, closeConfirmDialog, setShowConfirmDialog } = useItemCheckoutConfirm()
   const { closeAddedToCartDialog, setShowAddedToCartDialog, showAddedToCartDialog, } = useAddedToCart()
   const handleAddedToCart = () => {
     setShowAddedToCartDialog(true)
   }
-  const { cart, setCart } = useContext(StoreContext) ?? {}
-  const numCartItems = getTotalItems(cart)
 
   return (
     <MyStoreLayout>
@@ -54,7 +54,7 @@ const ItemId: NextPage<Props> = ({ item, }) => {
           closeDialog={closeConfirmDialog}
         />
         <AddedToCartDialog item={item} qty={1} numCartItems={numCartItems} showDialog={showAddedToCartDialog} closeDialog={closeAddedToCartDialog} />
-        <button onClick={() => setShowAddedToCartDialog(true)}>Show Added</button>
+        <button onClick={() => setShowConfirmDialog(true)}>Show Confirm</button>
       </div >
     </MyStoreLayout >
   )

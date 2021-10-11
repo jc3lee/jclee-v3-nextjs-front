@@ -1,11 +1,15 @@
-import type { NextPage } from 'next'
-import { GetServerSideProps } from 'next'
+import type { NextPage, GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
+import { useContext, useEffect, useRef, useState } from 'react'
+import CheckoutSuccessDialog from '../../components/ecom/CSDialog'
 import ItemsPagination from '../../components/ecom/ItemsPagination'
 import ItemSquare from '../../components/ecom/ItemSquare'
 import MyStoreLayout from '../../components/layout/MyStoreLayout'
+import { useCartCheckoutConfirm, useCheckoutConfirm } from '../../hooks/CheckoutConfirm'
+import { StoreContext } from '../../hooks/StoreContext'
 import { getQueryConstraints, NUM_ITEMS_PER_STORE_PAGE } from '../../sanity/pagination'
 import { ItemProps, QueryType, sanityFetch } from '../../sanity/queries'
+import { deleteCartFromStorage, handleResetCart, saveCartToStorage } from '../../utils/storeFns'
 
 interface Props {
   items: ItemProps[],
@@ -15,6 +19,9 @@ interface Props {
 
 const Store: NextPage<Props> = ({ items, pageNum, totalItems, }) => {
   const router = useRouter()
+  const { cart, setCart } = useContext(StoreContext) ?? {}
+  const { closeConfirmDialog, showConfirmDialog, } = useCartCheckoutConfirm(cart, setCart)
+
   const handlePageSwitch = (pageNum: number) => {
     router.push({
       pathname: "/store",
@@ -32,6 +39,10 @@ const Store: NextPage<Props> = ({ items, pageNum, totalItems, }) => {
         </div>
         <ItemsPagination className="mt-12 mb-16" numItemsPerPage={NUM_ITEMS_PER_STORE_PAGE} pageNum={pageNum} totalItems={totalItems} updateCurrentPageNum={handlePageSwitch} />
       </div>
+      <CheckoutSuccessDialog
+        showDialog={showConfirmDialog}
+        closeDialog={closeConfirmDialog}
+      />
     </MyStoreLayout>
   )
 }

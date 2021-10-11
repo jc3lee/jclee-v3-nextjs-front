@@ -1,6 +1,6 @@
 import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai"
 import { gsap } from 'gsap'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 interface Props {
   showDialog: boolean,
@@ -8,18 +8,29 @@ interface Props {
 }
 
 const CheckoutSuccessDialog = ({ showDialog, closeDialog, }: Props) => {
-  const tl = gsap.timeline()
+  const [animOk, setAnimOk] = useState(false)
+  let tl: gsap.core.Timeline | undefined
+
+  const getTimeline = () => {
+    const tl = gsap.timeline()
+    tl.to(".confirmOverlay", { opacity: 1, duration: 0.3 }, "together")
+    tl.to(".confirmBox", { yPercent: 0, opacity: 1, duration: 0.3, ease: "power3" }, "together")
+    return tl
+  }
+
   useEffect(() => {
-    if (showDialog) {
-      tl.to(".confirmOverlay", { opacity: 1, duration: 0.3 }, "together")
-      tl.to(".confirmBox", { yPercent: 0, opacity: 1, duration: 0.3, ease: "power3" }, "together")
+    const confirmOverlay = document.querySelector(".confirmOverlay")
+    const confirmBox = document.querySelector(".confirmBox")
+    if (confirmOverlay && confirmBox && !tl) {
+      tl = getTimeline()
     }
-  }, [showDialog])
+  }, [showDialog, tl])
 
   const handleHideDialog = () => {
-    // animate hiding
+    if (!tl) {
+      tl = getTimeline()
+    }
     tl.reverse().then(() => {
-      //  hide
       closeDialog()
     })
   }

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.4.1",
+    "@reach/auto-id": "^0.16.0",
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^2.18.0",
     "@stripe/stripe-js": "^1.19.1",

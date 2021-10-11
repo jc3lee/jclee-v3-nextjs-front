@@ -18,11 +18,9 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     try {
-      console.log("here session");
       const { id } = JSON.parse(req.body)
       const session = await stripe.checkout.sessions.retrieve(id,)
       // console.log("session customer details", session.customer_details);
-
       if (session.customer_details?.email) {
         res.status(200).json({ email: session.customer_details.email || "", error: false, errorMessage: "" })
       } else {

@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
+import { deleteCartFromStorage, handleResetCart } from "../utils/storeFns";
 
 const fetchSessionEmail = async (id: string) => {
   try {
@@ -26,29 +27,61 @@ const checkoutConfirmation = async (id: string, setShowConfirmDialog: Dispatch<S
   setShowConfirmDialog(true)
 }
 
-export function useCheckoutConfirm() {
+export function useItemCheckoutConfirm() {
+  const counter = useRef(0)
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
   const closeConfirmDialog = () => {
     setShowConfirmDialog(false)
   }
   useEffect(() => {
-    // Check to see if this is a redirect back from Checkout
-    const query = new URLSearchParams(window.location.search);
-    if (query.get('canceled')) {
-      console.log('Order canceled -- continue to shop around and checkout when you’re ready.');
+    if (!showConfirmDialog && counter.current === 0) {
+      // Check to see if this is a redirect back from Checkout
+      const query = new URLSearchParams(window.location.search);
+      const session_id = query.get('session_id')
+      if (query.get('success') && session_id) {
+        setShowConfirmDialog(true)
+        counter.current += 1
+      }
     }
-    const session_id = query.get('session_id')
-    if (query.get('success') && session_id) {
-      console.log('Order placed! You will receive an email confirmation.', session_id);
-      // 
-      checkoutConfirmation(session_id, setShowConfirmDialog)
-    }
-  }, []);
-
+  }, [showConfirmDialog, counter,]);
   return {
     showConfirmDialog,
     closeConfirmDialog,
-    //only for debug
-    // setShowConfirmDialog,
+    //debug
+    setShowConfirmDialog,
+  }
+}
+
+export function useCartCheckoutConfirm(
+  cart: {
+    itemId: string;
+    qty: number;
+  }[] | undefined,
+  setCart: Dispatch<SetStateAction<{
+    itemId: string;
+    qty: number;
+  }[]>> | undefined) {
+  const counter = useRef(0)
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false)
+  const closeConfirmDialog = () => {
+    setShowConfirmDialog(false)
+  }
+  useEffect(() => {
+    if (cart && setCart && !showConfirmDialog && counter.current === 0) {
+      // Check to see if this is a redirect back from Checkout
+      const query = new URLSearchParams(window.location.search);
+      const session_id = query.get('session_id')
+      if (query.get('success') && session_id) {
+        setShowConfirmDialog(true)
+        // reset cart
+        handleResetCart(setCart)
+        deleteCartFromStorage()
+        counter.current += 1
+      }
+    }
+  }, [showConfirmDialog, counter, cart, setCart]);
+  return {
+    showConfirmDialog,
+    closeConfirmDialog,
   }
 }

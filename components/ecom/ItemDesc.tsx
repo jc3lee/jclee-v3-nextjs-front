@@ -1,8 +1,6 @@
-import { Dispatch, SetStateAction, useState } from "react"
+import { Dispatch, SetStateAction } from "react"
 import { ItemProps } from "../../sanity/queries"
-import { formatAmountForDisplay, handleAddToCart, handleItemCheckout } from "../../utils/storeFns"
-import ImageThumbGroup from "./ImageThumbGroup"
-import ImageWithZoom from "./ImageWithZoom"
+import { formatAmountForDisplay, handleAddToCart, handleItemCheckout, saveCartToStorage } from "../../utils/storeFns"
 
 interface Props {
   cart: {
@@ -22,7 +20,8 @@ const ItemDesc = ({ className, item, cart, setCart, handleAddedToCart }: Props) 
   const pricing = item.pricing[0]
   const displayPrice = formatAmountForDisplay(pricing.price, pricing.currency)
   const handleAddToCartBtnClick = () => {
-    handleAddToCart(item.itemId, 1, cart, setCart)
+    const newCart = handleAddToCart(item.itemId, 1, cart, setCart)
+    if (newCart) saveCartToStorage(newCart)
     handleAddedToCart()
   }
 
