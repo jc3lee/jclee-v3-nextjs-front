@@ -1,6 +1,6 @@
 import type { NextRouter } from "next/router"
 
-export const NUM_ITEMS_PER_STORE_PAGE = 3
+export const NUM_ITEMS_PER_STORE_PAGE = 8
 export const NUM_RELATED_ITEMS = 4
 export const NUM_POSTS_PER_POST_PAGE = 4
 export const NUM_POSTS_PER_LATEST_PAGE = 4
