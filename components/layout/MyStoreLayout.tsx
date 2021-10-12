@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { defaultCardSrc, defaultDescription, defaultTitle } from '../../myData/myHeadConfig'
+import { defaultCardSrc, defaultDescription, storeTitle } from '../../myData/myHeadConfig'
 import MyFooter from './MyFooter'
 import MyHead from './MyHead'
 import MyStoreTopNav from './MyStoreTopNav'
@@ -13,7 +13,7 @@ type Props = {
 
 const MyStoreLayout = ({
   children,
-  title = defaultTitle,
+  title = storeTitle,
   imgSrc = defaultCardSrc,
   description = defaultDescription,
 }: Props) => (

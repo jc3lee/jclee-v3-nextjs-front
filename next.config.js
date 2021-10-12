@@ -1,5 +1,7 @@
+const withTM = require('next-transpile-modules')(['swiper']);
+
 /** @type {import('next').NextConfig} */
-module.exports = {
+module.exports = withTM({
   reactStrictMode: true,
   typescript: {
     // !! WARN !!
@@ -14,4 +16,4 @@ module.exports = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
-}
+})

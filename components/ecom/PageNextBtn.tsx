@@ -13,7 +13,7 @@ const PageNextBtn = ({ currentPageNum, totalPages, updateCurrentPageNum, }: Prop
     updateCurrentPageNum(currentPageNum + 1)
   }
   return (
-    <button onClick={handleClick} disabled={!canNext} className={`py-1.5 px-3 flex justify-center rounded-sm border border-black ${!canNext ? "cursor-default text-gray-400" : "text-black"} `} >
+    <button onClick={handleClick} disabled={!canNext} className={`py-1.5 px-3 flex justify-center rounded-sm border focus:outline-none focus:ring-1 focus:ring-black border-black ${!canNext ? "cursor-default text-gray-500" : "text-black"} `} >
       <BsArrowRight aria-hidden={true} className="w-6 h-6" />
       <span className="sr-only">Next page</span>
     </button>

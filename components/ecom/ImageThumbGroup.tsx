@@ -36,9 +36,9 @@ const ImageThumbGroup = ({ className, gallery, updateImageZoom, }: Props) => {
         className="w-full flex-1 relative"
       >
         {
-          gallery.map((img, index) => {
+          gallery.map((img,) => {
             const transformedImgSrc = getImageUrlWithTransformation(img.imageUrl, { width: 400, })
-            return (<SwiperSlide key={index}>
+            return (<SwiperSlide key={img.imageUrl}>
               <div className="aspect-w-1 aspect-h-1">
                 <img onClick={() => updateImageZoom(img.imageUrl)} role="button" className="object-cover object-top" src={transformedImgSrc} alt="image" />
               </div>

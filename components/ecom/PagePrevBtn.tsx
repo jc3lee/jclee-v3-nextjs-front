@@ -13,7 +13,7 @@ const PagePrevBtn = ({ currentPageNum, totalPages, updateCurrentPageNum, }: Prop
     updateCurrentPageNum(currentPageNum - 1)
   }
   return (
-    <button onClick={handleClick} disabled={!canPrev} className={`py-1.5 px-3 rounded-sm border border-black ${!canPrev ? "cursor-default text-gray-400" : "text-black"} `} >
+    <button onClick={handleClick} disabled={!canPrev} className={`py-1.5 px-3 rounded-sm border border-black focus:outline-none focus:ring-1 focus:ring-black ${!canPrev ? "cursor-default text-gray-500" : "text-black"} `} >
       <BsArrowLeft aria-hidden={true} className="w-6 h-6" />
       <span className="sr-only">Previous page</span>
     </button>

@@ -14,7 +14,8 @@ interface Props {
 const CheckoutItemLine = ({ item, qty, updateCart }: Props) => {
   const inputId = useId()
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    updateCart(item.itemId, e.target.valueAsNumber)
+    const parsedInt = Number.parseInt(e.target.value)
+    if (!Number.isNaN(parsedInt)) updateCart(item.itemId, parsedInt)
   }
   const handleRemove = () => {
     updateCart(item.itemId, 0)

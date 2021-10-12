@@ -25,6 +25,7 @@
     "hamburger-react": "^2.4.1",
     "lodash": "^4.17.21",
     "next": "11.1.2",
+    "next-transpile-modules": "^8.0.0",
     "prismjs": "^1.24.1",
     "react": "17.0.2",
     "react-copy-to-clipboard": "^5.0.4",

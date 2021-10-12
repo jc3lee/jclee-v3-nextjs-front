@@ -8,7 +8,6 @@ interface Props {
   className?: string,
 }
 
-
 const ItemSquare = ({ className, item, }: Props) => {
   const { price, currency } = item.pricing[0]
   const itemPrice = formatAmountForDisplay(price, currency)
