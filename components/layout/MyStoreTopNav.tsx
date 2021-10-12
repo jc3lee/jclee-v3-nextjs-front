@@ -25,6 +25,7 @@ const MyStoreTopNav = () => {
               <Link href="/store/checkout"><a className={`mr-3 md:mr-4 py-0.5 flex items-center`}>
                 <span className="hidden sm:inline tracking-wide">Shopping Cart</span>
                 <div className="relative">
+                  <span className="sm:hidden sr-only">Shopping Cart</span>
                   <AiOutlineShoppingCart aria-hidden={true} className="ml-2 w-8 h-8" />
                   <div className={`${numCartItems === 0 && "hidden"} absolute -top-1.5 -right-1.5 text-xs text-white bg-blue-800 rounded-full w-5 h-5 flex justify-center items-center`}>{numCartItems}</div>
                 </div>
