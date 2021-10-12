@@ -127,7 +127,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       pageNum,
       totalItems: res.totalItems,
     },
-    revalidate: 1,
+    revalidate: 60,
   }
 }
 
