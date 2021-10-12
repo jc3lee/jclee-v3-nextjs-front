@@ -42,7 +42,7 @@ const ItemId: NextPage<Props> = ({ item, }) => {
           <ItemDesc handleAddedToCart={handleAddedToCart} className="mt-8 md:mt-0" item={item} cart={cart} setCart={setCart} />
         </div>
         <RelatedItems relatedItems={item.relatedItems} className="mt-20" />
-        <div className="mt-16 flex justify-center mb-40">
+        <div className="mt-8 flex justify-center mb-40">
           <Link href="/store">
             <a className="w-80 py-2 max-w-full text-blue-900 border border-blue-800 rounded-sm font-bold flex items-center justify-center">
               <BsArrowLeft aria-hidden={true} className="w-8 h-8 mr-4" />

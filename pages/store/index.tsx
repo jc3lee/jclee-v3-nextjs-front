@@ -31,6 +31,9 @@ const Store: NextPage<Props> = ({ items, pageNum, totalItems, }) => {
   return (
     <MyStoreLayout>
       <div className="font-rale px-4 max-w-screen-xl mx-auto">
+        <div className="pt-16 pb-20 border-b flex justify-center">
+          <h1 className="text-3xl font-bold">All my products</h1>
+        </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 lg:gap-x-8">
           {
             items.map((item) => <ItemSquare key={`store-${item.itemId}`} item={item} className="max-w-xs my-8" />)
