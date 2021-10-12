@@ -49,7 +49,7 @@ const Store: NextPage<Props> = ({ items, pageNum, totalItems, }) => {
             items.map((item) => <ItemSquare key={`store-${item.itemId}`} item={item} className="max-w-xs my-8" />)
           }
         </div>
-        <ItemsPagination className="mt-12 mb-16" numItemsPerPage={NUM_ITEMS_PER_STORE_PAGE} pageNum={pageNum} totalItems={totalItems} updateCurrentPageNum={handlePageSwitch} />
+        <ItemsPagination className="mt-12 mb-32 lg:mb-40" numItemsPerPage={NUM_ITEMS_PER_STORE_PAGE} pageNum={pageNum} totalItems={totalItems} updateCurrentPageNum={handlePageSwitch} />
       </div>
       <CheckoutSuccessDialog
         showDialog={showConfirmDialog}
