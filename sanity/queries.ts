@@ -148,6 +148,10 @@ const queryAllItemsItemId = `
 }
 `
 
+const queryAllItemsCount = `
+count(*[_type == "item"])
+`
+
 const queryAllPostsSlug = `
 *[_type == "post"] [0...${NUM_POSTS_PATHS}] {
   "slug": slug.current,
@@ -301,6 +305,7 @@ export enum QueryType {
   AllAuthorsSlug,
   AllCategoriesSlug,
   AllItems,
+  AllItemsCount,
   AllItemsItemId,
   AllPosts,
   AllPostsSlug,
@@ -364,6 +369,9 @@ export const sanityFetch = async ({ allItemsParams, allPostsParams, authorParams
       const { end, start, } = allItemsParams
       const queryAllItems = getQueryAllItems(start, end)
       return await client.fetch(queryAllItems,)
+    }
+    case QueryType.AllItemsCount: {
+      return await client.fetch(queryAllItemsCount)
     }
     case QueryType.AllItemsItemId:
       return await client.fetch(queryAllItemsItemId)
