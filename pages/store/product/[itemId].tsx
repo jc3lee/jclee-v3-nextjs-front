@@ -10,7 +10,7 @@ import MyStoreLayout from '../../../components/layout/MyStoreLayout'
 import { useItemCheckoutConfirm } from '../../../hooks/CheckoutConfirm'
 import { StoreContext } from '../../../hooks/StoreContext'
 import { getNextPathsSlug } from '../../../nextjs/tools'
-import { ItemProps, QueryType, sanityFetch } from '../../../sanity/queries'
+import { ItemProps, ItemPropsWithRelated, QueryType, sanityFetch } from '../../../sanity/queries'
 import getStripe from '../../../stripe/get-stripejs'
 import { getTotalItems } from '../../../utils/storeFns'
 import AddedToCartDialog from '../../../components/ecom/ATCDialog'
@@ -21,7 +21,7 @@ import { useAddedToCart } from '../../../hooks/AddedToCart'
 const stripePromise = getStripe()
 
 interface Props {
-  item: ItemProps,
+  item: ItemPropsWithRelated,
 }
 
 const ItemId: NextPage<Props> = ({ item, }) => {
@@ -33,14 +33,15 @@ const ItemId: NextPage<Props> = ({ item, }) => {
     setShowAddedToCartDialog(true)
   }
 
+  if (!item) return null
   return (
     <MyStoreLayout>
       <div className="px-4 max-w-screen-xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-6 lg:gap-x-12 max-w-screen-lg mx-auto">
-          <ItemGallery imgSrcArr={item.images} className="max-w-md md:max-w-full w-full mx-auto" />
+          <ItemGallery key={`itemGallery-${item.itemId}`} imgSrcArr={item.images} className="max-w-md md:max-w-full w-full mx-auto" />
           <ItemDesc handleAddedToCart={handleAddedToCart} className="mt-8 md:mt-0" item={item} cart={cart} setCart={setCart} />
         </div>
-        <RelatedItems className="mt-16" />
+        <RelatedItems relatedItems={item.relatedItems} className="mt-20" />
         <div className="mt-16 flex justify-center mb-40">
           <Link href="/store">
             <a className="w-80 py-2 max-w-full text-blue-900 border border-blue-800 rounded-sm font-bold flex items-center justify-center">
@@ -54,7 +55,7 @@ const ItemId: NextPage<Props> = ({ item, }) => {
           closeDialog={closeConfirmDialog}
         />
         <AddedToCartDialog item={item} qty={1} numCartItems={numCartItems} showDialog={showAddedToCartDialog} closeDialog={closeAddedToCartDialog} />
-        <button onClick={() => setShowConfirmDialog(true)}>Show Confirm</button>
+        {/* <button onClick={() => setShowConfirmDialog(true)}>Show Confirm</button> */}
       </div >
     </MyStoreLayout >
   )
@@ -68,7 +69,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (!itemId) return {
     notFound: true
   }
-  const res: ItemProps = await sanityFetch({ queryType: QueryType.ItemFromItemId, itemId })
+  const res: ItemPropsWithRelated = await sanityFetch({ queryType: QueryType.ItemFromItemId, itemId })
   if (!res) return {
     notFound: true
   }

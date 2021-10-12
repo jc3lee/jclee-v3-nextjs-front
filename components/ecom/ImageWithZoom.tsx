@@ -1,5 +1,6 @@
 import { MouseEvent, useRef } from "react"
 import { getCursorPosition } from "../../utils/cursorFns"
+import { getImageUrlWithTransformation } from "../../sanity/tools"
 
 const RATIO = 2
 
@@ -12,6 +13,7 @@ interface Props {
 const ImageWithZoom = ({ imgSrc = "https://avatarfiles.alphacoders.com/699/thumb-1920-69905.png", imgAlt = "item" }: Props) => {
   const imgRef = useRef<HTMLImageElement>(null)
   const zoomRef = useRef<HTMLImageElement>(null)
+  const tfImgSrc = getImageUrlWithTransformation(imgSrc, { width: 1000, })
 
   const imageZoom = (e: MouseEvent<HTMLDivElement>) => {
     if (zoomRef.current && imgRef.current) {
@@ -32,9 +34,9 @@ const ImageWithZoom = ({ imgSrc = "https://avatarfiles.alphacoders.com/699/thumb
 
   return (
     <div onMouseEnter={initZoom} onMouseLeave={stopZoom} onMouseMove={imageZoom} className="mx-auto aspect-w-1 aspect-h-1 relative">
-      <img ref={imgRef} className="w-full h-full object-cover bg-white" src={imgSrc} alt="item" />
+      <img ref={imgRef} className="w-full h-full object-cover object-top bg-white" src={tfImgSrc} alt="item" />
       <div className="hidden md:block mx-auto aspect-w-1 aspect-h-1 absolute inset-0 overflow-hidden">
-        <img ref={zoomRef} className="hidden w-full h-full object-cover origin-top-left bg-white" src={imgSrc} alt={imgAlt} />
+        <img ref={zoomRef} className="hidden w-full h-full object-cover object-top origin-top-left bg-white" src={tfImgSrc} alt={imgAlt} />
       </div>
     </div>
   )

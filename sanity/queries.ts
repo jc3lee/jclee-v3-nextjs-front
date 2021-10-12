@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
 import { client } from "./client"
-import { NUM_RECENT_POSTS, NUM_RELATED_POSTS } from "./pagination"
+import { NUM_RECENT_POSTS, NUM_RELATED_ITEMS, NUM_RELATED_POSTS } from "./pagination"
 
 // num of posts and items pages pre-build
 const NUM_POSTS_PATHS = 10
@@ -24,6 +24,22 @@ export interface ItemProps {
     priceId: string,
     currency: string,
   }[],
+  tags: string[],
+  title: string,
+}
+export interface ItemPropsWithRelated {
+  description: string,
+  images: {
+    imageUrl: string,
+  }[],
+  itemId: string,
+  pricing: {
+    price: number,
+    priceId: string,
+    currency: string,
+  }[],
+  relatedItems: ItemProps[],
+  tags: string[],
   title: string,
 }
 
@@ -67,11 +83,40 @@ const queryItemObj = `{
     priceId,
     currency,
   },
+  tags,
+  title,
+}`
+
+// only works with post as direct parent
+const subQueryRelatedPosts = `
+*[_type == "post" && 
+_id != ^._id && count((tags[])[@ in ^.^.tags]) > 0][0...${NUM_RELATED_POSTS}] ${queryPostObj}
+`
+
+// only works with item as direct parent
+const subQueryRelatedItems = `
+*[_type == "item" && 
+_id != ^._id && count((tags[])[@ in ^.^.tags]) > 0][0...${NUM_RELATED_ITEMS}] ${queryItemObj}
+`
+
+const queryItemObjWithRelated = `{
+  description,
+  images[]{
+    "imageUrl": asset->url,
+  },
+  itemId,
+  pricing[]{
+    price,
+    priceId,
+    currency,
+  },
+  "relatedItems": ${subQueryRelatedItems},
+  tags,
   title,
 }`
 
 const queryItemsFromItemIds = `
-*[_type == "item" && itemId in $itemIds] ${queryItemObj},
+*[_type == "item" && itemId in $itemIds] ${queryItemObj}
 `
 
 const getQueryAllItems = (start: number, end: number) => `
@@ -82,7 +127,7 @@ const getQueryAllItems = (start: number, end: number) => `
 `
 
 const queryItemFromItemId = `
-*[_type == "item" && itemId == $itemId][0]${queryItemObj}
+*[_type == "item" && itemId == $itemId][0]${queryItemObjWithRelated}
 `
 
 const queryAllAuthorsSlug = `
@@ -107,12 +152,6 @@ const queryAllPostsSlug = `
 *[_type == "post"] [0...${NUM_POSTS_PATHS}] {
   "slug": slug.current,
 }
-`
-
-// only works with post as direct parent
-const subQueryRelatedPosts = `
-*[_type == "post" && 
-_id != ^._id && count((tags[])[@ in ^.^.tags]) > 0][0...${NUM_RELATED_POSTS}] ${queryPostObj}
 `
 
 const getQueryRecentPosts = (limits?: { start: number, end: number }) => `

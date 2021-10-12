@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react
 import { BsArrowRight } from 'react-icons/bs'
 import CheckoutItemLine from '../../../components/ecom/CheckoutItemLine'
 import MyStoreLayout from '../../../components/layout/MyStoreLayout'
+import LoadingPage from '../../../components/layout/LoadingPage'
 import { StoreContext } from '../../../hooks/StoreContext'
 import { ItemProps } from '../../../sanity/queries'
 import { formatAmountForDisplay, getTotalSum, handleCartCheckout, handleUpdateCart, saveCartToStorage } from '../../../utils/storeFns'
@@ -56,6 +57,12 @@ const Checkout: NextPage<Props> = () => {
 
   const displayTotal = cartWithSanity ? formatAmountForDisplay(getTotalSum(cartWithSanity), cartWithSanity[0].item?.pricing[0].currency || "USD") : "$0"
 
+  if (!cartWithSanity && cart && cart.length > 0) {
+    return (
+      <LoadingPage />
+    )
+  }
+
   if (!cartWithSanity) {
     return (
       <MyStoreLayout>
@@ -87,7 +94,10 @@ const Checkout: NextPage<Props> = () => {
             <div className="uppercase text-right hidden md:block">total</div>
           </div>
           {
-            cartWithSanity.map(({ item, qty }, index) => <CheckoutItemLine key={index} item={item} qty={qty} updateCart={updateCart} />
+            cartWithSanity.map(({ item, qty }) => {
+              if (!item) return null
+              return (<CheckoutItemLine key={item.itemId} item={item} qty={qty} updateCart={updateCart} />)
+            }
             )
           }
           <div className="w-full border-t">

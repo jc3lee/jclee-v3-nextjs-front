@@ -11,8 +11,8 @@ interface Props {
 
 const ItemGallery = ({ className, imgSrcArr, }: Props) => {
   const [currentImgSrc, setCurrentImgSrc] = useState(imgSrcArr[0].imageUrl)
-  const handleThumbClick = (e: any) => {
-    setCurrentImgSrc((e.currentTarget as HTMLImageElement).src)
+  const handleThumbClick = (imgSrc: string) => {
+    setCurrentImgSrc(imgSrc)
   }
 
   return (

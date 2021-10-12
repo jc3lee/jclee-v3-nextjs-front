@@ -1,6 +1,6 @@
 import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai"
 import { gsap } from 'gsap'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface Props {
   showDialog: boolean,
@@ -8,13 +8,16 @@ interface Props {
 }
 
 const CheckoutSuccessDialog = ({ showDialog, closeDialog, }: Props) => {
-  const [animOk, setAnimOk] = useState(false)
+  // const csRef = useRef<HTMLDivElement>(null)
+  // const q = gsap.utils.selector(csRef)
   let tl: gsap.core.Timeline | undefined
 
   const getTimeline = () => {
     const tl = gsap.timeline()
     tl.to(".confirmOverlay", { opacity: 1, duration: 0.3 }, "together")
     tl.to(".confirmBox", { yPercent: 0, opacity: 1, duration: 0.3, ease: "power3" }, "together")
+    // tl.to(q(".confirmOverlay"), { opacity: 1, duration: 0.3 }, "together")
+    // tl.to(q(".confirmBox"), { yPercent: 0, opacity: 1, duration: 0.3, ease: "power3" }, "together")
     return tl
   }
 
@@ -46,6 +49,7 @@ const CheckoutSuccessDialog = ({ showDialog, closeDialog, }: Props) => {
   }, [])
 
   if (!showDialog) return null
+
   return (
     <div className="fixed z-[999] inset-0 overflow-y-auto ">
       <div onClick={handleHideDialog} className="confirmOverlay fixed z-[1000] inset-0 bg-black bg-opacity-30 opacity-0"></div>

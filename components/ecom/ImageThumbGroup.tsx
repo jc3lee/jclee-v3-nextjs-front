@@ -1,15 +1,16 @@
 // import Swiper core and required modules
-import { Navigation, A11y, Mousewheel, Keyboard, } from 'swiper';
+import { Navigation, A11y, } from 'swiper';
 import { Swiper, SwiperSlide, } from 'swiper/react';
+import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
+import { getImageUrlWithTransformation } from "../../sanity/tools"
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 
 interface Props {
   gallery: { imageUrl: string }[],
-  updateImageZoom: (e: any) => void,
+  updateImageZoom: (imgSrc: string) => void,
   className?: string,
 }
 
@@ -23,11 +24,8 @@ const ImageThumbGroup = ({ className, gallery, updateImageZoom, }: Props) => {
         <AiOutlineLeft aria-hidden={true} className="w-4 h-4" />
       </button>
       <Swiper
-        modules={[Navigation, A11y, Mousewheel, Keyboard,]}
-        keyboard={{ enabled: true }}
-        mousewheel={true}
+        modules={[Navigation, A11y,]}
         threshold={10}
-        // loop={true}
         slidesPerView={4}
         slidesPerGroup={4}
         spaceBetween={0}
@@ -38,11 +36,14 @@ const ImageThumbGroup = ({ className, gallery, updateImageZoom, }: Props) => {
         className="w-full flex-1 relative"
       >
         {
-          gallery.map((img, index) => <SwiperSlide key={index}>
-            <div className="aspect-w-1 aspect-h-1">
-              <img onClick={updateImageZoom} role="button" className="object-cover" src={img.imageUrl} alt="image" />
-            </div>
-          </SwiperSlide>)
+          gallery.map((img, index) => {
+            const transformedImgSrc = getImageUrlWithTransformation(img.imageUrl, { width: 400, })
+            return (<SwiperSlide key={index}>
+              <div className="aspect-w-1 aspect-h-1">
+                <img onClick={() => updateImageZoom(img.imageUrl)} role="button" className="object-cover object-top" src={transformedImgSrc} alt="image" />
+              </div>
+            </SwiperSlide>)
+          })
         }
       </Swiper>
       <button className="nextBtn border rounded-md p-2 ml-4">

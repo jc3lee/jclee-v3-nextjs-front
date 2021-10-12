@@ -1,15 +1,14 @@
-import type { NextPage, GetServerSideProps } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext } from 'react'
 import CheckoutSuccessDialog from '../../components/ecom/CSDialog'
 import ItemsPagination from '../../components/ecom/ItemsPagination'
 import ItemSquare from '../../components/ecom/ItemSquare'
 import MyStoreLayout from '../../components/layout/MyStoreLayout'
-import { useCartCheckoutConfirm, useCheckoutConfirm } from '../../hooks/CheckoutConfirm'
+import { useCartCheckoutConfirm } from '../../hooks/CheckoutConfirm'
 import { StoreContext } from '../../hooks/StoreContext'
 import { getQueryConstraints, NUM_ITEMS_PER_STORE_PAGE } from '../../sanity/pagination'
 import { ItemProps, QueryType, sanityFetch } from '../../sanity/queries'
-import { deleteCartFromStorage, handleResetCart, saveCartToStorage } from '../../utils/storeFns'
 
 interface Props {
   items: ItemProps[],
@@ -34,7 +33,7 @@ const Store: NextPage<Props> = ({ items, pageNum, totalItems, }) => {
       <div className="font-rale px-4 max-w-screen-xl mx-auto">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 lg:gap-x-8">
           {
-            items.map(({ images, itemId, pricing, title, }, index) => <ItemSquare key={index} currency={pricing[0].currency} imgSrc={images[0].imageUrl} itemId={itemId} price={pricing[0].price} title={title} className="max-w-xs" />)
+            items.map((item) => <ItemSquare key={`store-${item.itemId}`} item={item} className="max-w-xs my-8" />)
           }
         </div>
         <ItemsPagination className="mt-12 mb-16" numItemsPerPage={NUM_ITEMS_PER_STORE_PAGE} pageNum={pageNum} totalItems={totalItems} updateCurrentPageNum={handlePageSwitch} />

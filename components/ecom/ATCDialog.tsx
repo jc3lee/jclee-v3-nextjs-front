@@ -58,7 +58,7 @@ const AddedToCartDialog = ({ showDialog, closeDialog, item, numCartItems, qty, }
           <div className="border-b w-full"></div>
           <div className="flex space-x-4 mt-4">
             <div className="w-16 h-16">
-              <img src={item.images[0].imageUrl} alt={item.title} className="w-full h-full object-cover" />
+              <img src={item.images[0].imageUrl} alt={item.title} className="w-full h-full object-cover object-top" />
             </div>
             <p className="font-bold flex-1">{item.title}</p>
             <p className="text-sm text-blue-900">Qty: {qty}</p>

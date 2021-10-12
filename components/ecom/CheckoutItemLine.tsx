@@ -5,7 +5,7 @@ import debounce from "lodash/debounce"
 import { ChangeEvent } from "react"
 
 interface Props {
-  item?: ItemProps,
+  item: ItemProps,
   qty: number,
   updateCart: (itemId: string, qty: number) => void,
   className?: string,
@@ -13,7 +13,6 @@ interface Props {
 
 const CheckoutItemLine = ({ item, qty, updateCart }: Props) => {
   const inputId = useId()
-  if (!item) return null
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     updateCart(item.itemId, e.target.valueAsNumber)
   }
@@ -25,7 +24,7 @@ const CheckoutItemLine = ({ item, qty, updateCart }: Props) => {
   return (
     <div className="grid grid-cols-4 md:grid-cols-6 w-full py-6 border-t items-center">
       <div className="col-span-3 flex space-x-4">
-        <img className="w-20 h-20 object-cover" src={item.images[0].imageUrl} alt={item.title} />
+        <img className="w-20 h-20 object-cover object-top" src={item.images[0].imageUrl} alt={item.title} />
         <div className="">
           <p className="font-bold text-gray-900">{item.title}</p>
           <button onClick={handleRemove} className="underline text-blue-900 text-sm">Remove</button>
@@ -35,11 +34,11 @@ const CheckoutItemLine = ({ item, qty, updateCart }: Props) => {
         <p className="uppercase">{displayPrice}</p>
         <div className="md:hidden flex justify-end items-center mt-4">
           <label className="flex-1 font-open text-sm mr-2" htmlFor={inputId}>Qty: </label>
-          <input onChange={debounce(handleInputChange, 1000)} type="number" name="numberInput" id={inputId} className="py-1 px-1 text-center w-14 rounded-sm border border-black focus:outline-none focus:ring-2 focus:ring-blue-700" defaultValue={qty} />
+          <input min={0} onChange={debounce(handleInputChange, 1000)} type="number" name="numberInput" id={inputId} className="py-1 px-1 text-center w-14 rounded-sm border border-black focus:outline-none focus:ring-2 focus:ring-blue-700" defaultValue={qty} />
         </div>
       </div>
       <div className="hidden md:block uppercase text-right font-work">
-        <input onChange={debounce(handleInputChange, 1000)} type="number" name="numberInput" id={inputId} className="py-1 px-1 text-center w-14 rounded-sm border border-black focus:outline-none focus:ring-2 focus:ring-blue-700" defaultValue={qty} />
+        <input min={0} onChange={debounce(handleInputChange, 1000)} type="number" name="numberInput" id={inputId} className="py-1 px-1 text-center w-14 rounded-sm border border-black focus:outline-none focus:ring-2 focus:ring-blue-700" defaultValue={qty} />
       </div>
       <div className="hidden md:block uppercase text-right font-work">{total}</div>
     </div>

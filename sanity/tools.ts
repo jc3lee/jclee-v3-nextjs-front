@@ -10,6 +10,7 @@ export const getImageUrlWithTransformation = (imageUrl: string, params: {
   if (width) {
     tfArr.push(`w=${width}`)
   }
+  tfArr.push("fit=fill")
   return `${imageUrl}?${tfArr.join("&")}`
 }
 
